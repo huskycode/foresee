@@ -14,7 +14,7 @@ app.set('view engine', 'ejs')
 
 #App
 app.get('/', (req, res) -> res.sendfile(__dirname + '/index.html'))
-app.get('/view', (req, res) -> res.render('index'))
+app.get('/view', (req, res) -> res.render('index', {"title":"The index page"}))
 
 #Socket.io
 io.sockets.on 'connection', (socket) ->

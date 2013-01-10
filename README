@@ -4,6 +4,13 @@ Install for Dev in OS X
 * Install node via homebrew
 * Install npm via website
 * npm install
+* add "/usr/local/share/npm/bin" to ~/.bash_profile
+
+Install Misc Tools
+====
+npm install coffee-script -g
+npm install mocha -g
+npm install docco -g
 
 Running
 ==============

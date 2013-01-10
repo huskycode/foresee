@@ -1,0 +1,10 @@
+Install for Dev in OS X
+==============
+* Install Homebrew
+* Install node via homebrew
+* Install npm via website
+* npm install
+
+Running
+==============
+node app.js

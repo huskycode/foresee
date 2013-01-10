@@ -10,8 +10,11 @@ io = require('socket.io').listen(server)
 app.use assets()
 app.use express.static(process.cwd() + '/public')
 
+app.set('view engine', 'ejs')
+
 #App
 app.get('/', (req, res) -> res.sendfile(__dirname + '/index.html'))
+app.get('/view', (req, res) -> res.render('index'))
 
 #Socket.io
 io.sockets.on 'connection', (socket) ->

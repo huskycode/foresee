@@ -10,6 +10,7 @@
     ,"connect-assets": "2.3.3"
     ,"which": "1.0.5"
     ,"wrench": "1.4.4"
+    ,"ejs":"0.8.3"
   }, "devDependencies": {
       "coffee-script": "*"
     , "mocha": "*"

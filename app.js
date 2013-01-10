@@ -1,16 +1,10 @@
-var app = require('express')()
-  , server = require('http').createServer(app)
-  , io = require('socket.io').listen(server);
+var app, port;
 
-server.listen(3000);
+server = require('./.app');
 
-app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
+port = server.port;
+
+server.listen(port, function() {
+    return console.log("Listening on " + port + "\nPress CTRL-C to stop server.");
 });
 
-io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
-});

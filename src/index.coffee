@@ -5,7 +5,6 @@ app = express()
 ECT = require('ect');
 ectRenderer = ECT({ cache: false, watch: false, root: __dirname + '/../views'  });
 
-
 server = require('http').createServer(app)
 io = require('socket.io').listen(server)
 
@@ -14,12 +13,20 @@ app.use express.static(process.cwd() + '/public')
 
 app.engine('.ect', ectRenderer.render);
 
+#const
+server.port = process.env.PORT or process.env.VMC_APP_PORT or 3000
+
+
 #Func
 random = (n) -> require('crypto').randomBytes(n).toString('hex')
 
 #App
-app.get('/host/:id', (req, res) -> res.send("ok: " + req.params.id))
-app.get('/', (req, res) -> res.render('index.ect', {title:"Foresee", randomRoomNumber:random(10)}))
+app.get('/host/:id', (req, res) -> res.render('host.ect', {
+  title:"Host"
+  , url: "http://" + req.headers.host + "/join/" + req.params.id
+  , socketUrl: "http://localhost:3000"
+}))
+app.get('/', (req, res) -> res.render('index.ect', {title:"Foresee", randomRoomNumber:random(5)}))
 
 
 
@@ -30,7 +37,7 @@ io.sockets.on 'connection', (socket) ->
     console.log(data)
 
 
-server.port = process.env.PORT or process.env.VMC_APP_PORT or 3000
+
 
 #export app
 module.exports = server

@@ -2,6 +2,8 @@ express = require 'express'
 assets = require 'connect-assets'
 
 app = express()
+ECT = require('ect');
+ectRenderer = ECT({ cache: false, watch: false, root: __dirname + '/../views'  });
 
 
 server = require('http').createServer(app)
@@ -10,11 +12,16 @@ io = require('socket.io').listen(server)
 app.use assets()
 app.use express.static(process.cwd() + '/public')
 
-app.set('view engine', 'ejs')
+app.engine('.ect', ectRenderer.render);
+
+#Func
+random = (n) -> require('crypto').randomBytes(n).toString('hex')
 
 #App
-app.get('/', (req, res) -> res.sendfile(__dirname + '/index.html'))
-app.get('/view', (req, res) -> res.render('index', {"title":"The index page"}))
+app.get('/host/:id', (req, res) -> res.send("ok: " + req.params.id))
+app.get('/', (req, res) -> res.render('index.ect', {title:"Foresee", randomRoomNumber:random(10)}))
+
+
 
 #Socket.io
 io.sockets.on 'connection', (socket) ->

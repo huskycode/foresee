@@ -24,7 +24,7 @@ random = (n) -> require('crypto').randomBytes(n).toString('hex')
 app.get('/host/:id', (req, res) -> res.render('host.ect', {
   title:"Host"
   , url: "http://" + req.headers.host + "/join/" + req.params.id
-  , socketUrl: "http://localhost:3000"
+  , socketUrl: "http://" + req.headers.host + ":3000"
 }))
 app.get('/', (req, res) -> res.render('index.ect', {title:"Foresee", randomRoomNumber:random(5)}))
 

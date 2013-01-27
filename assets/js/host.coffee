@@ -1,11 +1,14 @@
 root = exports ? this
 
-root.initPage = (socketUrl) ->
+root.initPage = (url, socketUrl) ->
   socket = io.connect(socketUrl)
 
-  socket.on('news', (data) ->
-    console.log(data)
+  socket.on('voteRefresh', (data) ->
+    alert(data.room)
   )
+  $("#link").click ->
+    window.open(url, "Join", "width=320,height=480,top=50,left=25,toolbar=0,resizable=0,menubar=0")
+    false
 
   $("#btn").click -> socket.emit('my other event', { my: 'data' })
 

@@ -11,6 +11,7 @@
     ,"which": "1.0.5"
     ,"wrench": "1.4.4"
     ,"ect":"0.4.x"
+    ,"memory-cache":"0.0.x"
   }, "devDependencies": {
       "coffee-script": "*"
     , "mocha": "*"

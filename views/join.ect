@@ -8,30 +8,52 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
     <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <%- js("join") %>
 </head>
-
-
 <body>
-
+<input type="hidden" id="room" value="<%=@id%>"/>
+<input type="hidden" id="socketUrl" value="<%=@socketUrl%>"/>
 <!-- Start of first page: #one -->
-<div data-role="page" id="one">
+<div data-role="page" id="p1">
+    <div data-role="header">
+        <h1>Join</h1>
+    </div><!-- /header -->
 
+    <div data-role="content" >
+        <h2>Login</h2>
+
+        <p>This is where participants enter their name to join the estimation session. They should not
+            be required any kind of login but their names. For the real thing, we would need a duplicate name check</p>
+
+        <div data-role="fieldcontain">
+            <label for="name">Your Name:</label>
+            <input type="text" name="name" id="name" value=""  />
+        </div>
+        <button id="add" type="button" data-theme="b">Join</button>
+    </div><!-- /content -->
+
+    <div data-role="footer">
+        &copy; Copyright 2012, Huskycode
+    </div><!-- /footer -->
+</div><!-- /page one -->
+
+<div data-role="page" id="p2">
     <div data-role="header">
         <h1>Estimate</h1>
-        <a href="#" data-icon="gear" class="ui-btn-right">@name</a>
     </div><!-- /header -->
 
     <div data-role="content" >
         <h2>Story (1/2)</h2>
 
         <p>The current story to estimate should appear here. And it should always in sync with what is being estimated
-        by everybody.</p>
+            by everybody.</p>
     </div><!-- /content -->
 
     <div data-role="footer">
-    &copy; Copyright 2012, Huskycode
+        &copy; Copyright 2012, Huskycode
     </div><!-- /footer -->
-</div><!-- /page one -->
+</div>
 
 </body>
 </html>

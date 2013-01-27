@@ -10,6 +10,22 @@
     <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <%- js("join") %>
+    <style type="text/css">
+        .card_holder {
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .card {
+            background-color: white;
+            border: 4px solid #92746b;
+            border-radius: 10px;
+            margin: 10px;
+            padding: 20px 0px 20px 0px;
+
+            font-size: 30px;
+        }
+    </style>
 </head>
 <body>
 <input type="hidden" id="room" value="<%=@id%>"/>
@@ -44,16 +60,57 @@
     </div><!-- /header -->
 
     <div data-role="content" >
-        <h2>Story (1/2)</h2>
+        <h2>Story</h2>
 
         <p>The current story to estimate should appear here. And it should always in sync with what is being estimated
             by everybody.</p>
+
+        <div data-role="fieldcontain">
+            <label for="select-choice-1" class="select">Estimate:</label>
+            <select name="select-choice-1" id="select-choice-1">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="8">8</option>
+                <option value="13">13</option>
+                <option value="20">20</option>
+                <option value="40">40</option>
+                <option value="60">60</option>
+                <option value="100">100</option>
+            </select>
+            <button id="vote" type="button" data-theme="b">Vote</button>
+        </div>
+
     </div><!-- /content -->
+
+
+<div data-role="footer">
+        &copy; Copyright 2012, Huskycode
+    </div><!-- /footer -->
+</div>
+
+<div data-role="page" id="p3">
+<div data-role="header">
+    <h1>Vote Results</h1>
+    <a id="voteResultBack" type="button" data-theme="b" href="#p2" data-transition="slide" data-direction="reverse">Back</a>
+</div><!-- /header -->
+
+<div data-role="content" >
+</div><!-- /content -->
+    <div class="ui-grid-b">
+        <div class="ui-block-a"><div class="card_holder"><div class="card">?</div>Name</div></div>
+        <div class="ui-block-b"><div class="card_holder"><div class="card">?</div>Name</div></div>
+        <div class="ui-block-c"><div class="card_holder"><div class="card">?</div>Name</div></div>
+        <div class="ui-block-a"> <div class="card_holder"><div class="card">?</div>Name</div></div>
+    </div>
 
     <div data-role="footer">
         &copy; Copyright 2012, Huskycode
     </div><!-- /footer -->
 </div>
+
+
 
 </body>
 </html>

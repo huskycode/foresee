@@ -4,8 +4,6 @@ getParticipantsLis = (participantNames) ->
     lis.push("<li>"+item+" [<a href='#' class='removeParticipant' participant_name='"+item+"'>x</a>]</li>" )
   return lis.join("\n")
 
-
-
 $ ->
   url = $("#url").val()
   socketUrl = $("#socketUrl").val()

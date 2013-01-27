@@ -25,7 +25,7 @@ $('#p1').live('pagecreate', (e) ->
       success: (data, textStatus, jqXHR) ->
         $.mobile.hidePageLoadingMsg()
 
-        $.mobile.changePage('#p2', { transition: "flip"})
+        $.mobile.changePage('#p2', { transition: "flip" })
       error: (jqXHR, textStatus, errorThrown) ->
         alert(errorThrown)
         $.mobile.hidePageLoadingMsg()
@@ -34,5 +34,9 @@ $('#p1').live('pagecreate', (e) ->
 )
 
 $('#p2').live('pagecreate', (e) ->
-
+  $("#vote").click( (e) ->
+    $.mobile.changePage('#p3', { transition: "slide" })
+  )
 )
+
+

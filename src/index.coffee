@@ -71,6 +71,12 @@ io.sockets.on 'connection', (socket) ->
     console.log("ask: " + data)
     sendRefreshMessage(socket, data.room)
 
+  socket.on 'vote', (data) ->
+    console.log("vote: " + data)
+    core.vote(data.room, data.name, data.vote)
+    clientSockets.forEach (item, i) ->
+      sendRefreshMessage(item, data.room)
+
   socket.on 'my other event', (data) ->
     console.log(data)
 

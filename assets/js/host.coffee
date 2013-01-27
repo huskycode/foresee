@@ -4,6 +4,39 @@ getParticipantsLis = (participantNames) ->
     lis.push("<li>"+item+" [<a href='#' class='removeParticipant' participant_name='"+item+"'>x</a>]</li>" )
   return lis.join("\n")
 
+getCardFace = (displayNumbers, val) ->
+  if(val == null)
+    return "-"
+  else if (displayNumbers)
+    return val
+  else
+    return "?"
+
+countVoted = (votes) ->
+  names = Object.keys(votes)
+  total = 0
+  for n in names
+    if(votes[n] != null)
+      total++
+
+  return total
+
+populateCards = (votes) ->
+  names = Object.keys(votes)
+  namesCount = names.length
+  votedCount = countVoted(votes)
+
+  displayNumbers = (namesCount == votedCount)
+
+
+  result = ""
+  for n in names
+    result += "<div class='card_holder'><div class='card'>" + getCardFace(displayNumbers, votes[n]) + "</div>" + n + "</div>"
+
+  result += "<div style='clear:both'></div>"
+
+  $("#cards").html(result)
+
 $ ->
   url = $("#url").val()
   socketUrl = $("#socketUrl").val()
@@ -29,6 +62,7 @@ $ ->
       participantNames = Object.keys(data.votes)
       $("#participantsCount").html(participantNames.length)
       $("#participants").html( getParticipantsLis(participantNames) )
+      populateCards(data.votes)
 
   )
 
@@ -39,7 +73,7 @@ $ ->
   )
 
   $("#link").click ->
-    window.open(url, "Join", "width=320,height=480,top=50,left=25,toolbar=0,resizable=0,menubar=0")
+    window.open(url, "Join", "width=320,height=480,top=50,left=25,toolbar=0,resizable=0,menubar=0", false)
     false
 
   $("#btn").click -> socket.emit('my other event', { my: 'data' })

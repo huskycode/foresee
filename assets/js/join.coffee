@@ -34,7 +34,8 @@ $('#p1').live('pagecreate', (e) ->
 )
 
 $('#p2').live('pagecreate', (e) ->
-  $("#vote").click( (e) ->
+  $("#voteButton").click( (e) ->
+    socket.emit("vote", {room: roomId, name:name, vote:$("#vote").val()})
     $.mobile.changePage('#p3', { transition: "slide" })
   )
 )

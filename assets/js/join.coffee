@@ -10,6 +10,12 @@ $('#p1').live('pagecreate', (e) ->
 
   socket = io.connect(socketUrl)
 
+  socket.on("voteRefresh", (data) ->
+    if(name != null && data.votes[name] == undefined)
+      #The server does not recognize this name anymore
+      $.mobile.changePage('#p1', { transition: "flip"})
+  )
+
   $("#add").click( (e) ->
     name = $("#name").val()
 

@@ -28,37 +28,48 @@ retainTime = 3600000
 
 core = {
   addParticipant: (room, participant) ->
-    data = if(cache.get(room) == null) then cache.put(room, {})
+    if(cache.get(room) == null || cache.get(room) == undefined) then cache.put(room, {})
+
+    data = cache.get(room)
     data[participant] = null
     cache.put(room, data, retainTime)
 
   removeParticipant: (room, participant) ->
-    data = if(cache.get(room) == null) then cache.put(room, {})
+    if(cache.get(room) == null || cache.get(room) == undefined) then cache.put(room, {})
+
+    data = cache.get(room)
     delete data[participant]
     cache.put(room, data, retainTime)
 
-  getData: (room) -> if(cache.get(room) == null) then cache.put(room, {})
+  getData: (room) ->
+    if(cache.get(room) == null || cache.get(room) == undefined) then cache.put(room, {})
+    return cache.get(room)
 
   vote: (room, participant, vote) ->
-    data = if(cache.get(room) == null) then cache.put(room, {})
+    if(cache.get(room) == null || cache.get(room) == undefined) then cache.put(room, {})
+
+    data = cache.get(room)
     data[participant] = vote
     cache.put(room, data, retainTime)
 }
 
 #Socket.io
 clientSockets = []
-sendRefreshMessage = (socket, room) -> socket.emit('voteRefresh', {room: room, votes: core.getData()})
+sendRefreshMessage = (socket, room) -> socket.emit('voteRefresh', {room: room, votes: core.getData(room) })
 
 io.sockets.on 'connection', (socket) ->
   clientSockets.push(socket)
   console.log("Sockets:" + clientSockets.length)
 
-  socket.on 'newParticipant', (data) ->
-    console.log("newParticipant" + data)
-    core.addParticipant(data.room, data.name)
+  socket.on 'removeParticipant', (data) ->
+    console.log("removeParticipant" + data)
+    core.removeParticipant(data.room, data.name)
+    clientSockets.forEach (item, i) ->
+      sendRefreshMessage(item, data.room)
 
   socket.on 'ask', (data) ->
     console.log("ask: " + data)
+    sendRefreshMessage(socket, data.room)
 
   socket.on 'my other event', (data) ->
     console.log(data)
@@ -89,9 +100,11 @@ app.get('/join/:id', (req, res) -> res.render('join.ect', {id:req.params.id, soc
 app.get('/', (req, res) -> res.render('index.ect', {title:"Foresee", randomRoomNumber:random(5)}))
 
 app.get('/join/room/:room/name/:name', (req, res) ->
-  res.json({ room: req.params.room, name: req.params.name  })
+  core.addParticipant(req.params.room, req.params.name)
   clientSockets.forEach (item, i) ->
     sendRefreshMessage(item, req.params.room)
+
+  res.json({ room: req.params.room, name: req.params.name  })
 )
 
 

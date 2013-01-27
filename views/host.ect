@@ -3,13 +3,10 @@
 <% block 'more-js' : %>
   <script src="/socket.io/socket.io.js"></script>
   <%- js("host") %>
-  <script type="text/javascript">
-    $(document).ready(function() {
-        initPage("<%- @url %>", "<%- @socketUrl %>");
-    });
-  </script>
 <% end %>
-
+<input type="hidden" id="url" value="<%=@url%>"/>
+<input type="hidden" id="roomId" value="<%=@roomId%>"/>
+<input type="hidden" id="socketUrl" value="<%=@socketUrl%>"/>
 <div class="row">
     <div class="span3">
             <div class="well">

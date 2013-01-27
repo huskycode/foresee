@@ -83,6 +83,7 @@ app.get('/host/:id', (req, res) -> res.render('host.ect', {
 title:"Host"
 , url: "http://" + req.headers.host + "/join/" + req.params.id
 , socketUrl: getSocketUrl(req)
+, roomId: req.params.id
 }))
 app.get('/join/:id', (req, res) -> res.render('join.ect', {id:req.params.id, socketUrl:getSocketUrl(req)}))
 app.get('/', (req, res) -> res.render('index.ect', {title:"Foresee", randomRoomNumber:random(5)}))

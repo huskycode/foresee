@@ -23,4 +23,5 @@ npm install supervisor -g
 
 Running
 ==============
-node app.js
+# Cake Dev
+# browse to: http://localhost:3000

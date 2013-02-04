@@ -1,7 +1,12 @@
 Foresee
 =======
 A web-based planning poker tool. Participants votes the story projected on the screen using their mobile browser.
-The results, clarifications and assumptions are recorded and can be output from the program. 
+The results, clarifications and assumptions are recorded and can be output from the program.
+
+Links
+-----
+* (Project Status)[https://trello.com/b/BMW2lM2n]
+* (Code)[https://github.com/huskycode/foresee]
 
 FAQs
 ----

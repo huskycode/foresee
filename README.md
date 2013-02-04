@@ -13,13 +13,6 @@ Install for Ubuntu
 * sudo apt-get update
 * sudo apt-get install nodejs npm
 
-* sudo npm install -g n
-
-* sudo n stable
-
-* curl https://raw.github.com/creationix/nvm/master/install.sh | sh
-* nvm install 0.8.6
-
 Install Misc Tools
 ====
 * Use "sudo" if on ubuntu
@@ -30,4 +23,5 @@ npm install supervisor -g
 
 Running
 ==============
-node app.js
+# Cake Dev
+# browse to: http://localhost:3000

@@ -3,6 +3,17 @@ Foresee
 A web-based planning poker tool. Participants votes the story projected on the screen using their mobile browser.
 The results, clarifications and assumptions are recorded and can be output from the program.
 
+Architectural Drivers
+------
+### High-Level Requirement
+1. A faciliator creates a "room" and import stories to estimate
+2. Using room code, all participants join using browser on their phone or computer.
+3. 
+
+### Quality Attributes
+1. Robustness: 
+2. Easy to start: 
+
 Links
 -----
 * [Project Status on Trello](https://trello.com/b/BMW2lM2n)

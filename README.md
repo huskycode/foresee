@@ -5,8 +5,8 @@ The results, clarifications and assumptions are recorded and can be output from 
 
 Links
 -----
-* (Project Status)[https://trello.com/b/BMW2lM2n]
-* (Code)[https://github.com/huskycode/foresee]
+* [Project Status on Trello](https://trello.com/b/BMW2lM2n)
+* [Code on GitHub](https://github.com/huskycode/foresee)
 
 FAQs
 ----

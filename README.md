@@ -1,18 +1,24 @@
 Foresee
 =======
-A web-based planning poker tool. Participants votes the story projected on the screen using their mobile browser.
-The results, clarifications and assumptions are recorded and can be output from the program.
+A web-based planning poker tool. Participants votes the stories projected on the screen using their mobile browser.
+Voted points and notes collected are kept in the system and can be downloaded or exported to project management 
+tools.
 
 Architectural Drivers
 ------
 ### High-Level Requirement
 1. A faciliator creates a "room" and import stories to estimate
-2. Using room code, all participants join using browser on their phone or computer.
-3. 
+2. Using the room code, all participants join using browser on their phone or computer.
+3. A facilitator controls when the votes ends. They can also record any assumptions agreed upon in the meeting
+4. Anybody can use the room code to visit it later and download results.
 
 ### Quality Attributes
-1. Robustness: 
-2. Easy to start: 
+1. Robustness #1: At any point, the facilitator can force progress the planning even when the connection from participants
+are flaky.
+2. Usability: Given a blank Linux or Windows machine, the program can be installed to use with less than 3 steps and 
+require 0 configuration tweak to start.
+3. Robustness #2: Given a flaky connection, the status can be sync with the facilitator (forced or automatic) within 0.5
+seconds when connection return.
 
 Links
 -----

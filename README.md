@@ -38,8 +38,8 @@ to transfer the details of your project outside your company.
 Instructions for Dev
 -----------
 ### OS X
-1. Install Homebrew
-2. Install node via homebrew
+1. Install [Homebrew](http://mxcl.github.com/homebrew/)
+2. "brew install node"
 3. Install npm via website
 4. npm install
 5. add "/usr/local/share/npm/bin" to $PATH variable in ~/.bash_profile

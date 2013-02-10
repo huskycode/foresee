@@ -43,6 +43,7 @@ Instructions for Dev
 3. Go to the directory where you cloned the repository
 4. npm install
 5. add "/usr/local/share/npm/bin" to $PATH variable in ~/.bash_profile. If the line does not exist, put in this: "export PATH=$PATH:/usr/local/share/npm/bin"
+
 ### Ubuntu
 1. sudo apt-get install software-properties-common
 2. sudo add-apt-repository ppa:chris-lea/node.js

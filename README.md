@@ -38,7 +38,7 @@ to transfer the details of your project outside your company.
 Instructions for Dev
 -----------
 ### OS X
-1. Install Homebrew
+1. Install [Homebrew](http://mxcl.github.com/homebrew/)
 2. Install node via homebrew
 3. Go to the directory where you cloned the repository
 4. npm install

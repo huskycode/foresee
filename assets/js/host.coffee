@@ -75,8 +75,9 @@ $ ->
   i = 0
 
   $("#link").click ->
-    top = 0 + (535*(i%2))
-    left = 25
+    top = 0 + (550*(i%2))
+    left = 25 + (330*Math.floor(i/2))
+
     window.open(url, "Join" +(i++), "width=320,height=480,top=#{top},left=#{left},toolbar=0,resizable=0,menubar=0", false)
     false
 

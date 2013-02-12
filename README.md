@@ -15,8 +15,8 @@ Architectural Drivers
 ### Quality Attributes
 1. Robustness #1: At any point, the facilitator can force progress the planning even when the connection from participants
 are flaky.
-2. Usability: Given a blank Linux or Windows machine, the program can be installed to use with less than 3 steps and 
-require 0 configuration tweak to start.
+2. Usability: Given a blank Linux or Windows machine, the program can be installed to use with less than 3 steps,
+in less than 2 minute and require 0 configuration tweak to start.
 3. Robustness #2: Given a flaky connection, the status can be sync with the facilitator (forced or automatic) within 0.5
 seconds when connection return.
 

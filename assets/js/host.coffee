@@ -72,8 +72,12 @@ $ ->
     socket.emit("removeParticipant", {room: roomId, name:participantName})
   )
 
+  i = 0
+
   $("#link").click ->
-    window.open(url, "Join", "width=320,height=480,top=50,left=25,toolbar=0,resizable=0,menubar=0", false)
+    top = 0 + (535*(i%2))
+    left = 25
+    window.open(url, "Join" +(i++), "width=320,height=480,top=#{top},left=#{left},toolbar=0,resizable=0,menubar=0", false)
     false
 
   $("#btn").click -> socket.emit('my other event', { my: 'data' })

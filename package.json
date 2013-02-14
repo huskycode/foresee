@@ -17,5 +17,9 @@
     , "mocha": "*"
     , "should": "*"
     , "supervisor": "*"
+  },
+  "scripts": {
+    "dev": "supervisor -w src -e 'js|coffee' app"
+   ,"compile": "coffee -c -p src/"
   }
 }

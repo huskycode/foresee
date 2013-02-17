@@ -60,5 +60,5 @@ Instructions for Dev
 
 ### Running Server in Development Mode
 1. go to the directory
-2. type "cake dev"
+2. type "npm run-script dev"
 3. browse to: http://localhost:3000

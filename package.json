@@ -21,5 +21,6 @@
   "scripts": {
     "dev": "supervisor -w src -e 'js|coffee' app"
    ,"compile": "coffee -c -p src/"
+   ,"test": "mocha --reporter spec --compilers coffee:coffee-script --colors --require should"
   }
 }

@@ -20,3 +20,13 @@ Story Mapping
 ![Img](http://3.bp.blogspot.com/-jySCPZkngcs/T2DrcIrEscI/AAAAAAAABw4/u1xrp-n0ISQ/s1600/UserStoryMap.png "abc")
 
 ที่มา: [How to create a User Story Map](http://winnipegagilist.blogspot.com/2012/03/how-to-create-user-story-map.html)
+
+Idea Generators
+---
+ถ้ายังคิดอะไรไม่ออกลองเข้าไปดูที่ลิงค์พวกนี้เผื่อได้ไอเดียเพิ่ม
+
+* [Article](http://www.codinghorror.com/blog/2007/10/lets-play-planning-poker.html)
+* [Youtube](http://www.youtube.com/watch?v=gE7srp2BzoM)
+* [Planning Poker Website](http://www.planningpoker.com)
+* [Youtube 2](http://www.youtube.com/watch?v=pAxYMek5jY4)
+

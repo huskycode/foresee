@@ -23,4 +23,4 @@ notifications:
 	3.7 เลือก Active
 	3.8 กด Update settings
 
-#by @winggyplus
+by @winggyplus

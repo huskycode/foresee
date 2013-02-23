@@ -1,19 +1,19 @@
 1. ต้อง sign in Travis ด้วย account github
 2. เพิ่มไฟล์ .travis.yml เข้าไปใน repository (ไว้ใน root project)
 
-language: node_js
-node_js: # node version support
-  - 0.8
-script: "npm test"
-notifications:
-  email:
-    recipients:
-      - email@email.com
+    language: node_js
+    node_js: # node version support
+        - 0.8
+    script: "npm test"
+    notifications:
+        email:
+        recipients:
+            - email@email.com
     on_success: never 
     on_failure: always # default: always
 
-    commit & push ขึ้น github
-3. setup service hook
+3. commit & push ขึ้น github
+4. setup service hook
 	3.1 ไปที่ repository
 	3.2 ไปที่ tab Settings
 	3.3 เลือก Service Hooks

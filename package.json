@@ -20,7 +20,7 @@
   },
   "scripts": {
     "dev": "supervisor -w src -e 'js|coffee' app"
-   ,"compile": "coffee -c -p src/"
+   ,"compile": "coffee -c -o build/ src/ test/"
    ,"test": "mocha --reporter spec --compilers coffee:coffee-script --colors --require should"
   }
 }

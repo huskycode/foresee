@@ -2,14 +2,14 @@
 2. เพิ่มไฟล์ .travis.yml เข้าไปใน repository (ไว้ใน root project) ดูด้านล่าง
 3. commit & push ขึ้น github
 4. setup service hook
-	3.1 ไปที่ repository
-	3.2 ไปที่ tab Settings
-	3.3 เลือก Service Hooks
-	3.4 กดเลือก Travis จากรายการ แล้ว scroll กลับขึ้นไปด้านบน
-	3.5 Enable repository ในหน้า https://travis-ci.org/profile
-	3.6 ใส่ Token โดยเข้าที่ https://travis-ci.org/profile เลือก tab Profile
-	3.7 เลือก Active
-	3.8 กด Update settings
+    1. ไปที่ repository
+    2. ไปที่ tab Settings
+    3. เลือก Service Hooks
+    4. กดเลือก Travis จากรายการ แล้ว scroll กลับขึ้นไปด้านบน
+    5. Enable repository ในหน้า https://travis-ci.org/profile
+    6. ใส่ Token โดยเข้าที่ https://travis-ci.org/profile เลือก tab Profile
+    7. เลือก Active
+    8. กด Update settings
 
 Travis.yml:
 

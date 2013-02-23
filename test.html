@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <title>Test Mocha</title>
+    <link rel="stylesheet" href="node_modules/mocha/mocha.css" />
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <script src="node_modules/mocha/mocha.js"></script>
+    <script>
+      mocha.setup('bdd');
+    </script>
+    <script src="build/default_test.js"></script>
+    <script>
+      mocha.run();
+    </script>
+  </body>
+</html>

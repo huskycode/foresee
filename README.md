@@ -62,3 +62,7 @@ Instructions for Dev
 1. go to the directory
 2. type "npm run-script dev"
 3. browse to: http://localhost:3000
+
+### Build Status
+[![Build Status](https://travis-ci.org/wingyplus/foresee.png)](https://travis-ci.org/wingyplus/foresee)
+

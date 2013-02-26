@@ -64,5 +64,5 @@ Instructions for Dev
 3. browse to: http://localhost:3000
 
 ### Build Status
-[![Build Status](https://travis-ci.org/wingyplus/foresee.png)](https://travis-ci.org/wingyplus/foresee)
+[![Build Status](https://travis-ci.org/huskycode/foresee.png)](https://travis-ci.org/huskycode/foresee)
 

@@ -11,3 +11,12 @@
 
 Now they can do concurrent edit on same file, 
 but concurrent edit at same line is quite hard. ;)
+
+run "npm test" on cloud9, need to install required package.
+after start editting Foresee project, type command below 
+in "console input box" (at bottom of screen).
+ 
+    npm install mocha -g
+    npm install should -g
+    npm install coffee-script -g
+

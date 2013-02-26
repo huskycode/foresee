@@ -50,13 +50,17 @@ Instructions for Dev
 3. sudo apt-get update
 4. sudo apt-get install nodejs npm
 
+### Windows
+1. Download Install from http://nodejs.org/download/
+2. Install 
+
 ### All Platforms
 (Use "sudo" if on ubuntu)
-
 1. npm install coffee-script -g 
 2. npm install mocha -g 
 3. npm install docco -g  
 4. npm install supervisor -g 
+5. npm install should -g 
 
 ### Running Server in Development Mode
 1. go to the directory

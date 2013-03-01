@@ -33,7 +33,7 @@ Idea Generators
 Foresee Story Mapping - Seattle session
 ---
 ### Step 1 - Generate Ideas
-(ลืมเก็บรูปไว้)
+![Img](story_mapping/step_1_generating_ideas.png "step 1")
 
 ### Step 2 - Affinity Diagram
 ![Img](story_mapping/step_2_affinity_diagram.png "step 2")
@@ -47,7 +47,8 @@ Foresee Story Mapping - Seattle session
 Foresee Story Mapping - BKK session
 ---
 ### Step 1 - Generate Ideas
-![Img](story_mapping/step_1_generating_ideas_th.png "step 1")
+(ลืมเก็บรูปไว้)
+
 
 ### Step 2 - Affinity Diagram
 ![Img](story_mapping/step_2_affinity_diagram_th.png "step 2")

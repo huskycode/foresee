@@ -30,3 +30,31 @@ Idea Generators
 * [Planning Poker Website](http://www.planningpoker.com)
 * [Youtube 2](http://www.youtube.com/watch?v=pAxYMek5jY4)
 
+Foresee Story Mapping - Seattle session
+---
+### Step 1 - Generate Ideas
+(ลืมเก็บรูปไว้)
+
+### Step 2 - Affinity Diagram
+![Img](story_mapping/step_2_affinity_diagram.png "step 2")
+
+### Step 3 - Walking Skeleton
+![Img](story_mapping/step_3_walking_skeleton.png "step 3")
+
+### Step 4 - Details & Release Line
+![Img](story_mapping/step_4_detailed_flows_release_line.png "step 4")
+
+Foresee Story Mapping - BKK session
+---
+### Step 1 - Generate Ideas
+![Img](story_mapping/step_1_generating_ideas_th.png "step 1")
+
+### Step 2 - Affinity Diagram
+![Img](story_mapping/step_2_affinity_diagram_th.png "step 2")
+
+### Step 3 - Walking Skeleton
+![Img](story_mapping/step_3_walking_skeleton_th.png "step 3")
+
+### Step 4 - Details & Release Line
+![Img](story_mapping/step_4_walking_skeleton_th.png "step 4")
+

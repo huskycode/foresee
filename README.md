@@ -4,6 +4,10 @@ A web-based planning poker tool. Participants votes the stories projected on the
 Voted points and notes collected are kept in the system and can be downloaded or exported to project management 
 tools.
 
+
+### Build Status
+[![Build Status](https://travis-ci.org/huskycode/foresee.png)](https://travis-ci.org/huskycode/foresee)
+
 Architectural Drivers
 ------
 ### High-Level Requirement
@@ -68,6 +72,4 @@ Instructions for Dev
 2. type "npm run-script dev"
 3. browse to: http://localhost:3000
 
-### Build Status
-[![Build Status](https://travis-ci.org/huskycode/foresee.png)](https://travis-ci.org/huskycode/foresee)
 

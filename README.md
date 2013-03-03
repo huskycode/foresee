@@ -59,6 +59,12 @@ Instructions for Dev
 2. Install 
 
 ### All Platforms
+
+* Install java
+* make sure you can use java from command line. Try this command
+
+    java --version
+
 (Use "sudo" if on ubuntu)
 
 1. npm install coffee-script -g 
@@ -71,5 +77,10 @@ Instructions for Dev
 1. go to the directory
 2. type "npm run-script dev"
 3. browse to: http://localhost:3000
+
+### Scripts
+
+    Unit Tests : npm test
+    Selenium Tests : npm run-script webtest
 
 

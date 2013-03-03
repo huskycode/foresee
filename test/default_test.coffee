@@ -1,4 +1,3 @@
-request = require("supertest")
 express = require("express")
 route = require("../src/index").route
 should = require("should")

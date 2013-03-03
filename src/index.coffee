@@ -28,30 +28,30 @@ random = (n) -> require('crypto').randomBytes(n).toString('hex')
 retainTime = 3600000
 
 core = {
-  addParticipant: (room, participant) ->
-    if(cache.get(room) == null || cache.get(room) == undefined) then cache.put(room, {})
+addParticipant: (room, participant) ->
+  if(cache.get(room) == null || cache.get(room) == undefined) then cache.put(room, {})
 
-    data = cache.get(room)
-    data[participant] = null
-    cache.put(room, data, retainTime)
+  data = cache.get(room)
+  data[participant] = null
+  cache.put(room, data, retainTime)
 
-  removeParticipant: (room, participant) ->
-    if(cache.get(room) == null || cache.get(room) == undefined) then cache.put(room, {})
+removeParticipant: (room, participant) ->
+  if(cache.get(room) == null || cache.get(room) == undefined) then cache.put(room, {})
 
-    data = cache.get(room)
-    delete data[participant]
-    cache.put(room, data, retainTime)
+  data = cache.get(room)
+  delete data[participant]
+  cache.put(room, data, retainTime)
 
-  getData: (room) ->
-    if(cache.get(room) == null || cache.get(room) == undefined) then cache.put(room, {})
-    return cache.get(room)
+getData: (room) ->
+  if(cache.get(room) == null || cache.get(room) == undefined) then cache.put(room, {})
+  return cache.get(room)
 
-  vote: (room, participant, vote) ->
-    if(cache.get(room) == null || cache.get(room) == undefined) then cache.put(room, {})
+vote: (room, participant, vote) ->
+  if(cache.get(room) == null || cache.get(room) == undefined) then cache.put(room, {})
 
-    data = cache.get(room)
-    data[participant] = vote
-    cache.put(room, data, retainTime)
+  data = cache.get(room)
+  data[participant] = vote
+  cache.put(room, data, retainTime)
 }
 
 #Socket.io
@@ -103,8 +103,14 @@ title:"Host"
 , socketUrl: getSocketUrl(req)
 , roomId: req.params.id
 }))
-app.get('/join/:id', (req, res) -> res.render('join.ect', {id:req.params.id, socketUrl:getSocketUrl(req)}))
-app.get('/', (req, res) -> res.render('index.ect', {title:"Foresee", randomRoomNumber:random(5)}))
+
+route = {
+index: (req, res) -> res.render('index.ect', {title:"Foresee"})
+host: (req, res) -> res.render('join.ect', {id:req.params.id, socketUrl:getSocketUrl(req)})
+}
+
+app.get('/join/:id', route.host)
+app.get('/', route.index)
 
 app.get('/join/room/:room/name/:name', (req, res) ->
   core.addParticipant(req.params.room, req.params.name)
@@ -118,3 +124,4 @@ app.get('/join/room/:room/name/:name', (req, res) ->
 
 #export app
 module.exports = server
+module.exports.route = route

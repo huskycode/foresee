@@ -12,6 +12,7 @@
     ,"wrench": "1.4.4"
     ,"ect":"0.4.x"
     ,"memory-cache":"0.0.x"
+    ,"selenium-webdriver":"2.31.0"
   }, "devDependencies": {
       "coffee-script": "*"
     , "mocha": "*"
@@ -21,6 +22,7 @@
   "scripts": {
     "dev": "supervisor -w src -e 'js|coffee' app"
    ,"compile": "coffee -c -o build/ src/ test/"
-   ,"test": "mocha --reporter spec --compilers coffee:coffee-script --colors --require should"
+   ,"test": "mocha --reporter spec --compilers coffee:coffee-script --colors --require should test/*.coffee"
+   ,"webtest": "mocha --reporter spec --compilers coffee:coffee-script --colors --require should webtest/*.coffee -t 30000"
   }
 }

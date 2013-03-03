@@ -1,7 +1,7 @@
-require("coffee-script")
-var app, port;
+require("coffee-script");
+var port;
 
-server = require('./src/index');
+var server = require('./src/index');
 
 port = server.port;
 

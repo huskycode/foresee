@@ -61,7 +61,8 @@ Instructions for Dev
 ### All Platforms
 
 * Install java
-* make sure you can use java from command line. Try this command
+
+make sure you can run java from command line. Try this command
 
     java --version
 

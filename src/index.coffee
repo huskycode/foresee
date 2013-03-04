@@ -98,7 +98,7 @@ io.sockets.on 'connection', (socket) ->
 getSocketUrl = (req) -> "http://" + req.headers.host
 
 app.get('/host/:id', (req, res) -> res.render('host.ect', {
-title:"Host"
+title:"Host - " + req.params.id
 , url: "http://" + req.headers.host + "/join/" + req.params.id
 , socketUrl: getSocketUrl(req)
 , roomId: req.params.id

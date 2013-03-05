@@ -43,4 +43,15 @@ describe("Host Website", () ->
     done()
   )
 
+  it('host page should have input text and button for add new story.', ->
+    driver.get("http://localhost:3000/host/RoomName")
+    driver.findElement(webdriver.By.id('storyDesc'))
+    driver.findElement(webdriver.By.id('addStory'))
+  )
+
+  it('host page should show story pile', ->
+    driver.get("http://localhost:3000/host/RoomName")
+    driver.findElement(webdriver.By.css("ul#story-pile"))
+  )
+
 )

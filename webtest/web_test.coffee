@@ -5,6 +5,7 @@ describe("Host Website", () ->
   spawn = require("child_process").spawn
   webdriver = require("selenium-webdriver")
   remote = require("selenium-webdriver/remote")
+  FORESEE_BASE_URL = "http://localhost:3000/"
 
   server = null
   driver = null
@@ -22,7 +23,7 @@ describe("Host Website", () ->
 
 
   it('first page should have correct title', (done) ->
-    driver.get("http://localhost:3000")
+    driver.get(FORESEE_BASE_URL)
     driver.getTitle().then( (title) ->
        title.should.equal("Foresee")
        done()
@@ -30,28 +31,34 @@ describe("Host Website", () ->
   )
 
   it('first page should have room name and can create when click start now', (done) ->
-    driver.get("http://localhost:3000")
-    roomIdElement = driver.findElement(webdriver.By.id('id'))
-    roomIdElement.sendKeys('RoomName');
-    driver.findElement(webdriver.By.id('createRoom')).click()
+    driver.get(FORESEE_BASE_URL)
+    driver.findElement(webdriver.By.css("input#id[type='text']")).sendKeys('RoomName');
+    driver.findElement(webdriver.By.css("input#createRoom[type='button']")).click()
     driver.getTitle().then( (title) ->
       title.should.equal("Host - RoomName")
     )
     driver.getCurrentUrl().then( (location) ->
-      location.should.equal('http://localhost:3000/host/RoomName')
+      location.should.equal(FORESEE_BASE_URL + 'host/RoomName')
     )
     done()
   )
 
   it('host page should have input text and button for add new story.', ->
-    driver.get("http://localhost:3000/host/RoomName")
-    driver.findElement(webdriver.By.id('storyDesc'))
-    driver.findElement(webdriver.By.id('addStory'))
+    driver.get(FORESEE_BASE_URL + "host/RoomName")
+    driver.findElement(webdriver.By.css("input#storyDesc[type='text']"))
+    driver.findElement(webdriver.By.css("button#addStory"))
   )
 
   it('host page should show story pile', ->
-    driver.get("http://localhost:3000/host/RoomName")
+    driver.get(FORESEE_BASE_URL + "host/RoomName")
     driver.findElement(webdriver.By.css("ul#story-pile"))
   )
 
+  it('create new story should show in story pile', ->
+    driver.get(FORESEE_BASE_URL + "host/RoomName")
+    driver.findElement(webdriver.By.css("input#storyDesc[type='text']")).sendKeys("As a <role>, I want <goal/desire> so that <benefit>")
+    driver.findElement(webdriver.By.css("button#addStory")).click()
+    driver.findElement(webdriver.By.css("ul#story-pile>li"))
+  )
 )
+

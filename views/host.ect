@@ -27,45 +27,43 @@
 <input type="hidden" id="roomId" value="<%=@roomId%>"/>
 <input type="hidden" id="socketUrl" value="<%=@socketUrl%>"/>
 <div class="row">
-    <div class="span3">
-            <div class="well">
-                <h4>Participants (<span id="participantsCount">?</span>)</h4>
-                <ul id="participants">
+  <div class="span3">
+    <div class="well">
+      <h4>Participants (<span id="participantsCount">?</span>)</h4>
+      <ul id="participants">
 
-                </ul>
-                <hr>
-                <h4>Join</h4>
-                <img src="http://chart.apis.google.com/chart?cht=qr&chs=200x200&chl=<%-@url%>&chld=H|0">
-                <a id="link" href="<%-@url%>"><%=@url%></a><br/>
-                Scan QR code or click on the link above to join
-            </div>
+      </ul>
+      <hr>
+      <h4>Join</h4>
+      <img src="http://chart.apis.google.com/chart?cht=qr&chs=200x200&chl=<%-@url%>&chld=H|0">
+      <a id="link" href="<%-@url%>"><%=@url%></a><br/>
+      Scan QR code or click on the link above to join
     </div>
-    <div class="span9">
-        <h2>Story Header</h2>
-        <p>As a user, I want to do this and that, in order to achieve something great.
-            This is where a story and its detail go.
-        </p>
-        <div id="cards">
-            <!--
-            <div class="card_holder"><div class="card">?</div>Name</div>
-            <div class="card_holder"><div class="card">?</div>Name</div>
-            <div class="card_holder"><div class="card">?</div>Name</div>
-            <div class="card_holder"><div class="card">?</div>Name</div>
-            <div style="clear:both"></div>
-            -->
-        </div>
-        <br/>
-        <div>
-            <ul>
-                <li>- (Minus Sign) : Participant has not voted </li>
-                <li>? (Question Mark) : Participant has voted, waiting for all vote results </li>
-            </ul>
-
-        </div>
-        <br/>
-        <input id="btn" type="button" value="test btn"/>
+  </div>
+  <div class="span9">
+    <h2>Story Header</h2>
+    <p>As a user, I want to do this and that, in order to achieve something great.
+        This is where a story and its detail go.
+    </p>
+    <div id="cards">
+      <!--
+      <div class="card_holder"><div class="card">?</div>Name</div>
+      <div class="card_holder"><div class="card">?</div>Name</div>
+      <div class="card_holder"><div class="card">?</div>Name</div>
+      <div class="card_holder"><div class="card">?</div>Name</div>
+      <div style="clear:both"></div>
+      -->
     </div>
-
+    <br/>
+    <div>
+      <ul>
+        <li>- (Minus Sign) : Participant has not voted </li>
+        <li>? (Question Mark) : Participant has voted, waiting for all vote results </li>
+      </ul>
+    </div>
+    <br/>
+    <input id="btn" type="button" value="test btn"/>
+    </div>
 </div>
 
 

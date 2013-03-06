@@ -1,0 +1,15 @@
+cache structure should look like this.
+
+cache: {
+  bombRoom: {
+    participant: {
+      roong: {null},
+      bomb: {null},
+    },
+    stories: {
+      story1: 5,
+      story2: 3
+    }
+  },
+}
+

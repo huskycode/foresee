@@ -1,5 +1,6 @@
 express = require("express")
 route = require("../src/index").route
+core = require("../src/index").core
 should = require("should")
 
 describe("route", () ->
@@ -21,5 +22,11 @@ describe("route", () ->
       params.id.should.equal("bombRoom")
       params.socketUrl.should.equal("http://any host")
     })
+  )
+)
+
+describe("core", () ->
+  it('pass story name.', () ->
+    core.addStory("bombRoom", "As a <role>, I want <goal/desire> so that <benefit>")
   )
 )

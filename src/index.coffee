@@ -28,6 +28,17 @@ random = (n) -> require('crypto').randomBytes(n).toString('hex')
 retainTime = 3600000
 
 core = {
+addStory: (room, story) ->
+  if(cache.get(room) == null || cache.get(room) == undefined) then cache.put(room, {})
+
+  data = cache.get(room)
+  stories = data['stories']
+  if (stories == null || stories == undefined) then stories = {}
+
+  stories[story] = null
+  data['stories'] = stories
+  cache.put(room, data, retainTime)
+
 addParticipant: (room, participant) ->
   if(cache.get(room) == null || cache.get(room) == undefined) then cache.put(room, {})
 
@@ -125,3 +136,4 @@ app.get('/join/room/:room/name/:name', (req, res) ->
 #export app
 module.exports = server
 module.exports.route = route
+module.exports.core = core

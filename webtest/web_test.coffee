@@ -54,11 +54,5 @@ describe("Host Website", () ->
     driver.findElement(webdriver.By.css("ul#story-pile"))
   )
 
-  it('create new story should show in story pile', ->
-    driver.get(FORESEE_BASE_URL + "host/RoomName")
-    driver.findElement(webdriver.By.css("input#storyDesc[type='text']")).sendKeys("As a <role>, I want <goal/desire> so that <benefit>")
-    driver.findElement(webdriver.By.css("button#addStory")).click()
-    driver.findElement(webdriver.By.css("ul#story-pile>li"))
-  )
 )
 

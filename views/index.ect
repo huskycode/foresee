@@ -1,13 +1,9 @@
 <% extend 'layout.ect' %>
 
 <% block 'more-js' : %>
-<script>
-function redirect() {
-    var roomname = $("#id").val();
-    document.location = "host/" + roomname;
-    return false;
-}
-</script>
+
+<%- js("index") %>
+
 <% end %>
         <!-- Main hero unit for a primary marketing message or call to action -->
 <div class="hero-unit">
@@ -15,7 +11,7 @@ function redirect() {
 <p>Foresee helps the team quickly reach concensus on what is to be done, how much it will take and assumption mades along the way. </p>
 <div class="form-horizontal">
   <input type="text" placeholder="Type Room Name" name="id" id="id" />
-  <input type="button" class="btn btn-primary" onclick="redirect();" id="createRoom" name="createRoom" value="Start Now &raquo;"/>
+  <input type="button" class="btn btn-primary" id="createRoom" name="createRoom" value="Start Now &raquo;"/>
 </div>
 </div>
 

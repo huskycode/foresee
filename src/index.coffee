@@ -3,8 +3,8 @@ assets = require 'connect-assets'
 cache = require('memory-cache')
 
 app = express()
-ECT = require('ect');
-ectRenderer = ECT({ cache: false, watch: false, root: __dirname + '/../views'  });
+ECT = require('ect')
+ectRenderer = ECT({ cache: false, watch: false, root: __dirname + '/../views'  })
 
 server = require('http').createServer(app)
 io = require('socket.io').listen(server)
@@ -15,7 +15,7 @@ server.port = process.env.PORT or process.env.VMC_APP_PORT or 3000
 app.use assets()
 app.use express.static(process.cwd() + '/public')
 
-app.engine('.ect', ectRenderer.render);
+app.engine('.ect', ectRenderer.render)
 
 #const
 

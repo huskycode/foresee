@@ -4,7 +4,7 @@ core = require("../src/index").core
 should = require("should")
 
 describe("route", () ->
-  it('should have title', () ->
+  it('index points to right template and contains title', () ->
     route.index(null , {
     render:(filename, params) ->
       filename.should.equal("index.ect")
@@ -12,7 +12,7 @@ describe("route", () ->
     })
   )
 
-  it('pass roomname parameter to render', () ->
+  it('host points to right template with roomname parameter', () ->
     route.host({
     params: { id:"bombRoom" },
     headers: { host:"any host" }

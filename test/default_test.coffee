@@ -26,7 +26,7 @@ describe("route", () ->
 )
 
 describe("core", () ->
-  it('pass story name.', () ->
-    core.addStory("bombRoom", "As a <role>, I want <goal/desire> so that <benefit>")
-  )
+  it('pass story name.')
+    #Note: Empty it(..) indicates pending tests :-)
+    #core.addStory("bombRoom", "As a <role>, I want <goal/desire> so that <benefit>")
 )

@@ -54,5 +54,13 @@ describe("Host Website", () ->
     driver.findElement(webdriver.By.css("ul#story-pile"))
   )
 
+  it('host page should generate a visible link', ->
+    testRoomName = "RoomName"
+    driver.get("#{FORESEE_BASE_URL}host/#{testRoomName}")
+    driver.findElement(webdriver.By.id("link")).getText().then( (text) ->
+       text.should.equal("#{FORESEE_BASE_URL}join/#{testRoomName}")
+    )
+  )
+
 )
 

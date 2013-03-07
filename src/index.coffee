@@ -29,15 +29,23 @@ retainTime = 3600000
 
 core = {
 addStory: (room, story) ->
-  if(cache.get(room) == null || cache.get(room) == undefined) then cache.put(room, {})
+  if not cache.get(room)? then cache.put(room, {})
 
   data = cache.get(room)
   stories = data['stories']
-  if (stories == null || stories == undefined) then stories = {}
+  stories ?= {}
 
   stories[story] = null
   data['stories'] = stories
   cache.put(room, data, retainTime)
+
+listStories: (room) ->
+  if not cache.get(room)? then cache.put(room, {})
+
+  data = cache.get(room)
+  stories = data['stories']
+  stories ?= {}
+  return stories
 
 addParticipant: (room, participant) ->
   if(cache.get(room) == null || cache.get(room) == undefined) then cache.put(room, {})

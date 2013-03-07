@@ -26,7 +26,18 @@ describe("route", () ->
 )
 
 describe("core", () ->
-  it('pass story name.')
-    #Note: Empty it(..) indicates pending tests :-)
-    #core.addStory("bombRoom", "As a <role>, I want <goal/desire> so that <benefit>")
+  it('host add new story and stories list should contain new story.', ->
+    result = core.listStories('roomName')
+    should.exist(result)
+    result.should.eql({})
+
+    core.addStory("roomName", "story1")
+    result = core.listStories('roomName')
+    should.exist(result)
+    result.should.eql({story1: null})
+  )
 )
+
+
+
+

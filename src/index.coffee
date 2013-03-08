@@ -47,15 +47,18 @@ listStories: (room) ->
   stories ?= {}
   return stories
 
+ensureRoomExist: (room) ->
+  if not cache.get(room)? then cache.put(room, {})
+  
 addParticipant: (room, participant) ->
-  if(cache.get(room) == null || cache.get(room) == undefined) then cache.put(room, {})
+  @ensureRoomExist(room)
 
   data = cache.get(room)
   data[participant] = null
   cache.put(room, data, retainTime)
 
 removeParticipant: (room, participant) ->
-  if(cache.get(room) == null || cache.get(room) == undefined) then cache.put(room, {})
+  @ensureRoomExist(room)
 
   data = cache.get(room)
   delete data[participant]
@@ -145,3 +148,4 @@ app.get('/join/room/:room/name/:name', (req, res) ->
 module.exports = server
 module.exports.route = route
 module.exports.core = core
+module.exports.cache = cache

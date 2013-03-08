@@ -1,6 +1,8 @@
 express = require("express")
-route = require("../src/index").route
-core = require("../src/index").core
+index = require("../src/index")
+route = index.route
+core = index.core
+cache = index.cache
 should = require("should")
 
 describe("route", () ->
@@ -36,6 +38,45 @@ describe("core", () ->
     should.exist(result)
     result.should.eql({story1: null})
   )
+  
+  it('add participant should set value in data.', ->
+    cache.clear()
+    core.addParticipant('roomName', 'myName')
+    result = cache.get('roomName')
+    should.exist(result)
+    (result.myName == null).should.be.true    
+  )
+  
+  it('remove participant should remove specified participant form participant list.', ->
+      #given a cache with participant in a room
+      cache.put({'roomName': {'participant1':null}})
+      #when we call remove on a name
+      core.removeParticipant('roomName', 'participant1')
+      #then cahche at my name undefined
+      result = cache.get('roomName')
+      should.exist(result)
+      (typeof result.participant1 == 'undefined').should.be.true
+  )
+  
+  describe("ensureRoomExist", ->
+    it('should put blank object into room if cache.get(room) is null.', ->
+      cache.clear()
+      cache.put('roomName', null)
+      
+      core.ensureRoomExist('roomName')
+      
+      cache.get('roomName').should.eql({})
+    )
+  
+    it('should put blank object into room if cache.get(room) is undefined.', ->
+      cache.clear()
+      
+      core.ensureRoomExist('roomName')
+      
+      cache.get('roomName').should.eql({})
+    )
+  )
+
 )
 
 

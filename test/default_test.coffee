@@ -25,6 +25,12 @@ describe("route", () ->
       params.socketUrl.should.equal("http://any host")
     })
   )
+
+  it('story/add calls method in core') 
+    #Given a room with blank story
+    #When route.add is called with roomName, story
+    #Then ensure that we call core.addStory(...)
+    #Then return core.listStories(...)
 )
 
 describe("core", () ->

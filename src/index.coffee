@@ -126,8 +126,10 @@ title:"Host - " + req.params.id
 route = {
 index: (req, res) -> res.render('index.ect', {title:"Foresee"})
 host: (req, res) -> res.render('join.ect', {id:req.params.id, socketUrl:getSocketUrl(req)})
+addStory: (req, res) -> return null 
 }
 
+app.get('/story/add/room/:roomName/name/:storyName', route.addStory)
 app.get('/join/:id', route.host)
 app.get('/', route.index)
 

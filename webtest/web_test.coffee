@@ -54,6 +54,18 @@ describe("Host Website", () ->
     driver.findElement(webdriver.By.css("ul#story-pile"))
   )
 
+  it('added story should show in story pile.', ->
+    anyStoryDesc = 'new story description'
+    driver.get(FORESEE_BASE_URL + "host/RoomName")
+    driver.findElement(webdriver.By.css("input#storyDesc[type='text']")).sendKeys(anyStoryDesc)
+    driver.findElement(webdriver.By.css("button#addStory")).click()
+    # need to wait ajax call.
+    driver.findElement(webdriver.By.css("ul#story-pile>li")).getText().then( (text) ->
+      text.should.equal(anyStoryDesc)
+    )
+  )
+
+
   it('host page should generate a visible link', ->
     testRoomName = "RoomName"
     driver.get("#{FORESEE_BASE_URL}host/#{testRoomName}")

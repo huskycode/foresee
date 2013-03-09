@@ -4,6 +4,12 @@ getParticipantsLis = (participantNames) ->
     lis.push("<li>"+item+" [<a href='#' class='removeParticipant' participant_name='"+item+"'>x</a>]</li>" )
   return lis.join("\n")
 
+getStoriesLis = (stories) ->
+  lis = []
+  for item,index in stories
+    lis.push("<li>"+item+"</li>" )
+  return lis.join("\n")
+
 getCardFace = (displayNumbers, val) ->
   if(val == null)
     return "-"
@@ -82,6 +88,7 @@ $ ->
     false
 
   $("#btn").click -> socket.emit('my other event', { my: 'data' })
+
 
 
 

@@ -18,6 +18,8 @@
     , "mocha": "*"
     , "should": "*"
     , "supervisor": "*"
+    , "chai": "1.5.x"
+    , "sinon": "1.6.x"
   },
   "scripts": {
     "dev": "supervisor -w src -e 'js|coffee' app"
@@ -25,5 +27,6 @@
    ,"autotest": "mocha --reporter min --watch --compilers coffee:coffee-script --colors test/*.coffee" 
    ,"test": "mocha --reporter spec --compilers coffee:coffee-script --colors --require should test/*.coffee"
    ,"webtest": "mocha --reporter spec --compilers coffee:coffee-script --colors --require should webtest/*.coffee -t 30000"
+   ,"browsertest": "coffee -c -o browsertest/.js/ -w browsertest/"
   }
 }

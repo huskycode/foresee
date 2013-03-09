@@ -58,6 +58,30 @@ describe("core", () ->
       (typeof result.participant1 == 'undefined').should.be.true
   )
   
+  describe("getData", -> 
+    it("should return blank object when cache is undefined", -> 
+        cache.clear()
+        core.getData("roomName").should.eql({})
+    )
+    
+    it("should return blank object when cache is null", -> 
+        cache.clear()
+        cache.put('roomName', null)
+        
+        core.getData("roomName").should.eql({})
+    )
+        
+    it("should return data when cache has data", -> 
+        anyData = {"anyData"}
+        
+        cache.clear()
+        cache.put('roomName', anyData)
+        
+        core.getData("roomName").should.eql(anyData)    
+    )
+     
+  )
+  
   describe("ensureRoomExist", ->
     it('should put blank object into room if cache.get(room) is null.', ->
       cache.clear()

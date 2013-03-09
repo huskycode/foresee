@@ -29,19 +29,20 @@ retainTime = 3600000
 
 core = {
 addStory: (room, story) ->
-  if not cache.get(room)? then cache.put(room, {})
-
-  data = cache.get(room)
-  stories = data['stories']
-  stories ?= {}
-
+  data = @getData(room)
+  stories = @listStories(room)
+  
   stories[story] = null
   data['stories'] = stories
   cache.put(room, data, retainTime)
 
 listStories: (room) ->
-  if not cache.get(room)? then cache.put(room, {})
+  data = @getData(room)
+  stories = data['stories']
+  stories ?= {}
+  return stories
 
+getStoryFromRoom: (room) -> 
   data = cache.get(room)
   stories = data['stories']
   stories ?= {}
@@ -51,21 +52,17 @@ ensureRoomExist: (room) ->
   if not cache.get(room)? then cache.put(room, {})
   
 addParticipant: (room, participant) ->
-  @ensureRoomExist(room)
-
-  data = cache.get(room)
+  data = @getData(room)
   data[participant] = null
   cache.put(room, data, retainTime)
 
 removeParticipant: (room, participant) ->
-  @ensureRoomExist(room)
-
-  data = cache.get(room)
+  data = @getData(room)
   delete data[participant]
   cache.put(room, data, retainTime)
 
 getData: (room) ->
-  if(cache.get(room) == null || cache.get(room) == undefined) then cache.put(room, {})
+  @ensureRoomExist(room)
   return cache.get(room)
 
 vote: (room, participant, vote) ->

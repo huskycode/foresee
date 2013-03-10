@@ -26,11 +26,25 @@ describe("route", () ->
     })
   )
 
-  it('story/add calls method in core') 
-    #Given a room with blank story
+  it('story/add calls method in core', () ->
+    #Given a room with no stories in it initially 
+    cache.clear()
+
     #When route.add is called with roomName, story
-    #Then ensure that we call core.addStory(...)
-    #Then return core.listStories(...)
+    route.addStory({
+       params: { "room": "someroom", "story": "a story"}
+    }, {
+       send: (result) ->
+         #Then ensure that we call core.addStory(...)
+         #Then return core.listStories(...) 
+
+         #Then return the list of current stories (only has 1 story)
+         expectedResult = JSON.parse('["a story"]')
+
+         result.should.have.lengthOf(1)
+         result[0].should.eql(expectedResult[0])     
+    })
+  ) 
 )
 
 describe("core", () ->

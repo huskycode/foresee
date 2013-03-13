@@ -1,1 +1,1 @@
-npm run-script $@
+node build/make_bootstrap.js $@

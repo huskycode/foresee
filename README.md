@@ -73,7 +73,7 @@ make sure you can run java from command line. Try this command
 3. npm install docco -g  
 4. npm install supervisor -g 
 5. npm install should -g 
-
+6. npm install nodemon -g
 ### Running Server in Development Mode
 1. go to the directory
 2. type "npm run-script dev"

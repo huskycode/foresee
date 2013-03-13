@@ -27,14 +27,14 @@ random = (n) -> require('crypto').randomBytes(n).toString('hex')
 #core
 retainTime = 3600000
 
-core = {
+Controller = (dataStore) -> {
 addStory: (room, story) ->
   data = @getData(room)
   stories = @listStories(room)
   
   stories[story] = null
   data['stories'] = stories
-  cache.put(room, data, retainTime)
+  dataStore.put(room, data, retainTime)
 
 listStories: (room) ->
   data = @getData(room)
@@ -43,35 +43,36 @@ listStories: (room) ->
   return stories
 
 getStoryFromRoom: (room) -> 
-  data = cache.get(room)
+  data = dataStore.get(room)
   stories = data['stories']
   stories ?= {}
   return stories
 
 ensureRoomExist: (room) ->
-  if not cache.get(room)? then cache.put(room, {})
+  if not dataStore.get(room)? then dataStore.put(room, {})
   
 addParticipant: (room, participant) ->
   data = @getData(room)
   data[participant] = null
-  cache.put(room, data, retainTime)
+  dataStore.put(room, data, retainTime)
 
 removeParticipant: (room, participant) ->
   data = @getData(room)
   delete data[participant]
-  cache.put(room, data, retainTime)
+  dataStore.put(room, data, retainTime)
 
 getData: (room) ->
   @ensureRoomExist(room)
-  return cache.get(room)
+  return dataStore.get(room)
 
 vote: (room, participant, vote) ->
-  if(cache.get(room) == null || cache.get(room) == undefined) then cache.put(room, {})
+  if(dataStore.get(room) == null || dataStore.get(room) == undefined) then dataStore.put(room, {})
 
-  data = cache.get(room)
+  data = dataStore.get(room)
   data[participant] = vote
-  cache.put(room, data, retainTime)
+  dataStore.put(room, data, retainTime)
 }
+core = Controller(cache)
 
 #Socket.io
 clientSockets = []
@@ -126,8 +127,11 @@ title:"Host - " + req.params.id
 route = {
   index: (req, res) -> res.render('index.ect', {title:"Foresee"})
   host: (req, res) -> res.render('join.ect', {id:req.params.id, socketUrl:getSocketUrl(req)})
-  addStory: (req, res) -> 
-    res.send([req.params.story])
+  addStory: (req, res) ->
+    core.addStory(req.params.room, req.params.story)
+    res.send(
+      core.listStories(req.params.room)
+    )
 }
 
 app.get('/story/add/room/:room/story/:story', route.addStory)

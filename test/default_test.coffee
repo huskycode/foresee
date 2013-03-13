@@ -4,8 +4,19 @@ route = index.route
 core = index.core
 cache = index.cache
 should = require("should")
+sinon = require("sinon")
 
 describe("route", () ->
+  beforeEach( () ->
+    sinon.stub core, "addStory"
+    sinon.stub core, "listStories"
+  )
+  
+  afterEach( () ->
+    core.addStory.restore()
+    core.listStories.restore()
+  )
+
   it('index points to right template and contains title', () ->
     route.index(null , {
     render:(filename, params) ->
@@ -30,19 +41,29 @@ describe("route", () ->
     #Given a room with no stories in it initially 
     cache.clear()
 
+    #Stub return value
+    roomName = "someroom"
+    newStory = "new story"
+
+    listResult = ["old story", newStory]
+    core.listStories.withArgs(roomName).returns( listResult )
+
     #When route.add is called with roomName, story
     route.addStory({
-       params: { "room": "someroom", "story": "a story"}
+       params: { "room": roomName, "story": newStory }
     }, {
        send: (result) ->
          #Then ensure that we call core.addStory(...)
          #Then return core.listStories(...) 
 
-         #Then return the list of current stories (only has 1 story)
-         expectedResult = JSON.parse('["a story"]')
-
-         result.should.have.lengthOf(1)
-         result[0].should.eql(expectedResult[0])     
+         #We test using sinon
+         #Take a look at how we stub/restore in beforeEach(), afterEach()
+         #Ideally we should be able to stub/restore the whole object, but I 
+         #Don't know how to do that yet.
+         core.addStory.calledOnce.should.be.true
+         core.addStory.calledWith(roomName, newStory)
+         
+         result.should.eql(listResult)
     })
   ) 
 )

@@ -61,7 +61,7 @@ describe("route", () ->
          #Ideally we should be able to stub/restore the whole object, but I 
          #Don't know how to do that yet.
          core.addStory.calledOnce.should.be.true
-         core.addStory.calledWith(roomName, newStory)
+         core.addStory.calledWith(roomName, newStory).should.be.true
          
          result.should.eql(listResult)
     })

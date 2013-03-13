@@ -43,6 +43,20 @@ describe("Host Website", () ->
     done()
   )
 
+  it('Create a room with blank room name will nothing happen', (done) ->
+    blankRoomName = ''
+    driver.get(FORESEE_BASE_URL)
+    driver.findElement(webdriver.By.css("input#id[type='text']")).sendKeys(blankRoomName);
+    driver.findElement(webdriver.By.css("input#createRoom[type='button']")).click()
+    driver.getTitle().then( (title) ->
+      title.should.equal("Foresee")
+    )
+    driver.getCurrentUrl().then( (location) ->
+      location.should.equal(FORESEE_BASE_URL)
+    )
+    done()
+  )
+
   it('host page should have input text and button for add new story.', ->
     driver.get(FORESEE_BASE_URL + "host/RoomName")
     driver.findElement(webdriver.By.css("input#storyDesc[type='text']"))

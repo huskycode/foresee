@@ -1,3 +1,6 @@
+expect = chai.expect;
+
 describe("Host Page", ->
-  it("should run")
+  it("genrate QR Code with text")
+    #testText = host.generateQRCode();
 )

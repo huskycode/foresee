@@ -43,6 +43,10 @@ populateCards = (votes) ->
 
   $("#cards").html(result)
 
+generateQRCode = () ->
+  return 'text';
+
+
 $ ->
   url = $("#url").val()
   socketUrl = $("#socketUrl").val()
@@ -102,3 +106,5 @@ $ ->
       error: (jqXHR, textStatus, errorThrown) ->
         alert(errorThrown)
 
+exports = this
+exports.generateQRCode = generateQRCode

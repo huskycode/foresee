@@ -1,3 +1,5 @@
+process.env.PORT = 3001
+
 require("should")
 require("../app")
 
@@ -5,7 +7,7 @@ describe("Host Website", () ->
   spawn = require("child_process").spawn
   webdriver = require("selenium-webdriver")
   remote = require("selenium-webdriver/remote")
-  FORESEE_BASE_URL = "http://localhost:3000/"
+  FORESEE_BASE_URL = "http://localhost:3001/"
 
   server = null
   driver = null

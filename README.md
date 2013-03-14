@@ -74,14 +74,20 @@ make sure you can run java from command line. Try this command
 4. npm install supervisor -g 
 5. npm install should -g 
 6. npm install nodemon -g
+7. 
 ### Running Server in Development Mode
 1. go to the directory
 2. type "npm run-script dev"
 3. browse to: http://localhost:3000
 
-### Scripts
+### Build Targets
 
-    Unit Tests : npm test
-    Selenium Tests : npm run-script webtest
+Take a look at build/make.coffee
+
+The "run" script is created as a shortcut to build/make.coffee
+
+    Unit Tests : ./run test 
+    Selenium Tests : ./run webtest
+    Auto Tests: ./run autotest
 
 

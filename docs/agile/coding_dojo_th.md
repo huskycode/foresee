@@ -14,7 +14,8 @@ Scheduled Dojo
 ส่วนมากน่าจะอยู่ใน github จะมาแปะลิงค์เมื่อพร้อม
 
 * Basic TDD and CoffeeScript
-* Async Testing
+* Basic node.js stuff
+* Testing Asynchronous Code
 * JavaScript Mocks
 * WebSocket
 

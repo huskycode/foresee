@@ -43,8 +43,6 @@ populateCards = (votes) ->
 
   $("#cards").html(result)
 
-generateQRCode = () ->
-  return 'text';
 
 
 $ ->

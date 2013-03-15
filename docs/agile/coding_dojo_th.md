@@ -35,6 +35,7 @@ HuskyCode's Online Dojo
 1. Driver นัดวัน เวลาการทำ dojo ผ่าน facebook event
 2. Driver เปิด Hangout on Air และ invite co-pilot, facilitator เข้ามา
 3. Driver แปะลิงค์ live youtube ให้ทุกคนที่สนใจได้ดูใน facebook event
+4. Facilitator พิมพ์ใน chat ให้ทุกคนที่ตอบใน event ว่า going บอกว่าเริ่ม dojo แล้ว พร้อมกับแปะเอกสารนี้ให้ทุกคนดูอีกที
 4. Driver ประกาศรูปแบบและเวลาคร่าวๆ ให้ facilitator และ audience ได้ดู
 5. เริ่ม dojo ได้
 6. หากระหว่าง dojo ถ้าคนดูมีคำถามอะไร ก็พิมพ์ chat เข้ามาได้ทันที faciliator จะเป็นคนคอยพูดสิ่งที่อยู่ใน chat ให้ driver, co-pilot รู้ตัว

@@ -104,5 +104,4 @@ $ ->
       error: (jqXHR, textStatus, errorThrown) ->
         alert(errorThrown)
 
-exports = this
-exports.generateQRCode = generateQRCode
+

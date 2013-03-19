@@ -89,5 +89,14 @@ describe("Host Website", () ->
     )
   )
 
+  it "host page should show QRCode for current room.", ->
+    testRoomName = "RoomName"
+    hostUrl = "#{FORESEE_BASE_URL}host/#{testRoomName}"
+    joinUrl = "#{FORESEE_BASE_URL}join/#{testRoomName}"
+    driver.get(hostUrl)
+    driver.findElement(webdriver.By.css("div#qrcode>img"))
+    driver.findElement(webdriver.By.css("div#qrcode[title='#{joinUrl}']"))
+
+
 )
 

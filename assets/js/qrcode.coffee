@@ -1,5 +1,8 @@
-generateQRCode = () ->
-  return 'text';
+generateQRCode = (id, text) ->
+  new QRCode(id, text)
 
-exports = this
-exports.generateQRCode = generateQRCode
+$ ->
+  url = $("#url").val()
+  generateQRCode("qrcode", url)
+
+window.generateQRCode = generateQRCode

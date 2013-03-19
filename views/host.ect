@@ -3,6 +3,8 @@
 <% block 'more-js' : %>
   <script src="/socket.io/socket.io.js"></script>
   <%- js("host") %>
+  <%- js("qrcode.min") %>
+  <%- js("qrcode") %>
   <style type="text/css">
       .card_holder {
           float: left;
@@ -35,7 +37,7 @@
       </ul>
       <hr>
       <h4>Join</h4>
-      <img src="http://chart.apis.google.com/chart?cht=qr&chs=200x200&chl=<%-@url%>&chld=H|0">
+      <div id="qrcode"></div>
       <a id="link" href="<%-@url%>"><%=@url%></a><br/>
       Scan QR code or click on the link above to join
     </div>

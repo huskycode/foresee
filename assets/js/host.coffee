@@ -46,6 +46,10 @@ populateCards = (votes) ->
 
 
 $ ->
+  # Instantiate Components
+  qrCtrl = QRCtrl($,QRCodeJSCodeGen)
+  qrCtrl.generateQRCode()
+
   url = $("#url").val()
   socketUrl = $("#socketUrl").val()
   roomId = $("#roomId").val()

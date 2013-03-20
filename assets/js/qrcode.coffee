@@ -3,6 +3,6 @@ generateQRCode = (id, text) ->
 
 $ ->
   url = $("#url").val()
-  generateQRCode("qrcode", url)
+  generateQRCode("qrcode", url) if url
 
 window.generateQRCode = generateQRCode

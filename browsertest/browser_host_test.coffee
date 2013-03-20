@@ -3,13 +3,25 @@ expect = chai.expect;
 
 describe("Host Page", ->
   it("genrate QR Code with text", ->
-    #given
-    result = 'text'
-    #when
-    qrcode_text = generateQRCode()
-    #then
-    expect(qrcode_text).to.be.a('string')
-    expect(qrcode_text).to.be.equal(result)
+    # setup
+    realObject = window.QRCode
+    called = false
+    callWithArgs = {}
+    mockObject = (id, text) ->
+      called = true
+      callWithArgs = {id, text}
+      return text
+    window.QRCode = mockObject
+
+    # stimulus
+    generateQRCode('id', 'text')
+
+    # assertion
+    expect(called).to.equal(true)
+    expect(callWithArgs).to.eql({'id', 'text'})
+
+    #tear down
+    window.QRCode = realObject
   )
 )
 

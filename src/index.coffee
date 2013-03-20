@@ -53,8 +53,16 @@ ensureRoomExist: (room) ->
   
 addParticipant: (room, participant) ->
   data = @getData(room)
-  data[participant] = null
+  participants = data.participants ? {}
+
+  participants[participant] = null
+  data['participants'] = participants
   dataStore.put(room, data, retainTime)
+
+listParticipants: (room) ->
+  data = @getData(room)
+  console.log(data)
+  data.participants ? {}
 
 removeParticipant: (room, participant) ->
   data = @getData(room)
@@ -76,7 +84,7 @@ core = Controller(cache)
 
 #Socket.io
 clientSockets = []
-sendRefreshMessage = (socket, room) -> socket.emit('voteRefresh', {room: room, votes: core.getData(room) })
+sendRefreshMessage = (socket, room) -> socket.emit('voteRefresh', {room: room, votes: core.listParticipants(room) })
 
 io.sockets.on 'connection', (socket) ->
   clientSockets.push(socket)

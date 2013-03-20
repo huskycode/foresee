@@ -69,7 +69,7 @@ describe("route", () ->
 )
 
 describe("core", () ->
-  it('host add new story and stories list should contain new story.', ->
+  it 'host add new story and stories list should contain new story.', ->
     result = core.listStories('roomName')
     should.exist(result)
     result.should.eql({})
@@ -78,17 +78,33 @@ describe("core", () ->
     result = core.listStories('roomName')
     should.exist(result)
     result.should.eql({story1: null})
-  )
   
-  it('add participant should set value in data.', ->
+  it 'add participant should set value in data.', ->
     cache.clear()
     core.addParticipant('roomName', 'myName')
-    result = cache.get('roomName')
+    result = cache.get('roomName').participants
     should.exist(result)
+    Object.keys(result).should.have.lengthOf(1)
     (result.myName == null).should.be.true    
-  )
   
-  it('remove participant should remove specified participant form participant list.', ->
+  it 'add two participant should set 2 value in data.', ->
+    cache.clear()
+    core.addParticipant('roomName', 'myName')
+    core.addParticipant('roomName', 'anothorName')
+    result = cache.get('roomName').participants
+    should.exist(result)
+    Object.keys(result).should.have.lengthOf(2)
+    (result.myName == null).should.be.true
+    (result.anothorName == null).should.be.true
+
+  it 'list participants will return object of participants' , ->
+    cache.clear()
+    expectParticipants = {'myName':null}
+    cache.put('roomName',{'participants':expectParticipants})
+    participants = core.listParticipants('roomName')
+    participants.should.eql(expectParticipants)
+
+  it 'remove participant should remove specified participant form participant list.', ->
       #given a cache with participant in a room
       cache.put({'roomName': {'participant1':null}})
       #when we call remove on a name
@@ -97,53 +113,39 @@ describe("core", () ->
       result = cache.get('roomName')
       should.exist(result)
       (typeof result.participant1 == 'undefined').should.be.true
-  )
   
-  describe("getData", -> 
-    it("should return blank object when cache is undefined", -> 
+  describe "getData", -> 
+    it "should return blank object when cache is undefined", -> 
         cache.clear()
         core.getData("roomName").should.eql({})
-    )
     
-    it("should return blank object when cache is null", -> 
+    it "should return blank object when cache is null", -> 
         cache.clear()
         cache.put('roomName', null)
         
         core.getData("roomName").should.eql({})
-    )
         
-    it("should return data when cache has data", -> 
+    it "should return data when cache has data", -> 
         anyData = {"anyData"}
         
         cache.clear()
         cache.put('roomName', anyData)
         
         core.getData("roomName").should.eql(anyData)    
-    )
      
-  )
-  
-  describe("ensureRoomExist", ->
-    it('should put blank object into room if cache.get(room) is null.', ->
+  describe "ensureRoomExist", ->
+    it 'should put blank object into room if cache.get(room) is null.', ->
       cache.clear()
       cache.put('roomName', null)
       
       core.ensureRoomExist('roomName')
       
       cache.get('roomName').should.eql({})
-    )
   
-    it('should put blank object into room if cache.get(room) is undefined.', ->
+    it 'should put blank object into room if cache.get(room) is undefined.', ->
       cache.clear()
       
       core.ensureRoomExist('roomName')
       
       cache.get('roomName').should.eql({})
-    )
-  )
-
 )
-
-
-
-

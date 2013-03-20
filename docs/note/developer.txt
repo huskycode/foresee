@@ -2,9 +2,9 @@ cache structure should look like this.
 
 cache: {
   bombRoom: {
-    participant: {
-      roong: {null},
-      bomb: {null},
+    participants: {
+      roong: null,
+      bomb: null,
     },
     stories: {
       story1: 5,

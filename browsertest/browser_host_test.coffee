@@ -14,7 +14,7 @@ describe("Host Page", ->
     window.QRCode = mockObject
 
     # stimulus
-    generateQRCode('id', 'text')
+    generateQRCode0('id', 'text')
 
     # assertion
     expect(called).to.equal(true)

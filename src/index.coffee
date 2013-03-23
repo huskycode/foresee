@@ -31,7 +31,7 @@ Controller = (dataStore) -> {
 addStory: (room, story) ->
   data = @getData(room)
   stories = @listStories(room)
-  
+
   stories[story] = null
   data['stories'] = stories
   dataStore.put(room, data, retainTime)
@@ -42,7 +42,7 @@ listStories: (room) ->
   stories ?= {}
   return stories
 
-getStoryFromRoom: (room) -> 
+getStoryFromRoom: (room) ->
   data = dataStore.get(room)
   stories = data['stories']
   stories ?= {}
@@ -50,7 +50,7 @@ getStoryFromRoom: (room) ->
 
 ensureRoomExist: (room) ->
   if not dataStore.get(room)? then dataStore.put(room, {})
-  
+
 addParticipant: (room, participant) ->
   data = @getData(room)
   participants = data.participants ? {}
@@ -61,7 +61,6 @@ addParticipant: (room, participant) ->
 
 listParticipants: (room) ->
   data = @getData(room)
-  console.log(data)
   data.participants ? {}
 
 removeParticipant: (room, participant) ->
@@ -74,10 +73,8 @@ getData: (room) ->
   return dataStore.get(room)
 
 vote: (room, participant, vote) ->
-  if(dataStore.get(room) == null || dataStore.get(room) == undefined) then dataStore.put(room, {})
-
-  data = dataStore.get(room)
-  data[participant] = vote
+  data = @getData(room)
+  data.participants[participant] = vote
   dataStore.put(room, data, retainTime)
 }
 core = Controller(cache)

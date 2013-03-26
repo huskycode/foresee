@@ -1,6 +1,5 @@
 express = require 'express'
 assets = require 'connect-assets'
-cache = require('memory-cache')
 
 app = express()
 ECT = require('ect')
@@ -17,67 +16,9 @@ app.use express.static(process.cwd() + '/public')
 
 app.engine('.ect', ectRenderer.render)
 
-#const
-
-
-
-#Func
-random = (n) -> require('crypto').randomBytes(n).toString('hex')
-
-#core
-retainTime = 3600000
-
-Controller = (dataStore) -> {
-addStory: (room, story) ->
-  data = @getData(room)
-  stories = @listStories(room)
-
-  stories[story] = null
-  data['stories'] = stories
-  dataStore.put(room, data, retainTime)
-
-listStories: (room) ->
-  data = @getData(room)
-  stories = data['stories']
-  stories ?= {}
-  return stories
-
-getStoryFromRoom: (room) ->
-  data = dataStore.get(room)
-  stories = data['stories']
-  stories ?= {}
-  return stories
-
-ensureRoomExist: (room) ->
-  if not dataStore.get(room)? then dataStore.put(room, {})
-
-addParticipant: (room, participant) ->
-  data = @getData(room)
-  participants = data.participants ? {}
-
-  participants[participant] = null
-  data['participants'] = participants
-  dataStore.put(room, data, retainTime)
-
-listParticipants: (room) ->
-  data = @getData(room)
-  data.participants ? {}
-
-removeParticipant: (room, participant) ->
-  data = @getData(room)
-  delete data[participant]
-  dataStore.put(room, data, retainTime)
-
-getData: (room) ->
-  @ensureRoomExist(room)
-  return dataStore.get(room)
-
-vote: (room, participant, vote) ->
-  data = @getData(room)
-  data.participants[participant] = vote
-  dataStore.put(room, data, retainTime)
-}
-core = Controller(cache)
+#modules
+core = require("./core").core
+route = require("./route").route
 
 #Socket.io
 clientSockets = []
@@ -120,6 +61,8 @@ io.sockets.on 'connection', (socket) ->
     console.log("After sockets:" + clientSockets.length)
 
 #App
+
+#TODO: This function is duplicate with a code in route.coffee
 getSocketUrl = (req) -> "http://" + req.headers.host
 
 app.get('/host/:id', (req, res) -> res.render('host.ect', {
@@ -129,18 +72,10 @@ title:"Host - " + req.params.id
 , roomId: req.params.id
 }))
 
-route = {
-  index: (req, res) -> res.render('index.ect', {title:"Foresee"})
-  host: (req, res) -> res.render('join.ect', {id:req.params.id, socketUrl:getSocketUrl(req)})
-  addStory: (req, res) ->
-    core.addStory(req.params.room, req.params.story)
-    res.send(
-      core.listStories(req.params.room)
-    )
-}
+
 
 app.get('/story/add/room/:room/story/:story', route.addStory)
-app.get('/join/:id', route.host)
+app.get('/join/:id', route.join)
 app.get('/', route.index)
 
 app.get('/join/room/:room/name/:name', (req, res) ->
@@ -156,5 +91,3 @@ app.get('/join/room/:room/name/:name', (req, res) ->
 #export app
 module.exports = server
 module.exports.route = route
-module.exports.core = core
-module.exports.cache = cache

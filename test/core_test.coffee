@@ -42,13 +42,18 @@ describe("core", () ->
       participants = core.listParticipants('roomName')
       participants.should.eql(expectParticipants)
 
-    # TODO: should take care this test, because we already change data structure.
     it 'remove participant should remove specified participant form participant list.', ->
-      cache.put({'roomName': {'participant1':null}})
+      #Given two participants exist
+      cache.clear()
+      core.addParticipant('roomName', 'participant1')
+      core.addParticipant('roomName', 'participant2')
+
+      #When we remove a participant
       core.removeParticipant('roomName', 'participant1')
-      result = cache.get('roomName')
-      should.exist(result)
-      (typeof result.participant1 == 'undefined').should.be.true
+
+      #Then only one participant exists in room
+      participants = core.listParticipants('roomName')
+      participants.should.eql({"participant2":null})
 
   describe "getData", ->
     it "should return blank object when cache is undefined", ->

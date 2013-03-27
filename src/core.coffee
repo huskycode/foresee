@@ -41,7 +41,7 @@ Controller = (dataStore) -> {
 
   removeParticipant: (room, participant) ->
     data = @getData(room)
-    delete data[participant]
+    delete data["participants"][participant]
     dataStore.put(room, data, retainTime)
 
   getData: (room) ->

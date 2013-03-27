@@ -9,17 +9,16 @@ Controller = (dataStore) -> {
     stories = @listStories(room)
 
     stories[story] = null
+
+    #TODO: Watch out!
+    #Although browsers mostly retain object in order of insertion
+    #The order of object members are not guaranteed (Think: HashMap)
+    #PS. Cannot write test to proof this because of the above quirks
     data['stories'] = stories
     dataStore.put(room, data, retainTime)
 
   listStories: (room) ->
     data = @getData(room)
-    stories = data['stories']
-    stories ?= {}
-    return stories
-
-  getStoryFromRoom: (room) ->
-    data = dataStore.get(room)
     stories = data['stories']
     stories ?= {}
     return stories

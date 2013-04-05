@@ -1,6 +1,6 @@
 process.env.PORT = 3001
 
-require("should")
+should = require("should")
 require("../app")
 
 describe("Host Website", () ->
@@ -22,7 +22,6 @@ describe("Host Website", () ->
   after( (done) ->
     driver.quit().then( () -> done() )
   )
-
 
   it('first page should have correct title', (done) ->
     driver.get(FORESEE_BASE_URL)
@@ -97,6 +96,30 @@ describe("Host Website", () ->
     driver.findElement(webdriver.By.css("div#qrcode>img"))
     driver.findElement(webdriver.By.css("div#qrcode[title='#{joinUrl}']"))
 
+  it "first time access host page 'Start Now' button should disable", ->
+    testRoomName = "RoomName"
+    hostUrl = "#{FORESEE_BASE_URL}host/#{testRoomName}"
+    driver.get(hostUrl)
+    driver.findElement(webdriver.By.css("input#startNow[type='button']"))
+    driver.findElement(webdriver.By.css("input#startNow[disabled='disabled']"))
+
+  it "'Start Now' button should disable when no story"
+
+  it "'Start Now' button should enable when have story", ->
+    testRoomName = "RoomName"
+    anyStoryDesc = 'new story description'
+    hostUrl = "#{FORESEE_BASE_URL}host/#{testRoomName}"
+    driver.get(hostUrl)
+    driver.findElement(webdriver.By.css("input#storyDesc[type='text']")).sendKeys(anyStoryDesc)
+    driver.findElement(webdriver.By.css("button#addStory")).click()
+    driver.findElement(webdriver.By.css("ul#story-pile>li")).getText().then( (text) ->
+      text.should.equal(anyStoryDesc)
+      startNowBtn = driver.findElement(webdriver.By.css("input#startNow"))
+      startNowBtn.getAttribute('disabled').then( (val) ->
+        should.not.exist(val)
+      )
+      #console.log startNowBtn
+    )
 
 )
 

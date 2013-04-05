@@ -103,6 +103,11 @@ $ ->
         #       so we don't need to empty storyPile and readd whole stories.
         storyPile = $("#story-pile")
         storyPile.empty()
+
+        # TODO: must have test for this action.
+        if (Object.keys(data).length > 0)
+          $('#startNow').removeAttr('disabled')
+
         $.each data, (item) ->
           storyPile.append "<li>#{item}</li>"
       error: (jqXHR, textStatus, errorThrown) ->

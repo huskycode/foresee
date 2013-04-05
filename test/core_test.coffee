@@ -4,99 +4,98 @@ coreModule = require("../src/core")
 core = coreModule.core
 cache = coreModule.cache
 
+
+setupStory = (roomName = 'roomName', amount = 1) ->
+  core.addStory roomName, "story#{i}" for i in [1 .. amount]
+  core.listStories(roomName)
+
+setupParticipant = (roomName = 'roomName', amount = 1) ->
+  core.addParticipant roomName, "participant#{i}" for i in [1 .. amount]
+  core.listParticipants(roomName)
+
+
 describe("core", () ->
   beforeEach ->
     cache.clear()
 
-  describe "addStory()", ->
+  describe 'addStory()', ->
     it 'can add first story, #storiesExist', ->
-      core.addStory("roomName", "story1")
-      result = core.listStories('roomName')
-      should.exist(result)
+      result = setupStory('roomName', 1)
       result.should.eql({story1: null})
 
-  describe "listStory()", ->
+  describe 'listStory()', ->
     it 'returns blank when no stories, #storiesExist', ->
       result = core.listStories('roomName')
-      should.exist(result)
       result.should.eql({})
 
     it 'stories are listed in order of addition', ->
-      core.addStory("roomName", "story1")
-      core.addStory("roomName", "story2")
-      result = core.listStories('roomName')
-      should.exist(result)
-      Object.keys(result).should.eql(["story1","story2"])
+      result = setupStory('roomName', 2)
+      result.should.eql({story1: null, story2: null})
 
-  describe "addParticipant()", ->
-    it 'add first participant should be in list, #participantExists', ->
-      core.addParticipant('roomName', 'myName')
-      result = core.listParticipants("roomName")
-      should.exist(result)
-      Object.keys(result).should.eql(["myName"])
+  describe 'addParticipant()', ->
+    it 'add first participant should be in list, #participantExists', -> # QUESTION: duplicate-01
+      result = setupParticipant('roomName', 1)
+      result.should.eql({participant1: null})
 
     it 'add two participant should set 2 value in data', ->
-      core.addParticipant('roomName', 'myName')
-      core.addParticipant('roomName', 'anotherName')
-      result = cache.get('roomName').participants
-      should.exist(result)
-      Object.keys(result).should.eql(["myName","anotherName"])
+      result = setupParticipant('roomName', 2)
+      result.should.eql({participant1: null, participant2: null})
 
-  describe "listParticipant()", ->
+  describe 'listParticipant()', ->
     it 'return blank when no participants, #participantExists' , ->
-      core.listParticipants('roomName').should.eql({})
+      result = core.listParticipants('roomName')
+      result.should.eql({})
 
-    it 'list participants will return object of participants' , ->
-      expectParticipants = {'myName':null}
-      core.addParticipant('roomName', 'myName')
-      participants = core.listParticipants('roomName')
-      participants.should.eql(expectParticipants)
+    it 'list participants will return object of participants' , -> # QUESTION: duplicate-01, Is this wrong? (caused by setupStory)
+      result = setupParticipant('roomName', 1)
+      result.should.eql({participant1: null})
 
-  describe "removeParticipant()", ->
+  describe 'removeParticipant()', ->
     it 'should remove specified participant from set', ->
-      #Given two participants exist
-      core.addParticipant('roomName', 'participant1')
-      core.addParticipant('roomName', 'participant2')
-
-      #When we remove a participant
+      setupParticipant('roomName', 2)
       core.removeParticipant('roomName', 'participant1')
-
-      #Then only one participant exists in room
-      participants = core.listParticipants('roomName')
-      participants.should.eql({"participant2":null})
+      result = core.listParticipants('roomName')
+      result.should.eql({participant2: null})
 
     it 'should not remove anything if a participant does not exist, #participantExists', ->
-      core.addParticipant('roomName', 'participant1')  
+      setupParticipant('roomName', 1)
       core.removeParticipant('roomName', 'someBodyNotHere')
-      core.listParticipants('roomName').should.eql({"participant1":null})
+      result = core.listParticipants('roomName')
+      result.should.eql({participant1: null})
 
-  describe "getData()", ->
-    it "should return blank object when cache is undefined", ->
-        core.getData("roomName").should.eql({})
+  describe 'getData()', ->
+    it 'should return blank object when cache is undefined', ->
+      result = core.getData('roomName')
+      result.should.eql({})
 
-    it "should return blank object when cache is null", ->
-        cache.put('roomName', null)
-        core.getData("roomName").should.eql({})
+    it 'should return blank object when cache is null', ->
+      cache.put('roomName', null)
+      result = core.getData('roomName')
+      result.should.eql({})
 
-    it "should return data when cache has data", ->
-        anyData = {"anyData"}
-        cache.put('roomName', anyData)
-        core.getData("roomName").should.eql(anyData)
+    it 'should return data when cache has data', ->
+      anyData = {'anyData'}
+      cache.put('roomName', anyData)
+      result = core.getData('roomName')
+      result.should.eql(anyData)
 
-  describe "ensureRoomExist()", ->
+  describe 'ensureRoomExist()', ->
     it 'should put blank object into room if cache.get(room) is null.', ->
       cache.put('roomName', null)
       core.ensureRoomExist('roomName')
-      cache.get('roomName').should.eql({})
+      result = cache.get('roomName')
+      result.should.eql({})
 
     it 'should put blank object into room if cache.get(room) is undefined.', ->
       core.ensureRoomExist('roomName')
-      cache.get('roomName').should.eql({})
+      result = cache.get('roomName')
+      result.should.eql({})
 
-  describe "vote()", ->
+  describe 'vote()', ->
     it 'should put cast result to participant', ->
-      expectResult = {participants: {myName: 2}}
-      cache.put('roomName', {'participants': {myName: null}})
-      core.vote('roomName', 'myName', 2)
-      cache.get('roomName').should.eql(expectResult)
+      expectResult = {participants: {participant1: 2}}
+      setupParticipant('roomName', 1)
+      core.vote('roomName', 'participant1', 2)
+      result = cache.get('roomName')
+      result.should.eql(expectResult)
 )

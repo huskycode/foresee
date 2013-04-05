@@ -2,7 +2,7 @@ should = require("should")
 
 coreModule = require("../src/core")
 core = coreModule.core
-cache = coreModule.cache
+datastore = coreModule.datastore
 
 
 setupStory = (roomName = 'roomName', amount = 1) ->
@@ -16,7 +16,7 @@ setupParticipant = (roomName = 'roomName', amount = 1) ->
 
 describe("core", () ->
   beforeEach ->
-    cache.clear()
+    datastore.clear()
 
   describe 'addStory()', ->
     it 'can add first story, #storiesExist', ->
@@ -63,39 +63,10 @@ describe("core", () ->
       result = core.listParticipants('roomName')
       result.should.eql({participant1: null})
 
-  describe 'getData()', ->
-    it 'should return blank object when cache is undefined', ->
-      result = core.getData('roomName')
-      result.should.eql({})
-
-    it 'should return blank object when cache is null', ->
-      cache.put('roomName', null)
-      result = core.getData('roomName')
-      result.should.eql({})
-
-    it 'should return data when cache has data', ->
-      anyData = {'anyData'}
-      cache.put('roomName', anyData)
-      result = core.getData('roomName')
-      result.should.eql(anyData)
-
-  describe 'ensureRoomExist()', ->
-    it 'should put blank object into room if cache.get(room) is null.', ->
-      cache.put('roomName', null)
-      core.ensureRoomExist('roomName')
-      result = cache.get('roomName')
-      result.should.eql({})
-
-    it 'should put blank object into room if cache.get(room) is undefined.', ->
-      core.ensureRoomExist('roomName')
-      result = cache.get('roomName')
-      result.should.eql({})
-
   describe 'vote()', ->
     it 'should put cast result to participant', ->
-      expectResult = {participants: {participant1: 2}}
       setupParticipant('roomName', 1)
       core.vote('roomName', 'participant1', 2)
-      result = cache.get('roomName')
-      result.should.eql(expectResult)
+      result = datastore.get('roomName')
+      result["participants"].should.eql({participant1: 2})
 )

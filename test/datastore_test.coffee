@@ -23,3 +23,8 @@ describe "datastore", () ->
     cache.put('roomName', anyData)
     result = datastore.get('roomName')
     result.should.eql(anyData)
+
+  it 'can clear data', () ->
+    datastore.put('abc', 'testData')
+    datastore.clear()
+    datastore.get('abc').should.eql({ "stories":{}, "participants":{} })

@@ -1,11 +1,12 @@
-cache = require('memory-cache')
+datastoreModule = require('./datastore')
+datastore = datastoreModule.datastore
 
 #core
 retainTime = 3600000
 
 Controller = (dataStore) -> {
   addStory: (room, story) ->
-    data = @getData(room)
+    data = dataStore.get(room)
     stories = @listStories(room)
 
     stories[story] = null
@@ -18,16 +19,13 @@ Controller = (dataStore) -> {
     dataStore.put(room, data, retainTime)
 
   listStories: (room) ->
-    data = @getData(room)
+    data = dataStore.get(room)
     stories = data['stories']
     stories ?= {}
     return stories
 
-  ensureRoomExist: (room) ->
-    if not dataStore.get(room)? then dataStore.put(room, {})
-
   addParticipant: (room, participant) ->
-    data = @getData(room)
+    data = dataStore.get(room)
     participants = data.participants ? {}
 
     participants[participant] = null
@@ -35,25 +33,21 @@ Controller = (dataStore) -> {
     dataStore.put(room, data, retainTime)
 
   listParticipants: (room) ->
-    data = @getData(room)
+    data = dataStore.get(room)
     data.participants ? {}
 
   removeParticipant: (room, participant) ->
-    data = @getData(room)
+    data = dataStore.get(room)
     delete data["participants"][participant]
     dataStore.put(room, data, retainTime)
 
-  getData: (room) ->
-    @ensureRoomExist(room)
-    return dataStore.get(room)
-
   vote: (room, participant, vote) ->
-    data = @getData(room)
+    data = dataStore.get(room)
     data.participants[participant] = vote
     dataStore.put(room, data, retainTime)
 }
 
-core = Controller(cache)
+core = Controller(datastore)
 
 exports.core = core
-exports.cache = cache
+exports.datastore = datastore

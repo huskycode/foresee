@@ -7,6 +7,9 @@ DataStore = (storage) -> {
   
   put : (roomName, data) ->
     storage.put(roomName, data)
+
+  clear: () ->
+    storage.clear()
 }
 
 datastore = DataStore(cache)

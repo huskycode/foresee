@@ -3,7 +3,7 @@ sinon = require("sinon")
 
 coreModule = require("../src/core")
 core = coreModule.core
-cache = coreModule.cache
+datastore = coreModule.datastore
 
 route = require("../src/route").route
 
@@ -41,7 +41,7 @@ describe("route", () ->
 
   it('story/add calls method in core', () ->
     #Given a room with no stories in it initially
-    cache.clear()
+    datastore.clear()
 
     #Stub return value
     roomName = "someroom"

@@ -10,7 +10,7 @@ describe "datastore", () ->
 	
   it 'get return data stucture with blank value if not exist.', () ->
     result = datastore.get('roomName')
-    result.should.eql({"stories":{}, "participants":{}}) 
+    result.should.eql({ "stories":{}, "participants":{} }) 
 	
   it 'put data into memory.', () ->
     anyData = {'anyData'}

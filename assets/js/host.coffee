@@ -44,6 +44,12 @@ populateCards = (votes) ->
   $("#cards").html(result)
 
 
+enableStartNowButton = (jQuery,storyList) ->
+  if (Object.keys(storyList).length > 0)
+    jQuery('#startNow').removeAttr('disabled')
+
+#can't put in end of file, be found something wrong in main function
+window.enableStartNowButton = enableStartNowButton
 
 $ ->
   # Instantiate Components
@@ -112,5 +118,3 @@ $ ->
           storyPile.append "<li>#{item}</li>"
       error: (jqXHR, textStatus, errorThrown) ->
         alert(errorThrown)
-
-

@@ -15,8 +15,9 @@ describe("Host Website", () ->
   before( () ->
     server = new remote.SeleniumServer({jar: "webtest/selenium-server-standalone-2.31.0.jar", port:4444})
     server.start()
-    driver = new webdriver.Builder().usingServer(server.address()).withCapabilities({'browserName': 'firefox'}).build()
-
+    driver = new webdriver.Builder()
+      .usingServer(server.address())
+      .withCapabilities({'browserName': 'firefox'}).build()
   )
 
   after( (done) ->
@@ -40,8 +41,8 @@ describe("Host Website", () ->
     )
     driver.getCurrentUrl().then( (location) ->
       location.should.equal(FORESEE_BASE_URL + 'host/RoomName')
+      done()
     )
-    done()
   )
 
   it('Create a room with blank room name will nothing happen', (done) ->
@@ -54,58 +55,74 @@ describe("Host Website", () ->
     )
     driver.getCurrentUrl().then( (location) ->
       location.should.equal(FORESEE_BASE_URL)
+      done()
     )
-    done()
   )
 
-  it('host page should have input text and button for add new story.', ->
+  it('host page should have input text and button for add new story.', (done) ->
     driver.get(FORESEE_BASE_URL + "host/RoomName")
     driver.findElement(webdriver.By.css("input#storyDesc[type='text']"))
     driver.findElement(webdriver.By.css("button#addStory"))
+    .then( (element) ->
+      done()
+    )
   )
 
-  it('host page should show story pile', ->
+  it('host page should show story pile', (done) ->
     driver.get(FORESEE_BASE_URL + "host/RoomName")
     driver.findElement(webdriver.By.css("ul#story-pile"))
+    .then( (element) ->
+      done()
+    )
   )
 
-  it('added story should show in story pile.', ->
+  it('added story should show in story pile.', (done) ->
     anyStoryDesc = 'new story description'
     driver.get(FORESEE_BASE_URL + "host/RoomName")
     driver.findElement(webdriver.By.css("input#storyDesc[type='text']")).sendKeys(anyStoryDesc)
     driver.findElement(webdriver.By.css("button#addStory")).click()
     # need to wait ajax call.
-    driver.findElement(webdriver.By.css("ul#story-pile>li")).getText().then( (text) ->
+    driver.findElement(webdriver.By.css("ul#story-pile>li")).getText()
+    .then( (text) ->
       text.should.equal(anyStoryDesc)
+      done()
     )
   )
 
-  it('host page should generate a visible link', ->
+  it('host page should generate a visible link', (done) ->
     testRoomName = "RoomName"
     driver.get("#{FORESEE_BASE_URL}host/#{testRoomName}")
-    driver.findElement(webdriver.By.id("link")).getText().then( (text) ->
+    driver.findElement(webdriver.By.id("link")).getText()
+    .then( (text) ->
        text.should.equal("#{FORESEE_BASE_URL}join/#{testRoomName}")
+       done()
     )
   )
 
-  it "host page should show QRCode for current room.", ->
+  it "host page should show QRCode for current room.", (done) ->
     testRoomName = "RoomName"
     hostUrl = "#{FORESEE_BASE_URL}host/#{testRoomName}"
     joinUrl = "#{FORESEE_BASE_URL}join/#{testRoomName}"
     driver.get(hostUrl)
     driver.findElement(webdriver.By.css("div#qrcode>img"))
     driver.findElement(webdriver.By.css("div#qrcode[title='#{joinUrl}']"))
+    .then( (element) ->
+      done()
+    )
 
-  it "first time access host page 'Start Now' button should disable", ->
+  it "first time access host page 'Start Now' button should disable", (done) ->
     testRoomName = "RoomName"
     hostUrl = "#{FORESEE_BASE_URL}host/#{testRoomName}"
     driver.get(hostUrl)
     driver.findElement(webdriver.By.css("input#startNow[type='button']"))
     driver.findElement(webdriver.By.css("input#startNow[disabled='disabled']"))
+    .then( (element) ->
+      done()
+    )
 
   it "'Start Now' button should disable when no story"
 
-  it "'Start Now' button should enable when have story", ->
+  it "'Start Now' button should enable when have story", (done) ->
     testRoomName = "RoomName"
     anyStoryDesc = 'new story description'
     hostUrl = "#{FORESEE_BASE_URL}host/#{testRoomName}"
@@ -114,11 +131,12 @@ describe("Host Website", () ->
     driver.findElement(webdriver.By.css("button#addStory")).click()
     driver.findElement(webdriver.By.css("ul#story-pile>li")).getText().then( (text) ->
       text.should.equal(anyStoryDesc)
-      startNowBtn = driver.findElement(webdriver.By.css("input#startNow"))
+    )
+    driver.findElement(webdriver.By.css("input#startNow")).then( (startNowBtn) ->
       startNowBtn.getAttribute('disabled').then( (val) ->
         should.not.exist(val)
+        done()
       )
-      #console.log startNowBtn
     )
 
 )

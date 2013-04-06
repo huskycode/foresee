@@ -26,20 +26,16 @@ sendRefreshMessage = (socket, room) -> socket.emit('voteRefresh', {room: room, v
 
 io.sockets.on 'connection', (socket) ->
   clientSockets.push(socket)
-  console.log("Sockets:" + clientSockets.length)
 
   socket.on 'removeParticipant', (data) ->
-    console.log("removeParticipant" + data)
     core.removeParticipant(data.room, data.name)
     clientSockets.forEach (item, i) ->
       sendRefreshMessage(item, data.room)
 
   socket.on 'ask', (data) ->
-    console.log("ask: " + data)
     sendRefreshMessage(socket, data.room)
 
   socket.on 'vote', (data) ->
-    console.log("vote: " + data)
     core.vote(data.room, data.name, data.vote)
     clientSockets.forEach (item, i) ->
       sendRefreshMessage(item, data.room)
@@ -48,9 +44,6 @@ io.sockets.on 'connection', (socket) ->
     console.log(data)
 
   socket.on 'disconnect', () ->
-    console.log("Disconnect socket")
-
-    console.log("Before sockets:" + clientSockets.length)
     indexToRemove = null
     clientSockets.forEach (item, i) ->
       if(item == socket)
@@ -58,7 +51,6 @@ io.sockets.on 'connection', (socket) ->
 
     if(indexToRemove != null)
       clientSockets.splice(indexToRemove,1)
-    console.log("After sockets:" + clientSockets.length)
 
 #App
 

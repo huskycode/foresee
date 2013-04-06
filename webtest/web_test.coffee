@@ -128,11 +128,12 @@ describe("Host Website", () ->
       hostUrl = "#{FORESEE_BASE_URL}host/#{testRoomName}"
       
       hostPage = nav.toHostPage(testRoomName)
-      hostPage.startNow.then( (btn) -> 
-        btn.getAttribute('disabled').then( (val) -> val.should.eql("true"); done(); )
+      hostPage.startNow.getAttribute('disabled').then( (value) -> 
+        value.should.eql("true"); 
+        done(); 
       )
 
-    it 'should show new story in story pile when added', (done) ->
+    it 'should show new story in story pile when added and startNow is enabled', (done) ->
       anyStoryDesc = 'new story description'
 
       hostPage = nav.toHostPage("RoomName")
@@ -140,32 +141,13 @@ describe("Host Website", () ->
       hostPage.clickAddStory()
 
       # need to wait ajax call.
-      hostPage.findStoryPileOne().getText()
-      .then( (text) ->
-        text.should.equal(anyStoryDesc)
-        done()
+      hostPage.findStoryPileOne().getText().then( (text) -> text.should.equal(anyStoryDesc) )
+      hostPage.startNow.getAttribute('disabled').then( (value) -> 
+        should.not.exist(value); done(); 
       )
 
     #This test is currently not necessary - as we have no way to remove 
     #any stories yet.
     it "'Start Now' button should disable when no story"
-
-    it "'Start Now' button should enable when have story", (done) ->
-      testRoomName = "RoomName"
-      anyStoryDesc = 'new story description'
-      hostUrl = "#{FORESEE_BASE_URL}host/#{testRoomName}"
-      driver.get(hostUrl)
-      driver.findElement(webdriver.By.css("input#storyDesc[type='text']")).sendKeys(anyStoryDesc)
-      driver.findElement(webdriver.By.css("button#addStory")).click()
-      driver.findElement(webdriver.By.css("ul#story-pile>li")).getText().then( (text) ->
-        text.should.equal(anyStoryDesc)
-      )
-      driver.findElement(webdriver.By.css("input#startNow")).then( (startNowBtn) ->
-        startNowBtn.getAttribute('disabled').then( (val) ->
-          should.not.exist(val)
-          done()
-        )
-      )
-
 )
 

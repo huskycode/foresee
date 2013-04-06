@@ -8,7 +8,13 @@ webdriver = require("selenium-webdriver")
 remote = require("selenium-webdriver/remote")
 FORESEE_BASE_URL = "http://localhost:3001/"
 
-
+# Page Objects
+# ============
+# Adapted from Java version
+# @see https://code.google.com/p/selenium/wiki/PageObjects
+# 
+# Please note that 
+# 1. element existence is checked when objects are created automatically 
 HomePage = (driver) -> 
   driver.getCurrentUrl().then( (location) -> location.should.equal(FORESEE_BASE_URL) )
   return {
@@ -33,8 +39,15 @@ HostPage = (driver) ->
     addStory: driver.findElement(webdriver.By.css("button#addStory"))
     storyPile: driver.findElement(webdriver.By.css("ul#story-pile"))
 
+
     qrCodeImg: driver.findElement(webdriver.By.css("div#qrcode>img"))
     qrCode: driver.findElement(webdriver.By.css("div#qrcode"))
+
+    startNow: driver.findElement(webdriver.By.css("input#startNow[type='button']"))
+
+    typeStoryDesc: (desc) -> @storyDesc.sendKeys(desc)
+    clickAddStory: () -> @addStory.click()
+    findStoryPileOne: () -> driver.findElement(webdriver.By.css("ul#story-pile>li"))
   }
 
 navigation = (driver) -> {
@@ -42,6 +55,7 @@ navigation = (driver) -> {
   toHostPage: (roomName) -> driver.get(FORESEE_BASE_URL + "host/RoomName"); return HostPage(driver);
 }
 
+# Tests
 describe("Host Website", () ->
   server = null
   driver = null
@@ -104,37 +118,36 @@ describe("Host Website", () ->
       hostUrl = "#{FORESEE_BASE_URL}host/#{testRoomName}"
       joinUrl = "#{FORESEE_BASE_URL}join/#{testRoomName}"
       
-      hostPage = nav.toHostPage("RoomName") #[title='#{joinUrl}']
+      hostPage = nav.toHostPage("RoomName")
       hostPage.qrCode.then( (qrCode) -> 
         qrCode.getAttribute('title').then( (val) -> val.should.eql(joinUrl); done();  ) 
       )
 
+    it "should show 'Start Now' button as disabled", (done) ->
+      testRoomName = "RoomName"
+      hostUrl = "#{FORESEE_BASE_URL}host/#{testRoomName}"
+      
+      hostPage = nav.toHostPage(testRoomName)
+      hostPage.startNow.then( (btn) -> 
+        btn.getAttribute('disabled').then( (val) -> val.should.eql("true"); done(); )
+      )
 
     it 'should show new story in story pile when added', (done) ->
       anyStoryDesc = 'new story description'
-      driver.get(FORESEE_BASE_URL + "host/RoomName")
-      driver.findElement(webdriver.By.css("input#storyDesc[type='text']")).sendKeys(anyStoryDesc)
-      driver.findElement(webdriver.By.css("button#addStory")).click()
+
+      hostPage = nav.toHostPage("RoomName")
+      hostPage.typeStoryDesc(anyStoryDesc)
+      hostPage.clickAddStory()
+
       # need to wait ajax call.
-      driver.findElement(webdriver.By.css("ul#story-pile>li")).getText()
+      hostPage.findStoryPileOne().getText()
       .then( (text) ->
         text.should.equal(anyStoryDesc)
         done()
       )
 
-
-
-
-    it "first time access host page 'Start Now' button should disable", (done) ->
-      testRoomName = "RoomName"
-      hostUrl = "#{FORESEE_BASE_URL}host/#{testRoomName}"
-      driver.get(hostUrl)
-      driver.findElement(webdriver.By.css("input#startNow[type='button']"))
-      driver.findElement(webdriver.By.css("input#startNow[disabled='disabled']"))
-      .then( (element) ->
-        done()
-      )
-
+    #This test is currently not necessary - as we have no way to remove 
+    #any stories yet.
     it "'Start Now' button should disable when no story"
 
     it "'Start Now' button should enable when have story", (done) ->

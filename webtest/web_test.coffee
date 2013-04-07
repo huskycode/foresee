@@ -13,10 +13,10 @@ FORESEE_BASE_URL = "http://localhost:3001/"
 # ============
 # Adapted from Java version
 # @see https://code.google.com/p/selenium/wiki/PageObjects
-# 
-# Please note that 
-# 1. element existence is checked when objects are created automatically 
-HomePage = (driver) -> 
+#
+# Please note that
+# 1. element existence is checked when objects are created automatically
+HomePage = (driver) ->
   driver.getCurrentUrl().then( (location) -> location.should.equal(FORESEE_BASE_URL) )
   return {
     #Page Elements
@@ -30,7 +30,7 @@ HomePage = (driver) ->
     clickCreateRoomExpectingNothingHappens: () -> @createRoom.click(); return HomePage(driver);
   }
 
-HostPage = (driver) -> 
+HostPage = (driver) ->
   return {
     url: driver.getCurrentUrl()
     title: driver.getTitle()
@@ -52,7 +52,7 @@ HostPage = (driver) ->
   }
 
 
-TestFrames = (driver) -> 
+TestFrames = (driver) ->
   hostFrame = driver.findElement(webdriver.By.id("host"))
   client1 = driver.findElement(webdriver.By.id("client1"))
 
@@ -102,10 +102,10 @@ describe("Host Website", () ->
   after( (done) ->
     driver.quit().then( () -> done() )
   )
-
+  ###
   describe "Home Page", ->
     it 'should have correct title', (done) ->
-      homePage = nav.toHomePage() 
+      homePage = nav.toHomePage()
       homePage.title
         .then( (title) ->
            title.should.equal("Foresee")
@@ -121,7 +121,7 @@ describe("Host Website", () ->
       hostPage.title.then( (title) -> title.should.equal("Host - RoomName"); done(); )
 
     it 'should stay at the same page if no room name is entered', (done) ->
-      homePage = nav.toHomePage() 
+      homePage = nav.toHomePage()
       homePage.typeRoomName("")
       homePage = homePage.clickCreateRoomExpectingNothingHappens()
       homePage.title.then( (title) -> title.should.equal("Foresee"); done(); )
@@ -137,29 +137,29 @@ describe("Host Website", () ->
 
     it 'should generate a visible link', (done) ->
       hostPage = nav.toHostPage("RoomName")
-      hostPage.link.getText().then( (text) -> 
+      hostPage.link.getText().then( (text) ->
          text.should.equal("#{FORESEE_BASE_URL}join/RoomName")
-         done()  
+         done()
       )
 
     it "should show QRCode for current room.", (done) ->
       testRoomName = "RoomName"
       hostUrl = "#{FORESEE_BASE_URL}host/#{testRoomName}"
       joinUrl = "#{FORESEE_BASE_URL}join/#{testRoomName}"
-      
+
       hostPage = nav.toHostPage("RoomName")
-      hostPage.qrCode.then( (qrCode) -> 
-        qrCode.getAttribute('title').then( (val) -> val.should.eql(joinUrl); done();  ) 
+      hostPage.qrCode.then( (qrCode) ->
+        qrCode.getAttribute('title').then( (val) -> val.should.eql(joinUrl); done();  )
       )
 
     it "should show 'Start Now' button as disabled", (done) ->
       testRoomName = "RoomName"
       hostUrl = "#{FORESEE_BASE_URL}host/#{testRoomName}"
-      
+
       hostPage = nav.toHostPage(testRoomName)
-      hostPage.startNow.getAttribute('disabled').then( (value) -> 
-        value.should.eql("true"); 
-        done(); 
+      hostPage.startNow.getAttribute('disabled').then( (value) ->
+        value.should.eql("true");
+        done();
       )
 
     it 'should show new story in story pile when added and startNow is enabled', (done) ->
@@ -171,14 +171,14 @@ describe("Host Website", () ->
 
       # need to wait ajax call.
       hostPage.findStoryPileOne().getText().then( (text) -> text.should.equal(anyStoryDesc) )
-      hostPage.startNow.getAttribute('disabled').then( (value) -> 
-        should.not.exist(value); done(); 
+      hostPage.startNow.getAttribute('disabled').then( (value) ->
+        should.not.exist(value); done();
       )
 
-    #This test is currently not necessary - as we have no way to remove 
+    #This test is currently not necessary - as we have no way to remove
     #any stories yet.
     it "'Start Now' button should disable when no story"
-
+  ###
   describe "Client", ->
     it 'should be able to join a room and their vote is displayed on host screen', (done) ->
       frame = nav.toTestFrame()
@@ -196,17 +196,22 @@ describe("Host Website", () ->
         #TODO: Refactor this part into PageObject patterns
         driver.findElement(webdriver.By.id("name")).sendKeys("UserName1")
         driver.findElement(webdriver.By.id("add")).click()
-        
+
         #TODO: Find a way to select some combobox in WebDriverJS
         #asked StackOverflow http://stackoverflow.com/questions/15859143/selecting-dropdown-in-webdriverjs
         #webdriver.Select(driver.findElement(webdriver.By.id("vote"))).selectByValue("5")
-        
+
         driver.sleep(1000) #Sleeps for transition
-        
+        select = driver.findElement(webdriver.By.id("vote"))
+        select.click()
+        select.findElement(webdriver.By.css("option[value='5']")).click()
+
+        driver.sleep(1000) #Sleeps for transition
+
         driver.findElement(webdriver.By.id("voteButton")).click()
         driver.findElements(webdriver.By.css(".card_holder>.card")).then( (elements) ->
           elements.length.should.eql(1)
-          elements[0].getText().then( (text) -> text.should.eql("1"); done(); )
+          elements[0].getText().then( (text) -> text.should.eql("5"); done(); )
         )
       )
 )

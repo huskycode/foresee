@@ -12,13 +12,13 @@ describe "QRCtrl", ->
     aUrl = "anyValidUrl"
 
     jq = sinon.stub()
-    mockJqueryVal(jq, "#url", aUrl) 
+    mockJqueryVal(jq, "#url", aUrl)
 
     qrCodeLib = sinon.stub()
-    
+
     #when generate QR code is called
     qrCtrl = QRCtrl(jq, qrCodeLib)
     qrCtrl.generateQRCode()
-    
+
     #then a qr library is called with correct params
     assert.isTrue(qrCodeLib.calledWith("qrcode", aUrl), "qrcodeLib not called with correct parameters")

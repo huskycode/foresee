@@ -8,6 +8,7 @@ webdriver = require("selenium-webdriver")
 remote = require("selenium-webdriver/remote")
 FORESEE_BASE_URL = "http://localhost:3001/"
 
+
 # Page Objects
 # ============
 # Adapted from Java version
@@ -50,9 +51,37 @@ HostPage = (driver) ->
     findStoryPileOne: () -> driver.findElement(webdriver.By.css("ul#story-pile>li"))
   }
 
+
+TestFrames = (driver) -> 
+  hostFrame = driver.findElement(webdriver.By.id("host"))
+  client1 = driver.findElement(webdriver.By.id("client1"))
+
+  #Shared Function
+  executeInFrame = (frame, callBack) ->
+    driver.switchTo().frame(frame)
+    callBack()
+    driver.switchTo().defaultContent()
+  navigateToUrl = (frameId, url) ->
+    driver.executeScript("document.getElementById('#{frameId}').src = '#{url}'")
+
+  #Prepare Frame
+  driver.executeScript("document.getElementById('host').src = '#{FORESEE_BASE_URL}'")
+
+  return {
+    hostFrame: hostFrame
+    client1: client1
+
+    executeInHostFrame: (callBack) -> executeInFrame(hostFrame, callBack)
+    executeInClientOneFrame: (callBack) -> executeInFrame(client1, callBack)
+    setClientOneUrl: (url) -> navigateToUrl("client1", url)
+  }
+
+
 navigation = (driver) -> {
   toHomePage: () -> driver.get(FORESEE_BASE_URL); return HomePage(driver);
   toHostPage: (roomName) -> driver.get(FORESEE_BASE_URL + "host/RoomName"); return HostPage(driver);
+
+  toTestFrame: () -> driver.get(FORESEE_BASE_URL + "test/frames.html"); return TestFrames(driver);
 }
 
 # Tests
@@ -149,5 +178,36 @@ describe("Host Website", () ->
     #This test is currently not necessary - as we have no way to remove 
     #any stories yet.
     it "'Start Now' button should disable when no story"
+
+  describe "Client", ->
+    it 'should be able to join a room and their vote is displayed on host screen', (done) ->
+      frame = nav.toTestFrame()
+      frame.executeInHostFrame( () ->
+        homePage = HomePage(driver)
+        homePage.typeRoomName("RoomName")
+        hostPage = homePage.clickCreateRoom()
+      )
+      frame.setClientOneUrl("#{FORESEE_BASE_URL}join/" + "RoomName")
+
+      #TODO: Is there a waitForElement(...) method in WebDriverJS?
+      driver.sleep(1000) #Sleeps for the client to load
+
+      frame.executeInClientOneFrame( () ->
+        #TODO: Refactor this part into PageObject patterns
+        driver.findElement(webdriver.By.id("name")).sendKeys("UserName1")
+        driver.findElement(webdriver.By.id("add")).click()
+        
+        #TODO: Find a way to select some combobox in WebDriverJS
+        #asked StackOverflow http://stackoverflow.com/questions/15859143/selecting-dropdown-in-webdriverjs
+        #webdriver.Select(driver.findElement(webdriver.By.id("vote"))).selectByValue("5")
+        
+        driver.sleep(1000) #Sleeps for transition
+        
+        driver.findElement(webdriver.By.id("voteButton")).click()
+        driver.findElements(webdriver.By.css(".card_holder>.card")).then( (elements) ->
+          elements.length.should.eql(1)
+          elements[0].getText().then( (text) -> text.should.eql("1"); done(); )
+        )
+      )
 )
 

@@ -2,12 +2,14 @@
 <html>
 <head>
   <title><%= @title %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%- css("bootstrap") %>
+  <%- css("bootstrap-responsive") %>
   <%- css("foresee") %>  
   <link rel="shortcut icon" type="image/png" href="images/favicon.png">
   <%- js("jquery-1.7.2.min") %>
   <%- js("bootstrap.min") %>
-<% content 'more-js' %>
+  <% content 'more-js' %>
 </head>
 <body>
   <div class="navbar navbar-fixed-top">

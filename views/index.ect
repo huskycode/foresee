@@ -7,10 +7,29 @@
 <% end %>
         <!-- Main hero unit for a primary marketing message or call to action -->
 <div class="box">
-    <h2>Estimate. Simple.</h2>
-    <p>Foresee helps the team quickly reach concensus on what is to be done, how much it will take and assumption mades along the way. </p>
-    <div class="form-horizontal">
-      <input type="text" placeholder="Type Room Name" name="id" id="id" />
-      <input type="button" class="btn btn-primary" id="createRoom" name="createRoom" value="Start Now &raquo;"/>
-    </div>
+    <section class="row-fluid" id="forms">
+        <div class="span6">
+            <h2>Moderator</h2>
+            <form class="form-horizontal">
+                <input type="text" placeholder="Room name" name="id" class="input-block-level" id="id">                  
+                <input type="button" class="btn pull-right" id="createRoom" name="createRoom" value="Create Room">
+            </form>
+        </div>  
+        <div class="span6">
+            <h2>Participants</h2>
+            <form class="form-horizontal">
+                <input type="text" placeholder="Room name" class="input-block-level">
+                <input type="text" placeholder="Your 3-letter initial" class="input-block-level" maxlength="3"> 
+                <button type="submit" class="btn pull-right">Enter Room</button>
+            </form>
+        </div>
+    </section>
+    <hr>
+    <section class="row-fluid" id="tagline">
+        <article class="span12" id="tagline">
+            <h2>What is Foresee?</h2>
+            <p>Foresee helps teams quickly reach a concensus on what needs to be done, how long it will take, and any assumptions made along the way.</p>
+            <p>Estimate. Simple.</p>            
+        </article> 
+    </section>
 </div>

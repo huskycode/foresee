@@ -1,17 +1,16 @@
-html, 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-	font: 125%/1.5 Merriweather, Georgia, "Times New Roman", Timesserif;
-	color: #252525;
+html {
 	vertical-align: baseline;
 	-webkit-font-smoothing: antialiased;
-	/*-webkit-text-size-adjust: 100%;
-	-ms-text-size-adjust: 100%;*/
+}
+
+body,
+p/*, 
+input, 
+button, 
+select, 
+textarea*/ {
+	line-height: 1.5em;
+	/*font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;*/
 }
 
 body {
@@ -23,7 +22,7 @@ body {
 .container-fluid {
 	margin: 0 auto;
 	padding: 0;
-	max-width: 860px;
+	max-width: 700px;
 }
 
 h1, 
@@ -33,34 +32,46 @@ h4,
 h5, 
 h6 {
 	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	line-height: 1.5em;
+	color: #555;
+	margin-bottom: 14px;
 }
 
 h1 {
-	font-size: 64px;
+	font-size: 4.5em;
 	font-weight: 800;
 	letter-spacing: -.02em;
+	color: #666;
+}
+
+h2 {
+	text-transform: uppercase;
+	font-size: 1.2em;
+	letter-spacing: .1em;
 }
 
 p {
-	font-family: Merriweather, Georgia, "Times New Roman", Times, serif;
+	font-size: 1.2em;
+	margin-bottom: 14px;
 }
 
 header {
-	color: #333;
 	text-transform: capitalize;
-	text-shadow: #fff 3px 3px 2px, #fff -3px -3px 2px;
+	text-shadow: #fff 2px 2px 2px, #fff -2px -2px 2px;
 	text-align: center;
 }
 
-/*header {
-	text-align: center;
-}*/
+header h1 {
+	/*color: #4f7cb2;*/
+	margin-bottom: 0px;
+}
+
+/*** box content ***/
 
 .box {
-	margin: 0 auto;
+	margin: 0 auto 10px;
 	padding: 60px;
 	max-width: 860px;
-	min-height: 240px;
 	background: #fff;
 	-moz-box-shadow: 0px 4px 20px rgba(0,0,0,0.06);
 	-webkit-box-shadow: 0px 4px 20px rgba(0,0,0,0.06);
@@ -70,6 +81,37 @@ header {
 	border-radius: 3px;
 }
 
-footer {
-	padding-top: 20px;
+.box>.row-fluid>.span6 {
+	width: 50%;
+	margin-left: 0;
+	padding-bottom: 30px;
 }
+
+.box>.row-fluid>.span6:first-child {
+	padding-right: 60px;
+}
+
+.box>.row-fluid>.span6:last-child {
+	padding-left: 60px;
+	border-left: 1px solid #eee;
+}
+
+.box h2{
+	text-align: center;
+}
+
+.form-horizontal input[type=text] {
+	margin-bottom: 8px;
+}
+
+hr {
+	margin-top: 0;
+	margin-bottom: 30px;
+	border-top: 1px solid #eee;
+}
+
+#tagline p:last-child {
+	margin-bottom: 0;
+}
+
+/*** end of box content ***/

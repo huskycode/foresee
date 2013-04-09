@@ -22,7 +22,7 @@ HomePage = (driver) ->
     #Page Elements
     title: driver.getTitle()
     roomName: driver.findElement(webdriver.By.css("input#id[type='text']"))
-    createRoom: driver.findElement(webdriver.By.css("input#createRoom[type='button']"))
+    createRoom: driver.findElement(webdriver.By.css("button#createRoom"))
 
     #Actions
     typeRoomName: (name) -> @roomName.sendKeys(name)
@@ -102,7 +102,7 @@ describe("Host Website", () ->
   after( (done) ->
     driver.quit().then( () -> done() )
   )
-  ###
+
   describe "Home Page", ->
     it 'should have correct title', (done) ->
       homePage = nav.toHomePage()
@@ -178,7 +178,7 @@ describe("Host Website", () ->
     #This test is currently not necessary - as we have no way to remove
     #any stories yet.
     it "'Start Now' button should disable when no story"
-  ###
+
   describe "Client", ->
     it 'should be able to join a room and their vote is displayed on host screen', (done) ->
       frame = nav.toTestFrame()

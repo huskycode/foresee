@@ -1,44 +1,31 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <title><%= @title %></title>
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= @title %></title>
   <%- css("bootstrap") %>
   <%- css("bootstrap-responsive") %>
-  <%- css("foresee") %>  
+  <%- css("foresee") %>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:800' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Merriweather:400' rel='stylesheet' type='text/css'>
   <link rel="shortcut icon" type="image/png" href="images/favicon.png">
   <%- js("jquery-1.7.2.min") %>
   <%- js("bootstrap.min") %>
   <% content 'more-js' %>
 </head>
 <body>
-  <div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </a>
-        <a class="brand" href="#">Foresee</a>
-        <div class="nav-collapse">
-          <ul class="nav">
-            <li class="active"><a href="/">Home</a></li>
-          </ul>
-        </div>  <!--/.nav-collapse -->
-      </div>
-    </div>
-  </div>
-  <div class="container">
+  <div class="container-fluid">
+    <header>
+      <h1>Foresee</h1>
+    </header>
     <% content %>
-    <hr>
 
-    <footer>
+    <footer class="pull-right">
       <a target="_blank" href="http://www.huskycode.com"> 
 	      <img alt="&copy; HuskyCode 2012" src="/images/huskycode_logo.png"/>
       </a>
     </footer>
-
   </div>
   <!-- /container -->
 </body>

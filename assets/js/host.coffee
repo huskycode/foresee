@@ -43,13 +43,50 @@ populateCards = (votes) ->
 
   $("#cards").html(result)
 
+#Page Object
+HostPage = (jq) -> {
+  startNow: jq("#startNow")
+  addStory: jq("#addStory")
+  storyPile: jq("#story-pile") 
+  roomId: jq("#roomId")
+  storyDesc: jq("#storyDesc")
+}
+
+#Helpers
+HTTPBackend = (jq) -> {
+  ajax: (params) -> jq.ajax(params)
+}
+
+#Controller
+StoriesCtrl = (hostPage, httpBackend) -> 
+  #Initialize
+  hostPage.addStory.click ->
+    httpBackend.ajax
+      url: "/story/add/room/#{hostPage.roomId.val()}/story/#{hostPage.storyDesc.val()}"
+      success: (data, textStatus, jqXHR) ->
+        # TODO: It's better when server send only recent added story,
+        #       so we don't need to empty storyPile and readd whole stories.
+        hostPage.storyPile.empty()
+
+        # TODO: must have test for this action.
+        if (Object.keys(data).length > 0)
+          hostPage.startNow.removeAttr('disabled')
+
+        data.forEach (item) ->
+          hostPage.storyPile.append "<li>#{item}</li>"
+      error: (jqXHR, textStatus, errorThrown) ->
+        alert(errorThrown)
+
+window.StoriesCtrl = StoriesCtrl
 
 enableStartNowButton = (jQuery,storyList) ->
   if (Object.keys(storyList).length > 0)
     jQuery('#startNow').removeAttr('disabled')
 
 #can't put in end of file, be found something wrong in main function
+#Non: I think wrong indentation makes coffeescript thinks this is part of "$ ->" 
 window.enableStartNowButton = enableStartNowButton
+
 
 $ ->
   # Instantiate Components

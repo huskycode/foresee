@@ -91,4 +91,10 @@ target.webtest_xvfb = ->
 
   exec("xvfb-run #{mocha("spec", config.webtestDir, 30000)}")
 
+target.test_on_jenkins = ->
+  target.test()
+  #Browser tests when ready !!
+  target.webtest_xvfb()
+  
+
   

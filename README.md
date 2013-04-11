@@ -52,7 +52,7 @@ Instructions for Dev
 1. sudo apt-get install software-properties-common
 2. sudo add-apt-repository ppa:chris-lea/node.js
 3. sudo apt-get update
-4. sudo apt-get install nodejs npm
+4. sudo apt-get install nodejs
 
 ### Windows
 1. Download Install from http://nodejs.org/download/

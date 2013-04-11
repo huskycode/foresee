@@ -5,3 +5,4 @@ node_modules/
 .app/
 browsertest/.js/
 .c9revisions/
+build/autotest.js

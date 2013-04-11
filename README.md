@@ -57,9 +57,12 @@ Instructions for Dev
 ### Windows
 1. Download Install from http://nodejs.org/download/
 2. Install 
+3. npm -g coffee-script
+4. npm -g shelljs
 
 ### All Platforms
 
+* Install firefox
 * Install java
 
 make sure you can run java from command line. Try this command
@@ -68,16 +71,9 @@ make sure you can run java from command line. Try this command
 
 (Use "sudo" if on ubuntu)
 
-1. npm install coffee-script -g 
-2. npm install mocha -g 
-3. npm install docco -g  
-4. npm install supervisor -g 
-5. npm install should -g 
-6. npm install nodemon -g
-7. 
 ### Running Server in Development Mode
 1. go to the directory
-2. type "npm run-script dev"
+2. type "./run dev" (or "run.bat dev" on Windows)
 3. browse to: http://localhost:3000
 
 ### Build Targets
@@ -89,5 +85,6 @@ The "run" script is created as a shortcut to build/make.coffee
     Unit Tests : ./run test 
     Selenium Tests : ./run webtest
     Auto Tests: ./run autotest
+    Browser Tests: ./run browsertest
 
 

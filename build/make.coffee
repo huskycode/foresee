@@ -1,49 +1,94 @@
 require 'shelljs/make'
+fs = require 'fs'
+
+#Configs
+config = {
+      srcDir: "src"
+    , testDir: "test"
+    , webtestDir: "webtest"
+    , browsertestDir: "browsertest"
+    , buildDir: "build"
+    , globalReqs: {"coffee":"coffee-script", "mocha":"mocha", "nodemon":"nodemon"}
+    , providedReqs: ["java"]
+}
 
 #Helpers
-req = (cmd) -> 
-  w = which cmd
-  if not w
-    echo "\"#{cmd}\" is required. Please make sure that it is properly installed."
-  return w != null
+isRootInUbuntu = -> exec("whoami", {silent:true}).output == 'root'
+needsSudo = -> (process.platform == 'linux') && (exec("hostname", {silent:true}).output.indexOf('c9-node') == -1) #detects if we are on cloud9
+isEnoughPriv =  -> ( !needsSudo() || isRootInUbuntu() ) 
 
-exec_and_print = (dir, cmd) ->
+globalPkgInstallCommand = (pkg, withSudo) -> (if(withSudo) then "sudo " else "") + "npm install #{pkg} -g"
+
 
 #Tasks
+mocha = (reporter="spec", testDir="#{config.testDir}", timeout=1000) -> 
+  "mocha --reporter #{reporter} --compilers coffee:coffee-script --colors #{testDir}/*_test.coffee -t #{timeout}"
+
 target.all = -> 
   target.dev()
 
-target.checkreq = ->
-  reqs_status = [req("nodemon"), req("supervisor"), req("mocha"), req("npm"), req("java")]
-  if( reqs_status.indexOf(false) != -1 )
+target.ensureProvidedReqs = ->
+  notInstalled = config.providedReqs.filter( (item) -> not which(item) )
+  notInstalled.forEach( (item) -> echo("Please make sure that #{item} is properly installed.") )
+
+  if(notInstalled.length > 0)
     exit(1)
+
+target.ensureGlobalReqs = ->
+  notInstalledKeys = (k for k,v of config.globalReqs when not which(k))
+  if(notInstalledKeys.length > 0)
+    if(!isEnoughPriv())
+      echo("Does not have enough priviledge to install global packages")
+      echo("Please run 'sudo ./run ensureGlobalReqs' to install needed global pkgs")
+      exit(1)
+
+    exec(globalPkgInstallCommand(config.globalReqs[k], needsSudo())) for k in notInstalledKeys
 
 target.npmInstall = ->
-  target.checkreq()
   exec("npm install")
 
-target.dev = ->
+target.ensureReqs = ->
+  target.ensureProvidedReqs()
+  target.ensureGlobalReqs()
   target.npmInstall()
-  exec("supervisor -w src -e 'js|coffee' app")
 
 target.autotest = ->
-  exec("nodemon --watch src --watch test -e js,coffee  build/autotest.js")
+  target.ensureReqs()
+  scripts = "
+require('shelljs/global');\n 
+\n
+console.log('\\033[2J\\033[0f'); //Clear Screen\n
+console.log('Restarting autotest...');\n
+\n
+exec('#{mocha("min")}');\n
+  "
+  fs.writeFileSync("#{config.buildDir}/autotest.js", scripts)
+
+  exec("nodemon --watch #{config.srcDir} --watch #{config.testDir} -e js,coffee #{config.buildDir}/autotest.js")
+
+target.dev = ->
+  target.ensureReqs()
+  exec("nodemon --watch #{config.srcDir} -e js,coffee app.js")
 
 target.test = ->
-  exec("mocha --reporter spec --compilers coffee:coffee-script --colors --require should test/*.coffee")
+  target.ensureReqs()
+  exec("#{mocha("spec")}")
 
 target.webtest = ->
-  exec("mocha --reporter spec --compilers coffee:coffee-script --colors --require should webtest/*.coffee -t 30000")
+  target.ensureReqs()
+  exec("#{mocha("spec", config.webtestDir, 30000)}")
 
 target.browsertest = ->
-  exec("coffee -c -o browsertest/.js/ -w -m browsertest/ assets/js/")
+  target.ensureReqs()
+  exec("coffee -c -o #{config.browsertestDir}/.js/ -w -m #{config.browsertestDir}/ assets/js/")
 
-target.webtest_c9 = ->
+target.webtest_xvfb = ->
+  target.ensureReqs()
   #This will only work with ubuntu with xvfb
-  reqs_status = [req("xvfb-run"), req("firefox")]
-  if( reqs_status.indexOf(false) != -1 )
+  if(not which("xvfb-run"))
+    echo "Please ensure that xvfb-run is properly installed."
     exit(1)
 
-  exec("xvfb-run mocha --reporter spec --compilers coffee:coffee-script --colors --require should webtest/*.coffee -t 300000")
+  exec("xvfb-run #{mocha("spec", config.webtestDir, 30000)}")
 
   

@@ -35,6 +35,9 @@ target.test = ->
 target.webtest = ->
   exec("mocha --reporter spec --compilers coffee:coffee-script --colors --require should webtest/*.coffee -t 30000")
 
+target.browsertest = ->
+  exec("coffee -c -o browsertest/.js/ -w -m browsertest/ assets/js/")
+
 target.webtest_c9 = ->
   #This will only work with ubuntu with xvfb
   reqs_status = [req("xvfb-run"), req("firefox")]

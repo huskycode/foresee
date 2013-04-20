@@ -55,10 +55,10 @@ Instructions for Dev
 4. sudo apt-get install nodejs
 
 ### Windows
-1. Download Install from http://nodejs.org/download/
-2. Install 
-3. npm -g coffee-script
-4. npm -g shelljs
+1. Download Install nodejs from http://nodejs.org/download/
+
+For XP and lower do this extra step
+2. npm -g coffee-script
 
 ### All Platforms
 
@@ -81,10 +81,9 @@ make sure you can run java from command line. Try this command
 Take a look at build/make.coffee
 
 The "run" script is created as a shortcut to build/make.coffee
+For windows xp and lower: uses run-xp
 
     Unit Tests : ./run test 
     Selenium Tests : ./run webtest
     Auto Tests: ./run autotest
     Browser Tests: ./run browsertest
-
-

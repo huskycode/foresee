@@ -96,5 +96,7 @@ target.test_on_jenkins = ->
   #Browser tests when ready !!
   target.webtest_xvfb()
   
+target.zip = ->
+  exec("zip -b ./dist ./dist/foresee.zip src/* assets assets/css/* assets/js/* node_modules/* app.js build/node views/*")
 
   

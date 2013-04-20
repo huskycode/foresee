@@ -15,16 +15,16 @@ config = {
 #Helpers
 isRootInUbuntu = -> exec("whoami", {silent:true}).output == 'root'
 needsSudo = -> (process.platform == 'linux') && (exec("hostname", {silent:true}).output.indexOf('c9-node') == -1) #detects if we are on cloud9
-isEnoughPriv =  -> ( !needsSudo() || isRootInUbuntu() ) 
+isEnoughPriv =  -> ( !needsSudo() || isRootInUbuntu() )
 
 globalPkgInstallCommand = (pkg, withSudo) -> (if(withSudo) then "sudo " else "") + "npm install #{pkg} -g"
 
 
 #Tasks
-mocha = (reporter="spec", testDir="#{config.testDir}", timeout=1000) -> 
-  "mocha --reporter #{reporter} --compilers coffee:coffee-script --colors #{testDir}/ -t #{timeout}"
+mocha = (reporter="spec", testDir="#{config.testDir}", timeout=1000) ->
+  "mocha --reporter #{reporter} --compilers coffee:coffee-script --colors #{testDir}/ -t #{timeout} | tee junit.xml"
 
-target.all = -> 
+target.all = ->
   target.dev()
 
 target.ensureProvidedReqs = ->
@@ -55,7 +55,7 @@ target.ensureReqs = ->
 target.autotest = ->
   target.ensureReqs()
   scripts = "
-require('shelljs/global');\n 
+require('shelljs/global');\n
 \n
 console.log('\\033[2J\\033[0f'); //Clear Screen\n
 console.log('Restarting autotest...');\n
@@ -72,7 +72,7 @@ target.dev = ->
 
 target.test = ->
   target.ensureReqs()
-  exec("#{mocha("spec")}")
+  exec("#{mocha("xunit")}")
 
 target.webtest = ->
   target.ensureReqs()
@@ -95,6 +95,5 @@ target.test_on_jenkins = ->
   target.test()
   #Browser tests when ready !!
   target.webtest_xvfb()
-  
 
-  
+

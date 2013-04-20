@@ -6,8 +6,7 @@ ECT = require('ect')
 ectRenderer = ECT({ cache: false, watch: false, root: __dirname + '/../views'  })
 
 server = require('http').createServer(app)
-io = require('socket.io').listen(server)
-io.set('log level', 1)
+io = require('socket.io').listen(server, {'log level': 1})
 
 server.port = process.env.PORT or process.env.VMC_APP_PORT or 3000
 

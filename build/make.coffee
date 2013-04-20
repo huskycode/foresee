@@ -74,7 +74,7 @@ target.test = ->
   target.ensureReqs()
   exec("#{mocha("spec")}")
 
-target.test_server = -> 
+target.test_ci = -> 
   target.ensureReqs()
   exec("#{mocha("xunit")} | tee junit.xml")
   

@@ -22,7 +22,7 @@ globalPkgInstallCommand = (pkg, withSudo) -> (if(withSudo) then "sudo " else "")
 
 #Tasks
 mocha = (reporter="spec", testDir="#{config.testDir}", timeout=1000) -> 
-  "mocha --reporter #{reporter} --compilers coffee:coffee-script --colors #{testDir}/*_test.coffee -t #{timeout}"
+  "mocha --reporter #{reporter} --compilers coffee:coffee-script --colors #{testDir}/ -t #{timeout}"
 
 target.all = -> 
   target.dev()

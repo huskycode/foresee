@@ -22,7 +22,7 @@ globalPkgInstallCommand = (pkg, withSudo) -> (if(withSudo) then "sudo " else "")
 
 #Tasks
 mocha = (reporter="spec", testDir="#{config.testDir}", timeout=1000) ->
-  "mocha --reporter #{reporter} --compilers coffee:coffee-script --colors #{testDir}/ -t #{timeout} | tee junit.xml"
+  "mocha --reporter #{reporter} --compilers coffee:coffee-script --colors #{testDir}/ -t #{timeout}"
 
 target.all = ->
   target.dev()
@@ -72,7 +72,13 @@ target.dev = ->
 
 target.test = ->
   target.ensureReqs()
-  exec("#{mocha("xunit")}")
+  exec("#{mocha("spec")}")
+
+target.test_server = -> 
+  target.ensureReqs()
+  exec("#{mocha("xunit")} | tee junit.xml")
+  
+  
 
 target.webtest = ->
   target.ensureReqs()
@@ -97,4 +103,5 @@ target.test_on_jenkins = ->
   target.webtest_xvfb()
 
 target.zip = ->
+  target.ensureReqs()
   exec("zip -b ./dist ./dist/foresee.zip src/* assets assets/css/* assets/js/* node_modules/* app.js build/node views/*")

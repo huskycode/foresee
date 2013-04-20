@@ -81,7 +81,7 @@ make sure you can run java from command line. Try this command
 Take a look at build/make.coffee
 
 The "run" script is created as a shortcut to build/make.coffee
-For windows xp and lower: uses run-xp
+For windows xp and lower: uses run_xp
 
     Unit Tests : ./run test 
     Selenium Tests : ./run webtest

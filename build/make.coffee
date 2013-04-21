@@ -139,9 +139,9 @@ run_deployed = (path) ->
   child = exec("./#{config.executableName}", {async:true})
   popd()
 
-  exec("xvfb-run #{mocha("spec", config.webtestDir, 30000)}")
+  retVal = exec("xvfb-run #{mocha("spec", config.webtestDir, 30000)}")
 
-  process.exit()
+  process.exit(retVal.code)
 
 target.acceptance_test = ->
   rm("-rf", config.stagingDir)

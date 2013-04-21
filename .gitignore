@@ -6,3 +6,6 @@ node_modules/
 browsertest/.js/
 .c9revisions/
 build/autotest.js
+staging/
+dist/
+junit.xml

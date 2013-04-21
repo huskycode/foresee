@@ -5,6 +5,8 @@ fs = require 'fs'
 config = {
       srcDir: "src"
     , testDir: "test"
+    , stagingDir: "staging"
+    , distDir: "dist"
     , webtestDir: "webtest"
     , browsertestDir: "browsertest"
     , buildDir: "build"
@@ -70,6 +72,8 @@ target.dev = ->
   target.ensureReqs()
   exec("nodemon --watch #{config.srcDir} -e js,coffee app.js")
 
+#### Tests #####
+
 target.test = ->
   target.ensureReqs()
   exec("#{mocha("spec")}")
@@ -77,8 +81,6 @@ target.test = ->
 target.test_ci = -> 
   target.ensureReqs()
   exec("#{mocha("xunit")} | tee junit.xml")
-  
-  
 
 target.webtest = ->
   target.ensureReqs()
@@ -97,11 +99,29 @@ target.webtest_xvfb = ->
 
   exec("xvfb-run #{mocha("spec", config.webtestDir, 30000)}")
 
-target.test_on_jenkins = ->
-  target.test()
-  #Browser tests when ready !!
-  target.webtest_xvfb()
+### Deploy ###
+target.staging = ->
+  rm("-rf", config.stagingDir)
+  mkdir(config.stagingDir)
+
+  foreseeDir = config.stagingDir + "/foresee"
+  mkdir(foreseeDir)
+
+  cp('-r', 'src/*', foreseeDir + "/src")
+  cp('-r', 'assets/*', foreseeDir + "/assets")
+  cp('-r', 'node_modules/*', foreseeDir + "/node_modules")
+  cp('-r', 'app.js', foreseeDir)
+  cp('-r', 'views/*', foreseeDir + "/views")
+  cp('build/node-exe/linux-x64/node', foreseeDir)
 
 target.zip = ->
+  target.staging()
+
+  rm("-rf", config.distDir)
+  mkdir(config.distDir)
+
   target.ensureReqs()
-  exec("zip -b ./dist ./dist/foresee.zip src/* assets assets/css/* assets/js/* node_modules/* app.js build/node views/*")
+
+  pushd(config.stagingDir)
+  exec("zip -r ../#{config.distDir}/foresee.zip foresee/*")
+  popd()

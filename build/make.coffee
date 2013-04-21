@@ -113,6 +113,7 @@ target.staging = ->
   cp('-r', 'app.js', foreseeDir)
   cp('-r', 'views/*', foreseeDir + "/views")
   cp('build/node-exe/linux-x64/node', foreseeDir)
+  chmod('+x', foreseeDir + "/node")
 
 target.zip = ->
   target.staging()
@@ -123,5 +124,5 @@ target.zip = ->
   target.ensureReqs()
 
   pushd(config.stagingDir)
-  exec("zip -r ../#{config.distDir}/foresee.zip foresee/*")
+  exec("tar -cvf ../#{config.distDir}/foresee.tar.gz foresee/")
   popd()

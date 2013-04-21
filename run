@@ -5,11 +5,11 @@ command -v npm >/dev/null 2>&1 || { echo >&2 "npm is required but is not install
 
 if [ ! -d "node_modules/coffee-script" ];
 then
-   npm install coffee-script
+   npm install coffee-script;
 fi
 if [ ! -d "node_modules/shelljs" ];
 then
-   npm install shelljs
+   npm install shelljs;
 fi
 
 # Now run the make

@@ -115,7 +115,7 @@ target.staging = ->
   cp('-r', 'views/*', foreseeDir + "/views")
   cp('build/node-exe/linux-x64/node', foreseeDir)
   chmod('+x', foreseeDir + "/node")
-  "PORT=3002 ./node app.js".to(foreseeDir + "/foresee")
+  "PORT=3001 ./node app.js".to(foreseeDir + "/foresee")
   chmod('+x', foreseeDir + "/foresee")
 
 target.zip = ->
@@ -135,8 +135,13 @@ deploy = (archive, path) ->
 
 run_deployed = (path) ->
   pushd(path)
-  exec("./#{config.executableName}")
+  spawn = require('child_process').spawn
+  child = exec("./#{config.executableName}", {async:true})
   popd()
+
+  exec("xvfb-run #{mocha("spec", config.webtestDir, 30000)}")
+
+  process.exit()
 
 target.acceptance_test = ->
   rm("-rf", config.stagingDir)

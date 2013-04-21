@@ -114,6 +114,8 @@ target.staging = ->
   cp('-r', 'views/*', foreseeDir + "/views")
   cp('build/node-exe/linux-x64/node', foreseeDir)
   chmod('+x', foreseeDir + "/node")
+  "PORT=3002 ./node app.js".to(foreseeDir + "/foresee")
+  chmod('+x', foreseeDir + "/foresee")
 
 target.zip = ->
   target.staging()

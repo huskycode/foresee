@@ -16,7 +16,7 @@ config = {
 }
 
 #Helpers
-isRootInUbuntu = -> exec("whoami", {silent:true}).output == 'root'
+isRootInUbuntu = -> exec("whoami", {silent:true}).output.trim() == 'root'
 needsSudo = -> (process.platform == 'linux') && (exec("hostname", {silent:true}).output.indexOf('c9-node') == -1) #detects if we are on cloud9
 isEnoughPriv =  -> ( !needsSudo() || isRootInUbuntu() )
 
@@ -127,7 +127,7 @@ target.zip = ->
   target.ensureReqs()
 
   pushd(config.stagingDir)
-  exec("tar -cvf ../#{config.distDir}/#{config.executableName}.tar.gz #{config.executableName}/")
+  exec("tar -cvzf ../#{config.distDir}/#{config.executableName}.tar.gz #{config.executableName}/")
   popd()
 
 deploy = (archive, path) ->

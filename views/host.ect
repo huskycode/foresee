@@ -28,60 +28,72 @@
 <input type="hidden" id="url" value="<%=@url%>"/>
 <input type="hidden" id="roomId" value="<%=@roomId%>"/>
 <input type="hidden" id="socketUrl" value="<%=@socketUrl%>"/>
-<div class="row">
-  <div class="span3">
-    <div class="well">
-      <h4>Participants (<span id="participantsCount">?</span>)</h4>
-      <ul id="participants">
 
-      </ul>
-      <hr>
-      <h4>Join</h4>
-      <div id="qrcode"></div>
-      <a id="link" href="<%-@url%>"><%=@url%></a><br/>
-      Scan QR code or click on the link above to join
-    </div>
+<div class="row-fluid">
+  <div class="span12">
+    <header class="room-name">
+      <h1><%=@roomId%></h1>
+    </header>
   </div>
-  <div class="span9">
-    <h2>Story Header</h2>
-    <p>As a user, I want to do this and that, in order to achieve something great.
-        This is where a story and its detail go.
-    </p>
-    <div id="cards">
-      <!--
-      <div class="card_holder"><div class="card">?</div>Name</div>
-      <div class="card_holder"><div class="card">?</div>Name</div>
-      <div class="card_holder"><div class="card">?</div>Name</div>
-      <div class="card_holder"><div class="card">?</div>Name</div>
-      <div style="clear:both"></div>
-      -->
-    </div>
-    <br/>
-    <div>
-      <ul>
-        <li>- (Minus Sign) : Participant has not voted </li>
-        <li>? (Question Mark) : Participant has voted, waiting for all vote results </li>
-      </ul>
-    </div>
-    <br/>
-    </div>
 </div>
-
-
-<div class="row">
-  <div class="span3">
-    <div class="well">
-      <h4>Story Pile</h4>
-      <ul id="story-pile">
-      </ul>
-    </div>
-  </div>
-
+<div class="row-fluid">
   <div class="span9">
-    <div class="form-horizontal">
-      <input id="storyDesc" class="span8" type="text" placeholder="Type new story here"></input>
-      <button id="addStory" class="btn btn-primary" type="button">Add</button>
-      <input id="startNow" type="button" disabled="disabled" class="btn btn-primary" value="Start Now"/>
+    <div class="box">
+      <div class="row-fluid">
+        <div class="span12">
+          <h2>Add Story</h2>
+          <form class="form-horizontal">
+            <input id="storyDesc" class="input-block-level" type="text" placeholder="Type new story here" autofocus>
+            <button type="button" id="addStory" class="btn btn-blue pull-right">Add Stories</button>
+          </form> 
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="story-pile">
+            <div class="well">
+              <h4>Story Pile</h4>
+              <ul id="story-pile">
+              </ul>
+            </div>
+          </div>
+          <input id="startNow" type="button" disabled="disabled" class="btn btn-blue pull-right" value="Start Now">
+        </div>
+      </div>
+    </div>
+    <!--<div class="instructions">
+      <h2>Story Header</h2>
+      <p>As a user, I want to do this and that, in order to achieve something great.
+          This is where a story and its detail go.
+      </p>
+      <div id="cards">-->
+        <!--
+        <div class="card_holder"><div class="card">?</div>Name</div>
+        <div class="card_holder"><div class="card">?</div>Name</div>
+        <div class="card_holder"><div class="card">?</div>Name</div>
+        <div class="card_holder"><div class="card">?</div>Name</div>
+        <div style="clear:both"></div>
+        -->
+      <!--</div>
+      <br/>
+      <div>
+        <ul>
+          <li>- (Minus Sign) : Participant has not voted </li>
+          <li>? (Question Mark) : Participant has voted, waiting for all vote results </li>
+        </ul>
+      </div>
+      <br/>
+    </div>-->
+  </div>
+  <div class="span3">
+    <div class="box box-small">
+      <div id="qrcode"></div><br>
+        <a id="link" href="<%-@url%>"><%=@url%></a><br/>
+        <p>Scan QR code or click on the link above to join</p>
+        <hr>
+        <h2>Participants (<span id="participantsCount">?</span>)</h2>
+        <ul id="participants">
+        </ul>
     </div>
   </div>
 </div>

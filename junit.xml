@@ -1,0 +1,24 @@
+
+[0m[0m
+Listening on 3001
+Press CTRL-C to stop server.
+[0m  Host Website[0m
+[0m    Home Page[0m
+    [90m  ◦ should have correct title: [0m[2K[0G    [32m  ✓[0m[90m should have correct title [0m[31m(17126ms)[0m
+    [90m  ◦ should have room name and can create when click start now: [0m[2K[0G    [32m  ✓[0m[90m should have room name and can create when click start now [0m[31m(2289ms)[0m
+    [90m  ◦ should stay at the same page if no room name is entered: [0m[2K[0G    [32m  ✓[0m[90m should stay at the same page if no room name is entered [0m[31m(919ms)[0m
+[0m    Host Page[0m
+    [90m  ◦ should have input text and button for add new story.: [0m[2K[0G    [32m  ✓[0m[90m should have input text and button for add new story. [0m[31m(745ms)[0m
+    [90m  ◦ should show story pile: [0m[2K[0G    [32m  ✓[0m[90m should show story pile [0m[31m(1057ms)[0m
+    [90m  ◦ should generate a visible link: [0m[2K[0G    [32m  ✓[0m[90m should generate a visible link [0m[31m(981ms)[0m
+    [90m  ◦ should show QRCode for current room.: [0m[2K[0G    [32m  ✓[0m[90m should show QRCode for current room. [0m[31m(1485ms)[0m
+    [90m  ◦ should show 'Start Now' button as disabled: [0m[2K[0G    [32m  ✓[0m[90m should show 'Start Now' button as disabled [0m[31m(1129ms)[0m
+    [90m  ◦ should show new story in story pile when added and startNow is enabled: [0m[2K[0G    [32m  ✓[0m[90m should show new story in story pile when added and startNow is enabled [0m[31m(1422ms)[0m
+    [36m  - 'Start Now' button should disable when no story[0m
+[0m    Client[0m
+    [90m  ◦ should be able to join a room and their vote is displayed on host screen: [0m[2K[0G    [32m  ✓[0m[90m should be able to join a room and their vote is displayed on host screen [0m[31m(17911ms)[0m
+
+
+[92m [0m[32m 11 tests complete[0m[90m (45 seconds)[0m
+[36m [0m[36m 1 test pending[0m
+

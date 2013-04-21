@@ -9,8 +9,9 @@ config = {
     , distDir: "dist"
     , webtestDir: "webtest"
     , browsertestDir: "browsertest"
+    , executableName: "foresee"
     , buildDir: "build"
-    , globalReqs: {"coffee":"coffee-script", "mocha":"mocha", "nodemon":"nodemon"}
+    , globalReqs: {"coffee":"coffee-script", "mocha":"mocha", "nodemon":"nodemon", "forever":"forever"}
     , providedReqs: ["java"]
 }
 
@@ -24,7 +25,7 @@ globalPkgInstallCommand = (pkg, withSudo) -> (if(withSudo) then "sudo " else "")
 
 #Tasks
 mocha = (reporter="spec", testDir="#{config.testDir}", timeout=1000) ->
-  "mocha --reporter #{reporter} --compilers coffee:coffee-script --colors #{testDir}/ -t #{timeout}"
+  "mocha --reporter #{reporter} --compilers coffee:coffee-script --colors #{testDir}/ -t #{timeout} --ignore-leaks"
 
 target.all = ->
   target.dev()
@@ -126,5 +127,24 @@ target.zip = ->
   target.ensureReqs()
 
   pushd(config.stagingDir)
-  exec("tar -cvf ../#{config.distDir}/foresee.tar.gz foresee/")
+  exec("tar -cvf ../#{config.distDir}/#{config.executableName}.tar.gz #{config.executableName}/")
   popd()
+
+deploy = (archive, path) ->
+  exec("tar -xvzf #{archive} -C #{path}")
+
+run_deployed = (path) ->
+  pushd(path)
+  exec("./#{config.executableName}")
+  popd()
+
+target.acceptance_test = ->
+  rm("-rf", config.stagingDir)
+  acceptance_dir = config.stagingDir + "/acceptance"
+  mkdir("-p", config.stagingDir + "/acceptance")
+
+  deploy("dist/foresee.tar.gz", acceptance_dir)
+  run_deployed(acceptance_dir + "/#{config.executableName}")
+
+
+

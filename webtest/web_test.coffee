@@ -1,7 +1,5 @@
-process.env.PORT = 3001
-
 should = require("should")
-require("../app")
+
 
 spawn = require("child_process").spawn
 webdriver = require("selenium-webdriver")
@@ -91,6 +89,9 @@ describe("Host Website", () ->
   nav = null
 
   before( () ->
+    process.env.PORT = 3001
+    require("../app")
+
     server = new remote.SeleniumServer({jar: "webtest/selenium-server-standalone-2.31.0.jar", port:4444})
     server.start()
     driver = new webdriver.Builder()
@@ -203,12 +204,12 @@ describe("Host Website", () ->
 
         driver.sleep(1000) #Sleeps for transition
         select = driver.findElement(webdriver.By.id("vote"))
-        select.click()
         select.findElement(webdriver.By.css("option[value='5']")).click()
 
         driver.sleep(1000) #Sleeps for transition
 
         driver.findElement(webdriver.By.id("voteButton")).click()
+
         driver.findElements(webdriver.By.css(".card_holder>.card")).then( (elements) ->
           elements.length.should.eql(1)
           elements[0].getText().then( (text) -> text.should.eql("5"); done(); )

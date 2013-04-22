@@ -87,3 +87,4 @@ For windows xp and lower: uses run_xp
     Selenium Tests : ./run webtest
     Auto Tests: ./run autotest
     Browser Tests: ./run browsertest
+test

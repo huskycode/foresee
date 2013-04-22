@@ -1,3 +1,5 @@
+#!/bin/bash
+
 command -v node >/dev/null 2>&1 || { echo >&2 "node is required but is not installed.  Aborting..."; exit 1; }
 command -v npm >/dev/null 2>&1 || { echo >&2 "npm is required but is not installed.  Aborting..."; exit 1; }
 

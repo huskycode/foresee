@@ -113,6 +113,7 @@ target.staging = ->
   cp('-r', 'node_modules/*', foreseeDir + "/node_modules")
   cp('-r', 'app.js', foreseeDir)
   cp('-r', 'views/*', foreseeDir + "/views")
+  cp('-r', 'public/*', foreseeDir + "/public")
   cp('build/node-exe/linux-x64/node', foreseeDir)
   chmod('+x', foreseeDir + "/node")
   "PORT=3001 ./node app.js".to(foreseeDir + "/foresee")

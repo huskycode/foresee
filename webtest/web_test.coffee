@@ -89,6 +89,9 @@ describe("Host Website", () ->
   nav = null
 
   before( () ->
+    process.env.PORT = 3001
+    require("../app")
+
     server = new remote.SeleniumServer({jar: "webtest/selenium-server-standalone-2.31.0.jar", port:4444})
     server.start()
     driver = new webdriver.Builder()

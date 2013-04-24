@@ -98,7 +98,7 @@ target.webtest_xvfb = ->
     echo "Please ensure that xvfb-run is properly installed."
     exit(1)
 
-  exec("xvfb-run #{mocha("spec", config.webtestDir, 30000)}")
+  exec("xvfb-run #{mocha("xunit", config.webtestDir, 30000)}  | tee acceptance_junit.xml")
 
 ### Deploy ###
 target.staging = ->

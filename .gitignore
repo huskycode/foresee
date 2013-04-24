@@ -9,3 +9,4 @@ build/autotest.js
 staging/
 dist/
 junit.xml
+acceptance_junit.xml

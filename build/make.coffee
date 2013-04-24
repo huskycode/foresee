@@ -11,7 +11,7 @@ config = {
     , browsertestDir: "browsertest"
     , executableName: "foresee"
     , buildDir: "build"
-    , globalReqs: {"coffee":"coffee-script", "mocha":"mocha", "nodemon":"nodemon", "forever":"forever", "xunit-file":"xunit-file"}
+    , globalReqs: {"coffee":"coffee-script", "mocha":"mocha", "nodemon":"nodemon", "forever":"forever"}
     , providedReqs: ["java"]
     , deployPaths: { "dev": "/opt/foresee-dev", "qa": "/opt/foresee-qa", "prod": "/opt/foresee" }
 }

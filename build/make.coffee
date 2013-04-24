@@ -136,6 +136,10 @@ deploy = (archive, path) ->
   exec("tar -xvzf #{archive} -C #{path}")
 
 target.deploy = () ->
+  if (not process.env.NODE_ENV?)
+    echo "NODE_ENV is undefined"
+    exit(-1)
+
   deploy("#{config.distDir}/#{config.executableName}.tar.gz", config.deployPaths[process.env.NODE_ENV])
 
 

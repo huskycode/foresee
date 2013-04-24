@@ -140,6 +140,9 @@ target.deploy = () ->
     echo "NODE_ENV is undefined"
     exit(-1)
 
+  rm("-rf", config.deployPaths[process.env.NODE_ENV])
+  mkdir("-p", config.deployPaths[process.env.NODE_ENV])
+
   deploy("#{config.distDir}/#{config.executableName}.tar.gz", config.deployPaths[process.env.NODE_ENV])
 
 

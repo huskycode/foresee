@@ -13,6 +13,7 @@ config = {
     , buildDir: "build"
     , globalReqs: {"coffee":"coffee-script", "mocha":"mocha", "nodemon":"nodemon", "forever":"forever", "xunit-file":"xunit-file"}
     , providedReqs: ["java"]
+    , deployPaths: { "dev": "/opt/foresee-dev", "qa": "/opt/foresee-qa", "prod": "/opt/foresee" }
 }
 
 #Helpers
@@ -134,23 +135,9 @@ target.zip = ->
 deploy = (archive, path) ->
   exec("tar -xvzf #{archive} -C #{path}")
 
-run_deployed = (path) ->
-  pushd(path)
-  spawn = require('child_process').spawn
-  child = exec("./#{config.executableName}", {async:true})
-  popd()
+target.deploy = () ->
+  deploy("#{config.distDir}/#{config.executableName}.tar.gz", config.deployPaths[process.env.NODE_ENV])
 
-  retVal = exec("xvfb-run #{mocha("spec", config.webtestDir, 30000)}")
-
-  process.exit(retVal.code)
-
-target.acceptance_test = ->
-  rm("-rf", config.stagingDir)
-  acceptance_dir = config.stagingDir + "/acceptance"
-  mkdir("-p", config.stagingDir + "/acceptance")
-
-  deploy("dist/foresee.tar.gz", acceptance_dir)
-  run_deployed(acceptance_dir + "/#{config.executableName}")
 
 
 

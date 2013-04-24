@@ -15,6 +15,7 @@
     ,"selenium-webdriver":"2.31.0"
   }, "devDependencies": {
       "coffee-script": "*"
+    , "xunit-file": "*"
     , "mocha": "*"
     , "should": "*"
     , "supervisor": "*"

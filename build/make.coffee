@@ -11,7 +11,7 @@ config = {
     , browsertestDir: "browsertest"
     , executableName: "foresee"
     , buildDir: "build"
-    , globalReqs: {"coffee":"coffee-script", "mocha":"mocha", "nodemon":"nodemon", "forever":"forever"}
+    , globalReqs: {"coffee":"coffee-script", "mocha":"mocha", "nodemon":"nodemon", "forever":"forever", "xunit-file":"xunit-file"}
     , providedReqs: ["java"]
 }
 
@@ -98,7 +98,7 @@ target.webtest_xvfb = ->
     echo "Please ensure that xvfb-run is properly installed."
     exit(1)
 
-  exec("xvfb-run #{mocha("xunit", config.webtestDir, 30000)}  | tee acceptance_junit.xml")
+  exec("LOG_XUNIT=true XUNIT_FILE=acceptance_junit.xml xvfb-run #{mocha("xunit-file", config.webtestDir, 30000)}")
 
 ### Deploy ###
 target.staging = ->

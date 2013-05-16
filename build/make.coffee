@@ -1,3 +1,6 @@
+# XXX: [Ubuntu 12.04] after run "sudo ./run ensureGlobalReqs" need to run "sudo ./run test" for first time
+# because some folder was create with root's priviledge (e.g. "~/tmp").
+
 require 'shelljs/make'
 fs = require 'fs'
 
@@ -80,7 +83,7 @@ target.test = ->
   target.ensureReqs()
   exec("#{mocha("spec")}")
 
-target.test_ci = -> 
+target.test_ci = ->
   target.ensureReqs()
   exec("#{mocha("xunit")} | tee junit.xml")
 

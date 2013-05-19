@@ -47,7 +47,7 @@ populateCards = (votes) ->
 HostPage = (jq) -> {
   startNow: jq("#startNow")
   addStory: jq("#addStory")
-  storyPile: jq("#story-pile") 
+  storyPile: jq("#story-pile")
   roomId: jq("#roomId")
   storyDesc: jq("#storyDesc")
 }
@@ -58,7 +58,7 @@ HTTPBackend = (jq) -> {
 }
 
 #Controller
-StoriesCtrl = (hostPage, httpBackend) -> 
+StoriesCtrl = (hostPage, httpBackend) ->
   #Initialize
   hostPage.addStory.click ->
     httpBackend.ajax
@@ -84,9 +84,8 @@ enableStartNowButton = (jQuery,storyList) ->
     jQuery('#startNow').removeAttr('disabled')
 
 #can't put in end of file, be found something wrong in main function
-#Non: I think wrong indentation makes coffeescript thinks this is part of "$ ->" 
+#Non: I think wrong indentation makes coffeescript thinks this is part of "$ ->"
 window.enableStartNowButton = enableStartNowButton
-
 
 $ ->
   # Instantiate Components

@@ -93,7 +93,7 @@ target.webtest = ->
 
 target.browsertest = ->
   target.ensureReqs()
-  exec("coffee -c -o #{config.browsertestDir}/.js/ -w -m #{config.browsertestDir}/ assets/js/")
+  exec("coffee -c -o #{config.browsertestDir}/.js/ -w #{config.browsertestDir}/ assets/js/")
 
 target.webtest_xvfb = ->
   target.ensureReqs()

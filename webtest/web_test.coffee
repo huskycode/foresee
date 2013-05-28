@@ -171,6 +171,8 @@ describe("Host Website", () ->
       hostPage.clickAddStory()
 
       # need to wait ajax call.
+      driver.sleep(2000)
+
       hostPage.findStoryPileOne().getText().then( (text) -> text.should.equal(anyStoryDesc) )
       hostPage.startNow.getAttribute('disabled').then( (value) ->
         should.not.exist(value); done();

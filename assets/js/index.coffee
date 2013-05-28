@@ -12,6 +12,6 @@ $ ->
     if (validateRoomName(roomname))
       document.location = "host/" + roomname
     else
-      alert "room name must contain only character or number."
+      $("#mod_message").html("room name must contain only character or number.")
     return false
   )

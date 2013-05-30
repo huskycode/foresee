@@ -2,7 +2,10 @@ validateRoomName = (roomName) ->
   if (roomName == "")
     return false
   else
-    return true
+    if (roomName.indexOf('#') < 0)
+      return true
+    else
+      return false
 
 window.validateRoomName = validateRoomName
 
@@ -12,6 +15,6 @@ $ ->
     if (validateRoomName(roomname))
       document.location = "host/" + roomname
     else
-      $("#mod_message").html("room name must contain only character or number.")
+      $("#mod_message").html("room name must not be blank.")
     return false
   )

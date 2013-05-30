@@ -2,7 +2,7 @@ validateRoomName = (roomName) ->
   if (roomName == "")
     return false
   else
-    return (roomName.replace(/[a-z0-9A-Z]/g, "") == "")
+    return true
 
 window.validateRoomName = validateRoomName
 

@@ -15,6 +15,6 @@ $ ->
     if (validateRoomName(roomname))
       document.location = "host/" + roomname
     else
-      $("#mod_message").html("room name must not be blank.")
+      $("#mod_message").html("room name must not contain # or blank.")
     return false
   )

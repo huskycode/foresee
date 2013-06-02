@@ -7,6 +7,3 @@ describe "index", ->
       result = validateRoomName("")
       assert.isFalse(result)
 
-    it "should denied sharp(#)", ->
-      result = validateRoomName("#")
-      assert.isFalse(result)

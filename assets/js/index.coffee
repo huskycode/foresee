@@ -2,10 +2,7 @@ validateRoomName = (roomName) ->
   if (roomName == "")
     return false
   else
-    if (roomName.indexOf('#') < 0)
-      return true
-    else
-      return false
+    return true
 
 window.validateRoomName = validateRoomName
 

@@ -7,3 +7,6 @@ describe "index", ->
       result = validateRoomName("")
       assert.isFalse(result)
 
+    it "should not allow sharp in roomname", ->
+      result = validateRoomName("#")
+      assert.isFalse(result)

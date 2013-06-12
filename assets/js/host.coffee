@@ -138,21 +138,3 @@ $ ->
     false
 
   $("#btn").click -> socket.emit('my other event', { my: 'data' })
-
-  $("#addStory").click ->
-    $.ajax
-      url: "/story/add/room/#{roomId}/story/#{$("#storyDesc").val()}"
-      success: (data, textStatus, jqXHR) ->
-        # TODO: It's better when server send only recent added story,
-        #       so we don't need to empty storyPile and readd whole stories.
-        storyPile = $("#story-pile")
-        storyPile.empty()
-
-        # TODO: must have test for this action.
-        if (Object.keys(data).length > 0)
-          $('#startNow').removeAttr('disabled')
-
-        $.each data, (item) ->
-          storyPile.append "<li>#{item}</li>"
-      error: (jqXHR, textStatus, errorThrown) ->
-        alert(errorThrown)

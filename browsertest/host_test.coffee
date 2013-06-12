@@ -47,7 +47,7 @@ describe "StoriesCtrl", ->
       jqUtil.clickOn(mockHostPage.addStory)
 
       #And backend returns data
-      mockHTTPBackend.invokeSuccess(["storyDesc"])
+      mockHTTPBackend.invokeSuccess({"storyDesc":""})
 
       #Then story pile is cleared and re-added
       assert.isTrue(mockHostPage.storyPile.empty.calledOnce)

@@ -72,8 +72,8 @@ StoriesCtrl = (hostPage, httpBackend) ->
         if (Object.keys(data).length > 0)
           hostPage.startNow.removeAttr('disabled')
 
-        data.forEach (item) ->
-          hostPage.storyPile.append "<li>#{item}</li>"
+          for key of data
+            hostPage.storyPile.append "<li>#{key}</li>"
       error: (jqXHR, textStatus, errorThrown) ->
         alert(errorThrown)
 
@@ -91,6 +91,8 @@ $ ->
   # Instantiate Components
   qrCtrl = QRCtrl($,QRCodeJSCodeGen)
   qrCtrl.generateQRCode()
+
+  storiesCtrl = StoriesCtrl(HostPage($),HTTPBackend($))
 
   url = $("#url").val()
   socketUrl = $("#socketUrl").val()

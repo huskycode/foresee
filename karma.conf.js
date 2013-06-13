@@ -10,13 +10,13 @@ files = [
   MOCHA,
   MOCHA_ADAPTER,
   'node_modules/chai/chai.js',
-  'browsertest/sinon-1.6.0.js',
+  'test/browsertest/sinon-1.6.0.js',
   'node_modules/mocha/mocha.js',
   'assets/js/jquery-1.7.2.min.js',
   'assets/js/qrcode.js',
   'assets/js/host.js',
   'assets/js/index.js',
-  'browsertest/*_test.js'
+  'test/browsertest/*_test.js'
 ];
 
 

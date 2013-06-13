@@ -5,10 +5,6 @@
 // base path, that will be used to resolve files and exclude
 basePath = '';
 
-preprocessors = {
-  '**/*.coffee': 'coffee'
-};
-
 // list of files / patterns to load in the browser
 files = [
   MOCHA,
@@ -17,10 +13,10 @@ files = [
   'browsertest/sinon-1.6.0.js',
   'node_modules/mocha/mocha.js',
   'assets/js/jquery-1.7.2.min.js',
-  'assets/js/qrcode.coffee',
-  'assets/js/host.coffee',
-  'assets/js/index.coffee',
-  'browsertest/*_test.coffee'
+  'assets/js/qrcode.js',
+  'assets/js/host.js',
+  'assets/js/index.js',
+  'browsertest/*_test.js'
 ];
 
 

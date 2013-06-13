@@ -91,10 +91,6 @@ target.webtest = ->
   target.ensureReqs()
   exec("#{mocha("spec", config.webtestDir, 30000)}")
 
-target.browsertest = ->
-  target.ensureReqs()
-  exec("coffee -c -o #{config.browsertestDir}/.js/ -w #{config.browsertestDir}/ assets/js/")
-
 target.webtest_xvfb = ->
   target.ensureReqs()
   #This will only work with ubuntu with xvfb

@@ -10,7 +10,7 @@ config = {
     , testDir: "test"
     , stagingDir: "staging"
     , distDir: "dist"
-    , webtestDir: "webtest"
+    , webtestDir: "test/webtest"
     , browsertestDir: "browsertest"
     , executableName: "foresee"
     , buildDir: "build"

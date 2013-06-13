@@ -1,7 +1,5 @@
 should = require("should")
 
-
-spawn = require("child_process").spawn
 webdriver = require("selenium-webdriver")
 remote = require("selenium-webdriver/remote")
 FORESEE_BASE_URL = "http://localhost:3001/"
@@ -90,9 +88,9 @@ describe("Host Website", () ->
 
   before( () ->
     process.env.PORT = 3001
-    require("../app")
+    require("../../app")
 
-    server = new remote.SeleniumServer({jar: "webtest/selenium-server-standalone-2.31.0.jar", port:4444})
+    server = new remote.SeleniumServer({jar: "test/webtest/selenium-server-standalone-2.31.0.jar", port:4444})
     server.start()
     driver = new webdriver.Builder()
       .usingServer(server.address())

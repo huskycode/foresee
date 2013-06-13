@@ -1,4 +1,3 @@
-require("coffee-script");
 var port;
 
 var server = require('./src/index');

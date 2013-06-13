@@ -3,13 +3,13 @@ var cache, dataStoreModule, datastore, hostStateModule, hoststate, should;
 
 should = require("should");
 
-dataStoreModule = require("../src/datastore");
+dataStoreModule = require("../../src/datastore");
 
 datastore = dataStoreModule.datastore;
 
 cache = dataStoreModule.cache;
 
-hostStateModule = require("../src/hoststate");
+hostStateModule = require("../../src/hoststate");
 
 hoststate = hostStateModule.hoststate;
 

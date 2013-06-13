@@ -3,7 +3,7 @@ var core, coreModule, datastore, setupParticipant, setupStory, should;
 
 should = require("should");
 
-coreModule = require("../src/core");
+coreModule = require("../../src/core");
 
 core = coreModule.core;
 

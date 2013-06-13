@@ -7,11 +7,10 @@ fs = require 'fs'
 #Configs
 config = {
       srcDir: "src"
-    , testDir: "test"
+    , testDir: "test/unit"
     , stagingDir: "staging"
     , distDir: "dist"
     , webtestDir: "test/webtest"
-    , browsertestDir: "browsertest"
     , executableName: "foresee"
     , buildDir: "build"
     , globalReqs: {"coffee":"coffee-script", "mocha":"mocha", "nodemon":"nodemon", "forever":"forever"}

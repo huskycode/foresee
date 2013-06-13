@@ -5,13 +5,13 @@ should = require("should");
 
 sinon = require("sinon");
 
-coreModule = require("../src/core");
+coreModule = require("../../src/core");
 
 core = coreModule.core;
 
 datastore = coreModule.datastore;
 
-route = require("../src/route").route;
+route = require("../../src/route").route;
 
 describe("route", function() {
   beforeEach(function() {

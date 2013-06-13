@@ -3,7 +3,7 @@ var hostStateModule, should, state;
 
 should = require("should");
 
-hostStateModule = require("../src/hoststate");
+hostStateModule = require("../../src/hoststate");
 
 state = hostStateModule.hoststate;
 

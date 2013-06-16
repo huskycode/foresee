@@ -1,5 +1,28 @@
 task webtest << {
+    def pb = new ProcessBuilder("node","app").redirectErrorStream(true) 
+    def env = pb.environment()
+    env.put("PORT", "3001")
 
+    try {
+        def p = pb.start()  
+
+        def th1 = Thread.start {
+            BufferedReader stdoutReader = new BufferedReader(
+                     new InputStreamReader(p.getInputStream()));
+            String line;
+            try { 
+                while ((line = stdoutReader.readLine()) != null) {
+                  println("[out] " + line)
+                }
+            } catch (IOException e) {
+         
+            } 
+        }
+        
+        Thread.sleep(4000)
+    } finally {
+        p.destroy()
+    }
 }
 
 task wrapper(type: Wrapper) {

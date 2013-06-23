@@ -5,7 +5,8 @@ import org.junit.runners.Suite
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses([
-    HomePageTest.class
+    HomePageTest.class,
+    HostPageTest.class
 ])
 class WebTestSuite {
     static def p

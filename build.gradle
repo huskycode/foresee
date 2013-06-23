@@ -1,28 +1,26 @@
-task webtest << {
-    def pb = new ProcessBuilder("node","app").redirectErrorStream(true) 
-    def env = pb.environment()
-    env.put("PORT", "3001")
+apply plugin: "groovy"
 
-    try {
-        def p = pb.start()  
+repositories {
+    mavenCentral()
+}
 
-        def th1 = Thread.start {
-            BufferedReader stdoutReader = new BufferedReader(
-                     new InputStreamReader(p.getInputStream()));
-            String line;
-            try { 
-                while ((line = stdoutReader.readLine()) != null) {
-                  println("[out] " + line)
-                }
-            } catch (IOException e) {
-         
-            } 
-        }
-        
-        Thread.sleep(4000)
-    } finally {
-        p.destroy()
-    }
+dependencies {
+    def gebVersion = "0.9.0"
+    def seleniumVersion = "2.32.0"
+
+    testCompile "org.codehaus.groovy:groovy-all:2.0.5"
+
+    // If using JUnit, need to depend on geb-junit (3 or 4)
+    testCompile "junit:junit:4.11"
+    testCompile "org.gebish:geb-junit4:$gebVersion"
+
+    // Drivers
+    testCompile "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
+}
+
+test {
+  systemProperty "geb.build.reportsDir", reporting.file("geb")
+  systemProperty "geb.env", "firefox"
 }
 
 task wrapper(type: Wrapper) {

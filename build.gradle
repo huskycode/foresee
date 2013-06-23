@@ -19,6 +19,8 @@ dependencies {
 }
 
 test {
+  include '**/WebTestSuite.class'
+
   systemProperty "geb.build.reportsDir", reporting.file("geb")
   systemProperty "geb.env", "firefox"
 }

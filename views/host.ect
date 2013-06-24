@@ -3,6 +3,7 @@
 <% block 'more-js' : %>
   <script src="/socket.io/socket.io.js"></script>
   <%- js("host") %>
+  <%- js("host2") %>
   <%- js("qrcode.min") %>
   <%- js("qrcode") %>
   <style type="text/css">
@@ -36,13 +37,13 @@
   </div>
 </div>
 <div class="row-fluid">
-  <div class="span9">
-    <div class="box" ng-app="foresee" ng-controller="foresee.moderator.StoryCtrl">
+  <div class="span9" ng-app="foresee">
+    <div class="box" ng-controller="foresee.moderator.StoryCtrl">
       <div class="row-fluid">
         <div class="span12">
           <h2>Add Story</h2>
           <form class="form-horizontal" ng-submit="addStory()">
-            <input type="hidden" id="roomId" value="<%=@roomId%>" ng-model="roomId"/>
+            <input type="hidden" id="roomId" value="<%=@roomId%>" ng-model="roomId" ng-init="roomId='<%=@roomId%>'"/>
             <input id="storyDesc" ng-model="storyDesc" class="input-block-level" type="text" placeholder="Type new story here" autofocus>
             <button type="submit" id="addStory" class="btn btn-blue pull-right">Add Stories</button>
           </form> 

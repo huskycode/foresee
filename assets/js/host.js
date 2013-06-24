@@ -58,63 +58,13 @@ populateCards = function(votes) {
   result += "<div style='clear:both'></div>";
   return $("#cards").html(result);
 };
-/*
-HostPage = function(jq) {
-  return {
-    startNow: jq("#startNow"),
-    addStory: jq("#addStory"),
-    storyPile: jq("#story-pile"),
-    roomId: jq("#roomId"),
-    storyDesc: jq("#storyDesc")
-  };
-};
 
-HTTPBackend = function(jq) {
-  return {
-    ajax: function(params) {
-      return jq.ajax(params);
-    }
-  };
-};
-
-StoriesCtrl = function(hostPage, httpBackend) {
-  return hostPage.addStory.click(function() {
-    return httpBackend.ajax({
-      url: "/story/add/room/" + (hostPage.roomId.val()) + "/story/" + (hostPage.storyDesc.val()),
-      success: function(data, textStatus, jqXHR) {
-        var key, _results;
-        hostPage.storyPile.empty();
-        if (Object.keys(data).length > 0) {
-          hostPage.startNow.removeAttr('disabled');
-          _results = [];
-          for (key in data) {
-            _results.push(hostPage.storyPile.append("<li>" + key + "</li>"));
-          }
-          return _results;
-        }
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        return alert(errorThrown);
-      }
-    });
-  });
-};
-*/
 window.StoriesCtrl = StoriesCtrl;
-
-enableStartNowButton = function(jQuery, storyList) {
-  if (Object.keys(storyList).length > 0) {
-    return jQuery('#startNow').removeAttr('disabled');
-  }
-};
-
-window.enableStartNowButton = enableStartNowButton;
 
 $(function() {
   var i, qrCtrl, roomId, socket, socketUrl, storiesCtrl, url, votes;
   qrCtrl = QRCtrl($, QRCodeJSCodeGen);
   qrCtrl.generateQRCode();
-  //toriesCtrl = StoriesCtrl(HostPage($), HTTPBackend($));
   url = $("#url").val();
   socketUrl = $("#socketUrl").val();
   roomId = $("#roomId").val();
@@ -157,25 +107,4 @@ $(function() {
       my: 'data'
     });
   });
-});
-
-
-controllers.controller("foresee.moderator.StoryCtrl", function($scope, $http) {
-    $scope.storyPile = [];
-    $scope.startNowDisable = true;
-
-    $scope.addStory = function() {
-        console.log("adsf");
-        $http.get("/story/add/room/" + $scope.roomId + "/story/" + $scope.storyDesc)
-              . success(function(data, status, headers, config) {
-                var dataList = Object.keys(data)
-                if (dataList.length > 0) {
-                  $scope.startNowDisable = false
-                }
-                $scope.storyPile = dataList;
-              }).
-              error(function(data, status, headers, config) {
-                alert(status)
-              });
-    }
 });

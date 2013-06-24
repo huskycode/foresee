@@ -32,3 +32,17 @@ class HostPage extends Page {
         findStoryPileOne(wait:true) { $("ul#story-pile>li") }
     }
 }
+
+class Client extends Page {
+    static content = {
+        name { $("#name") }
+        nameSubmitBtn { $("#add") }
+
+        voteSelect { $("#vote")  }
+        voteFive { $("#vote").find("option[value='5']") }
+
+        voteBtn { $("#voteButton") }
+
+        findFirstCard(wait:true) { $(".card_holder>.card") }
+    }
+}

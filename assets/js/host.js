@@ -58,7 +58,7 @@ populateCards = function(votes) {
   result += "<div style='clear:both'></div>";
   return $("#cards").html(result);
 };
-
+/*
 HostPage = function(jq) {
   return {
     startNow: jq("#startNow"),
@@ -99,7 +99,7 @@ StoriesCtrl = function(hostPage, httpBackend) {
     });
   });
 };
-
+*/
 window.StoriesCtrl = StoriesCtrl;
 
 enableStartNowButton = function(jQuery, storyList) {
@@ -114,7 +114,7 @@ $(function() {
   var i, qrCtrl, roomId, socket, socketUrl, storiesCtrl, url, votes;
   qrCtrl = QRCtrl($, QRCodeJSCodeGen);
   qrCtrl.generateQRCode();
-  storiesCtrl = StoriesCtrl(HostPage($), HTTPBackend($));
+  //toriesCtrl = StoriesCtrl(HostPage($), HTTPBackend($));
   url = $("#url").val();
   socketUrl = $("#socketUrl").val();
   roomId = $("#roomId").val();
@@ -157,4 +157,25 @@ $(function() {
       my: 'data'
     });
   });
+});
+
+
+controllers.controller("foresee.moderator.StoryCtrl", function($scope, $http) {
+    $scope.storyPile = [];
+    $scope.startNowDisable = true;
+
+    $scope.addStory = function() {
+        console.log("adsf");
+        $http.get("/story/add/room/" + $scope.roomId + "/story/" + $scope.storyDesc)
+              . success(function(data, status, headers, config) {
+                var dataList = Object.keys(data)
+                if (dataList.length > 0) {
+                  $scope.startNowDisable = false
+                }
+                $scope.storyPile = dataList;
+              }).
+              error(function(data, status, headers, config) {
+                alert(status)
+              });
+    }
 });

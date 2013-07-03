@@ -10,7 +10,6 @@ files = [
   MOCHA,
   MOCHA_ADAPTER,
   'node_modules/chai/chai.js',
-  'test/browsertest/sinon-1.6.0.js',
   'node_modules/mocha/mocha.js',
   'assets/js/jquery-1.7.2.min.js',
   'assets/js/qrcode.js',

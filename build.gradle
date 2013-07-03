@@ -1,0 +1,67 @@
+apply plugin: "groovy"
+
+ext.srcDir = "src"
+ext.testDir = "test/unit"
+ext.stagingDir = "staging"
+ext.distDir = "dist"
+ext.browsertestDir = "test/browsertest"
+ext.webtestDir = "test/webtest"
+ext.executableName = "foresee"
+ext.buildDir = "build"
+ext.globalReqs = ["jasmine-node":"jasmine-node", "nodemon":"nodemon"]
+ext.providedReqs = ["java"]
+ext.deployPaths = ["dev": "/opt/foresee-dev", "qa": "/opt/foresee-qa", "prod": "/opt/foresee"]
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    def gebVersion = "0.9.0"
+    def seleniumVersion = "2.32.0"
+
+    testCompile "org.codehaus.groovy:groovy-all:2.0.5"
+
+    // If using JUnit, need to depend on geb-junit (3 or 4)
+    testCompile "junit:junit:4.11"
+    testCompile "org.gebish:geb-junit4:$gebVersion"
+
+    // Drivers
+    testCompile "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
+}
+
+/**** Unit Tests ****/
+test {
+    dependsOn "unitTest", "webTest"
+    enabled = false
+}
+
+task unitTest(type:Exec) {
+    commandLine "jasmine-node", "--verbose", testDir
+}
+
+task unitTestTeamCity(type:Exec) {
+    commandLine "jasmine-node", "--teamcity", testDir
+}
+
+task webTest(type: Test) {
+  dependsOn "cleanTest"
+
+  include '**/WebTestSuite.class'
+
+  systemProperty "geb.build.reportsDir", reporting.file("geb")
+  systemProperty "geb.env", "firefox"
+}
+
+/**** Dev ****/
+task npmDependencies(type:Exec) {
+  commandLine 'npm', 'install'
+}
+
+task dev(type:Exec) {
+    commandLine "nodemon", "--watch", srcDir, "-e", "js,coffee", "app.js"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.6'
+}

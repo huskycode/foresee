@@ -13,17 +13,16 @@ validateRoomName = function(roomName) {
   }
 };
 
-window.validateRoomName = validateRoomName;
 
-$(function() {
-  return $("#createRoom").click(function() {
-    var roomname;
-    roomname = $("#id").val();
-    if (validateRoomName(roomname)) {
-      document.location = "host/" + roomname;
-    } else {
-      $("#mod_message").html("room name must not contain # or blank.");
+controllers.controller("foresee.moderator.LoginCtrl", function($scope, $window) {
+    $scope.roomName = "";
+
+    $scope.createRoom = function() {
+        if (validateRoomName($scope.roomName)) {
+          $window.location.href = "host/" + $scope.roomName;
+          $scope.modMsg = "";
+        } else {
+          $scope.modMsg = ("room name must not contain # or blank.");
+        }
     }
-    return false;
-  });
 });

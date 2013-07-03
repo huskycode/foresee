@@ -42,7 +42,7 @@ describe('foresee.moderator.StoryCtrl', function() {
       scope.addStory();
       httpBackend.flush();
 
-      expect(scope.storyPile).toEqual(expectedStoryPile)
+      expect(scope.storyPile).toEqual(expectedStoryPile);
       expect(scope.startNowDisable).toBe(expectedStartNowStatus);
     }
 //  });

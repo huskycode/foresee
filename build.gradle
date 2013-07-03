@@ -1,7 +1,7 @@
 apply plugin: "groovy"
 
 ext.srcDir = "src"
-ext.testDir = "test/unit"
+ext.testDir = "src/test/unit"
 ext.stagingDir = "staging"
 ext.distDir = "dist"
 ext.browsertestDir = "test/browsertest"

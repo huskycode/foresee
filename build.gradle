@@ -1,15 +1,15 @@
 apply plugin: "groovy"
 
-srcDir = "src"
-testDir = "test/unit"
-stagingDir = "staging"
-distDir = "dist"
-webtestDir = "test/webtest"
-executableName = "foresee"
-buildDir = "build"
-globalReqs = ["coffee":"coffee-script", "mocha":"mocha", "nodemon":"nodemon", "forever":"forever"]
-providedReqs: ["java"]
-deployPaths: ["dev": "/opt/foresee-dev", "qa": "/opt/foresee-qa", "prod": "/opt/foresee"]
+ext.srcDir = "src"
+ext.testDir = "test/unit"
+ext.stagingDir = "staging"
+ext.distDir = "dist"
+ext.webtestDir = "test/webtest"
+ext.executableName = "foresee"
+ext.buildDir = "build"
+ext.globalReqs = ["jasmine-node":"jasmine-node", "nodemon":"nodemon"]
+ext.providedReqs = ["java"]
+ext.deployPaths = ["dev": "/opt/foresee-dev", "qa": "/opt/foresee-qa", "prod": "/opt/foresee"]
 
 repositories {
     mavenCentral()
@@ -29,13 +29,30 @@ dependencies {
     testCompile "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
 }
 
+/**** Unit Tests ****/
 test {
+    dependsOn "unitTest", "webTest"
+    enabled = false
+}
+
+task unitTest(type:Exec) {
+    commandLine "jasmine-node", "--verbose", testDir
+}
+
+task unitTestTeamCity(type:Exec) {
+    commandLine "jasmine-node", "--teamcity", testDir
+}
+
+task webTest(type: Test) {
+  dependsOn "cleanTest"
+
   include '**/WebTestSuite.class'
 
   systemProperty "geb.build.reportsDir", reporting.file("geb")
   systemProperty "geb.env", "firefox"
 }
 
+/**** Dev ****/
 task npmDependencies(type:Exec) {
   commandLine 'npm', 'install'
 }

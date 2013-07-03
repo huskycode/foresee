@@ -14,7 +14,7 @@ validateRoomName = function(roomName) {
 };
 
 
-controllers.controller("foresee.moderator.LoginCtrl", function($scope, $window) {
+app.controller("foresee.moderator.LoginCtrl", function($scope, $window) {
     $scope.roomName = "";
 
     $scope.createRoom = function() {

@@ -1,4 +1,4 @@
-controllers.controller("foresee.moderator.StoryCtrl", function($scope, $http) {
+app.controller("foresee.moderator.StoryCtrl", function($scope, $http) {
     $scope.storyPile = [];
     $scope.startNowDisable = true;
 

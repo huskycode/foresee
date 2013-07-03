@@ -59,62 +59,12 @@ populateCards = function(votes) {
   return $("#cards").html(result);
 };
 
-HostPage = function(jq) {
-  return {
-    startNow: jq("#startNow"),
-    addStory: jq("#addStory"),
-    storyPile: jq("#story-pile"),
-    roomId: jq("#roomId"),
-    storyDesc: jq("#storyDesc")
-  };
-};
-
-HTTPBackend = function(jq) {
-  return {
-    ajax: function(params) {
-      return jq.ajax(params);
-    }
-  };
-};
-
-StoriesCtrl = function(hostPage, httpBackend) {
-  return hostPage.addStory.click(function() {
-    return httpBackend.ajax({
-      url: "/story/add/room/" + (hostPage.roomId.val()) + "/story/" + (hostPage.storyDesc.val()),
-      success: function(data, textStatus, jqXHR) {
-        var key, _results;
-        hostPage.storyPile.empty();
-        if (Object.keys(data).length > 0) {
-          hostPage.startNow.removeAttr('disabled');
-          _results = [];
-          for (key in data) {
-            _results.push(hostPage.storyPile.append("<li>" + key + "</li>"));
-          }
-          return _results;
-        }
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        return alert(errorThrown);
-      }
-    });
-  });
-};
-
 window.StoriesCtrl = StoriesCtrl;
-
-enableStartNowButton = function(jQuery, storyList) {
-  if (Object.keys(storyList).length > 0) {
-    return jQuery('#startNow').removeAttr('disabled');
-  }
-};
-
-window.enableStartNowButton = enableStartNowButton;
 
 $(function() {
   var i, qrCtrl, roomId, socket, socketUrl, storiesCtrl, url, votes;
   qrCtrl = QRCtrl($, QRCodeJSCodeGen);
   qrCtrl.generateQRCode();
-  storiesCtrl = StoriesCtrl(HostPage($), HTTPBackend($));
   url = $("#url").val();
   socketUrl = $("#socketUrl").val();
   roomId = $("#roomId").val();

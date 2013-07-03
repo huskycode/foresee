@@ -5,8 +5,9 @@ node_modules/
 .app/
 browsertest/.js/
 .c9revisions/
-build/autotest.js
+build/
 staging/
 dist/
 junit.xml
 acceptance_junit.xml
+.gradle/

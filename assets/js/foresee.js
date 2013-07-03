@@ -1,1 +1,1 @@
-var controllers = angular.module("foresee", []);
+var app = angular.module("foresee", []);

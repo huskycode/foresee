@@ -6,17 +6,13 @@
   "dependencies": {
      "express": "3.x"
     ,"socket.io": "0.9.x"
-    ,"coffee-script": "1.6.x"
     ,"connect-assets": "2.3.3"
     ,"which": "1.0.5"
     ,"wrench": "1.4.4"
     ,"ect":"0.4.x"
     ,"memory-cache":"0.0.x"
-    ,"selenium-webdriver":"2.31.0"
   }, "devDependencies": {
-      "coffee-script": "*"
-    , "xunit-file": "*"
-    , "mocha": "*"
+      "mocha": "*"
     , "should": "*"
     , "supervisor": "*"
     , "chai": "1.5.x"

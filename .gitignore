@@ -11,3 +11,4 @@ dist/
 junit.xml
 acceptance_junit.xml
 .gradle/
+test/webtest/selenium-server-standalone-2.31.0.jar

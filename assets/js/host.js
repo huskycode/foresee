@@ -63,8 +63,6 @@ window.StoriesCtrl = StoriesCtrl;
 
 $(function() {
   var i, qrCtrl, roomId, socket, socketUrl, storiesCtrl, url, votes;
-  qrCtrl = QRCtrl($, QRCodeJSCodeGen);
-  qrCtrl.generateQRCode();
   url = $("#url").val();
   socketUrl = $("#socketUrl").val();
   roomId = $("#roomId").val();

@@ -5,7 +5,6 @@
   <%- js("host") %>
   <%- js("host2") %>
   <%- js("lib/qrcode/qrcode.min") %>
-  <%- js("qrcode") %>
   <style type="text/css">
       .card_holder {
           float: left;
@@ -36,8 +35,8 @@
     </header>
   </div>
 </div>
-<div class="row-fluid">
-  <div class="span9" ng-app="foresee">
+<div class="row-fluid" ng-app="foresee">
+  <div class="span9">
     <div class="box" ng-controller="foresee.moderator.StoryCtrl">
       <div class="row-fluid">
         <div class="span12">
@@ -91,7 +90,7 @@
   </div>
   <div class="span3">
     <div class="box box-small">
-      <div id="qrcode"></div><br>
+      <div id="qrcode" qrcode url="'<%=@url%>'"></div><br>
         <a id="link" href="<%-@url%>"><%=@url%></a><br/>
         <p>Scan QR code or click on the link above to join</p>
         <hr>

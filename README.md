@@ -57,19 +57,18 @@ Instructions for Dev
 ### Windows
 1. Download Install nodejs from http://nodejs.org/download/
 
-For XP and lower do this extra step
-2. npm -g coffee-script
-
 ### All Platforms
 
 * Install firefox
 * Install java
+* Install global dependencies (use sudo if on ubuntu)
+
+     npm install -g jasmine-node
+     npm install -g nodemon
 
 make sure you can run java from command line. Try this command
 
     java --version
-
-(Use "sudo" if on ubuntu)
 
 ### Running Server in Development Mode
 1. go to the directory
@@ -78,12 +77,10 @@ make sure you can run java from command line. Try this command
 
 ### Build Targets
 
-Take a look at build/make.coffee
+Take a look at build.gradle
 
 The "run" script is created as a shortcut to build/make.coffee
-For windows xp and lower: uses run_xp
 
-    Unit Tests : ./run test 
+    Unit Tests : ./run unittest
     Selenium Tests : ./run webtest
-    Auto Tests: ./run autotest
-    Browser Tests: ./run browsertest
+

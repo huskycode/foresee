@@ -1,4 +1,14 @@
 /**
+ * Participant Pages
+ */
+var ParticipantJoinPage = function(jq) {
+    this.roomIdValue = jq("#room").val();
+    this.socketUrlValue = jq("#socketUrl").val();
+
+    this.onJoinButtonClicked = function(e) { $("#add").click(e); };
+};
+
+/**
  * Participant States
  */
 var ParticipantState = function() {

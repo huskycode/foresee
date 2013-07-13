@@ -63,13 +63,20 @@ task zip(type: Zip) {
   destinationDir = new File(distDir)
   archiveName = "foresee-linux.zip"
 
-  from('src/') { into('src') }
-  from('assets/') { into('assets') }
-  from('node_modules/') { into('node_modules') }
-  from('views/') { into('views') }
-  from('public/') { into('public') }
-  from('app.js')
-  from('build_res/node-exe/linux-x64/node') { fileMode = 0755 }
+  from('src/') { into('foresee/src') }
+  from('assets/') { into('foresee/assets') }
+  from('node_modules/') { into('foresee/node_modules') }
+  from('views/') { into('foresee/views') }
+  from('public/') { into('foresee/public') }
+  from('app.js') { into('foresee/') }
+  from('build_res/node-exe/linux-x64/node') {
+     fileMode = 0755
+     into('foresee/')
+  }
+    from('build_res/script/linux/foresee') {
+        fileMode = 0755
+        into('foresee/')
+    }
 }
 
 /**** Dev ****/

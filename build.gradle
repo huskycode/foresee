@@ -2,8 +2,7 @@ apply plugin: "groovy"
 
 ext.srcDir = "src"
 ext.testDir = "src/test/unit"
-ext.stagingDir = "staging"
-ext.distDir = "dist"
+ext.distDir = "build/dist"
 ext.browsertestDir = "test/browsertest"
 ext.webtestDir = "test/webtest"
 ext.executableName = "foresee"
@@ -51,6 +50,26 @@ task webTest(type: Test) {
 
   systemProperty "geb.build.reportsDir", reporting.file("geb")
   systemProperty "geb.env", "firefox"
+}
+
+task deleteDist(type: Delete) {
+    delete distDir
+}
+
+
+task zip(type: Zip) {
+  dependsOn "deleteDist"
+
+  destinationDir = new File(distDir)
+  archiveName = "foresee-linux.zip"
+
+  from('src/') { into('src') }
+  from('assets/') { into('assets') }
+  from('node_modules/') { into('node_modules') }
+  from('views/') { into('views') }
+  from('public/') { into('public') }
+  from('app.js')
+  from('build_res/node-exe/linux-x64/node') { fileMode = 0755 }
 }
 
 /**** Dev ****/

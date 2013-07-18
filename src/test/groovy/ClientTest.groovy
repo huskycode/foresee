@@ -56,7 +56,8 @@ class ClientTest extends GebReportingTest {
 
             voteBtn().click()
 
-            assert findFirstCard().text() == "5"
+            assert findFirstCardFace().text() == "5"
+            assert findFirstCardName().text() == "UserName1"
         }
     }
 

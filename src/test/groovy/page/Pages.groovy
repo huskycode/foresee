@@ -43,6 +43,7 @@ class Client extends Page {
 
         voteBtn { $("#voteButton") }
 
-        findFirstCard(wait:true) { $(".card_holder>.card") }
+        findFirstCardFace(wait:true) { $(".card_holder>.card") }
+        findFirstCardName(wait:true) { $(".card_holder>.name") }
     }
 }

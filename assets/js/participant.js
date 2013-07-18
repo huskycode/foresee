@@ -5,7 +5,9 @@ var ParticipantJoinPage = function(jq) {
     this.roomIdValue = jq("#room").val();
     this.socketUrlValue = jq("#socketUrl").val();
 
-    this.onJoinButtonClicked = function(e) { $("#add").click(e); };
+    this.getNameValue = function() { return jq("#name").val() };
+
+    this.onJoinButtonClicked = function(f) { jq("#add").click(f); };
 };
 
 /**

@@ -1,8 +1,6 @@
-var countVoted, getCardFace, name, populateCards, roomId, socket, socketUrl;
+var countVoted, getCardFace, populateCards, roomId, socket, socketUrl;
 
 roomId = null;
-
-name = null;
 
 socketUrl = null;
 
@@ -42,12 +40,16 @@ populateCards = function(votes) {
   for (index = _i = 0, _len = names.length; _i < _len; index = ++_i) {
     n = names[index];
     blockClass = blocks[index % 3];
-    result += "<div class='" + blockClass + "'><div class='card_holder'><div class='card'>" + getCardFace(displayNumbers, votes[n]) + "</div>" + n + "</div></div>";
+    result += "<div class='" + blockClass + "'><div class='card_holder'><div class='card'>" + getCardFace(displayNumbers, votes[n]) + "</div><div class='name'>" + n + "</div></div></div>";
   }
   return $("#cards").html(result).trigger("create");
 };
 
-$('#p1').live('pagecreate', function(e) {
+var settings = {
+  name: null
+};
+
+$('#p1').live('pagecreate', function() {
   var joinPage = new ParticipantJoinPage($);
 
   roomId = joinPage.roomIdValue;
@@ -56,7 +58,7 @@ $('#p1').live('pagecreate', function(e) {
   socket = io.connect(socketUrl);
   socket.on("voteRefresh", function(data) {
     if (data.room === roomId) {
-      if (name !== null && data.votes[name] === void 0) {
+      if (settings.name !== null && data.votes[settings.name] === void 0) {
         return $.mobile.changePage('#p1', {
           transition: "flip"
         });
@@ -67,10 +69,11 @@ $('#p1').live('pagecreate', function(e) {
   });
 
   joinPage.onJoinButtonClicked(function() {
-    name = $("#name").val();
+    settings.name = joinPage.getNameValue();
+
     $.mobile.showPageLoadingMsg();
     return $.ajax({
-      url: "/join/room/" + roomId + "/name/" + name,
+      url: "/join/room/" + roomId + "/name/" + settings.name,
       success: function(data, textStatus, jqXHR) {
         $.mobile.hidePageLoadingMsg();
         return $.mobile.changePage('#p2', {
@@ -89,7 +92,7 @@ $('#p2').live('pagecreate', function(e) {
   return $("#voteButton").click(function(e) {
     socket.emit("vote", {
       room: roomId,
-      name: name,
+      name: settings.name,
       vote: $("#vote").val()
     });
     return $.mobile.changePage('#p3', {

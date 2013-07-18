@@ -26,14 +26,19 @@ describe("foresee.service.webSocket", function() {
         expect(mockSocketIo.connect).toHaveBeenCalled();
     });
 
-    it('on() should call socketIO with correct event name', function() {
-        var callback = function(data) {
+    describe("on()", function() {
+        var callback;
 
-        };
+        beforeEach(function() {
+            callback = function(data) {
 
-        webSocket.on("myEvent", callback);
+            };
+            webSocket.on("myEvent", callback);
+        });
 
-        expect(mockSocket.on.mostRecentCall.args[0]).toEqual("myEvent");
+        it('should call socketIO with correct event name', function() {
+            expect(mockSocket.on.mostRecentCall.args[0]).toEqual("myEvent");
+        });
     });
 
 });

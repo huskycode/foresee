@@ -82,7 +82,7 @@ class ClientTest extends GebReportingTest {
 
         withFrame(host, HomePage) {
             Thread.sleep(1000)
-            assert findParticipantOne().text() == "UserName1"
+            assert findParticipantOne().text().contains("UserName1")
         }
     }
 

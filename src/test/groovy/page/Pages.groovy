@@ -16,7 +16,7 @@ class HomePage extends Page {
         roomNameTxt { $("#id") }
         createRoomBtn { $("#createRoom") }
 
-        findParticipantOne(wait:true) { $("ul#participant-list>li") }
+        findParticipantOne(wait:true) { $("ul#participants>li") }
     }
 }
 

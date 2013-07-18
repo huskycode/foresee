@@ -15,6 +15,8 @@ class HomePage extends Page {
     static content = {
         roomNameTxt { $("#id") }
         createRoomBtn { $("#createRoom") }
+
+        findParticipantOne(wait:true) { $("ul#participant-list>li") }
     }
 }
 

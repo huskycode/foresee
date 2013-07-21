@@ -28,16 +28,22 @@ describe("foresee.service.webSocket", function() {
 
     describe("on()", function() {
         var callback;
+        var capturedData;
 
         beforeEach(function() {
             callback = function(data) {
-
+              capturedData = data;
             };
             webSocket.on("myEvent", callback);
         });
 
         it('should call socketIO with correct event name', function() {
             expect(mockSocket.on.mostRecentCall.args[0]).toEqual("myEvent");
+        });
+
+        it('should call socketIO with correct callback function', function() {
+            mockSocket.on.mostRecentCall.args[1]("callbackData");
+            expect(capturedData).toEqual("callbackData");
         });
     });
 

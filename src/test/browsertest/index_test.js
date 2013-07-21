@@ -41,16 +41,15 @@ describe('foresee.moderator.LoginCtrl', function() {
     });
 
     it('should redirect when create room with non-empty room name', function() {
-        var expectedRoomName = "room name";
-        $scope.roomName = expectedRoomName;
+        $scope.roomName = "room name!@#$%^&*_+";
         $scope.createRoom();
-        expect(mockWindow.location.href).toEqual('host/' + expectedRoomName);
+        expect(mockWindow.location.href).toEqual('host/' + 'room%20name!%40%23%24%25%5E%26*_%2B');
     });
 
     it('should show error message when create room with empty room name', function() {
         $scope.roomName = "";
         $scope.createRoom();
-        expect($scope.modMsg).toEqual("room name must not contain # or blank.");
+        expect($scope.modMsg).toEqual("room name must not blank.");
         expect(mockWindow.location.href).toBeNull();
     });
 });

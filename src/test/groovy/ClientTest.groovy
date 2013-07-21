@@ -1,6 +1,6 @@
 import geb.Page
 import geb.junit4.GebReportingTest
-import org.junit.Test
+import org.junit.*
 import page.Client
 import page.HomePage
 import page.Info
@@ -58,6 +58,31 @@ class ClientTest extends GebReportingTest {
 
             assert findFirstCardFace().text() == "5"
             assert findFirstCardName().text() == "UserName1"
+        }
+    }
+
+
+    @Test
+    public void "shoud show participant name on host screen when they joined"() {
+        to TestFrame
+
+        TestFrame.setHostUrl(js,Info.FORESEE_BASE_URL)
+
+        withFrame(host, HomePage) {
+            roomNameTxt().value "RoomName"
+            createRoomBtn().click()
+        }
+
+        TestFrame.setClientOneUrl(js,Info.FORESEE_BASE_URL + "join/RoomName")
+
+        withFrame(client1, Client) {
+            name().value "UserName1"
+            nameSubmitBtn().click()
+        }
+
+        withFrame(host, HomePage) {
+            Thread.sleep(1000)
+            assert findParticipantOne().text().contains("UserName1")
         }
     }
 

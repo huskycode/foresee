@@ -35,4 +35,14 @@ class HomePageTest extends GebReportingTest {
 
         assert at(HomePage)
     }
+
+    @Test
+    void shouldCreateRoomWhenClickStartNowWithRoomNameContainSpecialCharacter() {
+        to HomePage
+        roomNameTxt().value "<Roomname#>"
+        createRoomBtn().click()
+
+        at HostPage
+        assert title == "Host - <Roomname#>"
+    }
 }

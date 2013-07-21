@@ -5,11 +5,7 @@ validateRoomName = function(roomName) {
   if (roomName === "") {
     return false;
   } else {
-    if (roomName.indexOf('#') !== -1) {
-      return false;
-    } else {
-      return true;
-    }
+    return true;
   }
 };
 
@@ -19,10 +15,10 @@ app.controller("foresee.moderator.LoginCtrl", function($scope, $window) {
 
     $scope.createRoom = function() {
         if (validateRoomName($scope.roomName)) {
-          $window.location.href = "host/" + $scope.roomName;
+          $window.location.href = "host/" + encodeURIComponent($scope.roomName);
           $scope.modMsg = "";
         } else {
-          $scope.modMsg = ("room name must not contain # or blank.");
+          $scope.modMsg = ("room name must not blank.");
         }
     }
 });

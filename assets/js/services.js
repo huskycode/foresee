@@ -1,5 +1,10 @@
+app.factory('socketIO', function ($rootScope) {
+   return io;
+});
+
 app.factory('webSocket', function ($rootScope, socketIO) {
     var socket = socketIO.connect();
+
     return {
         on: function (eventName, callback) {
             socket.on(eventName, function () {

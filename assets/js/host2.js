@@ -18,6 +18,10 @@ app.controller("foresee.moderator.StoryCtrl", function($scope, $http) {
 });
 
 app.controller("foresee.moderator.ParticipantListCtrl", function($scope, webSocket) {
+
+  webSocket.on('voteRefresh', function(data) {
+
+  });
 });
 
 

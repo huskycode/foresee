@@ -22,6 +22,13 @@ route = {
   addStory: function(req, res) {
     core.addStory(req.params.room, req.params.story);
     return res.send(core.listStories(req.params.room));
+  },
+  addParticipant: function(req, res) {
+    core.addParticipant(req.params.room, req.params.name);
+    return res.json({
+      room: req.params.room,
+      name: req.params.name
+    });
   }
 };
 

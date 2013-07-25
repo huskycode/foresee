@@ -66,5 +66,28 @@ describe('foresee.moderator.ParticipantListCtrl', function() {
   it("should initialize participants with empty list", function() {
       expect(scope.participants).toEqual([]);
   });
+
+  it("should update participant list when vote Refresh", function() {
+    // Given:
+    // data = { votes: { p1: null, p2: 1, }  };
+
+    // when:
+    // webSocket.voteRefresh(data);
+
+    // then:
+    // scope.participants == ['p1','p2'];
+  });
+
+  it("should remove participant when [x] is clicked", function() {
+//    $(document).on("click", "a.removeParticipant", function(evt) {
+//      var participantName;
+//      participantName = $(evt.srcElement).attr("participant_name");
+//      console.log("Removing participant with name : " + participantName);
+//      return socket.emit("removeParticipant", {
+//        room: roomId,
+//        name: participantName
+//      });
+//    });
+  });
 });
 

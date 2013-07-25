@@ -49,6 +49,10 @@ describe('foresee.moderator.ParticipantListCtrl', function() {
   beforeEach(inject(function($rootScope, $controller) {
     //create a scope object for us to use.
     scope = $rootScope.$new();
+    mockWebSocket = {
+      on: jasmine.createSpy(),
+      emit: jasmine.createSpy()
+    };
 
 
     ctrl = $controller('foresee.moderator.ParticipantListCtrl', {
@@ -59,8 +63,8 @@ describe('foresee.moderator.ParticipantListCtrl', function() {
 
   }));
 
-  it("should be initialize test fine", function() {
-
+  it("should initialize participants with empty list", function() {
+      expect(scope.participants).toEqual([]);
   });
 });
 

@@ -17,6 +17,9 @@ app.controller("foresee.moderator.StoryCtrl", function($scope, $http) {
     }
 });
 
+app.controller("foresee.moderator.ParticipantListCtrl", function($scope, webSocket) {
+});
+
 
 app.directive('qrcode', function() {
   return {

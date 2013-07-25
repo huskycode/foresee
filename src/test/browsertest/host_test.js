@@ -1,22 +1,15 @@
 describe('foresee.moderator.StoryCtrl', function() {
-
- // describe("AddStory Click", function() {
     var httpBackend;
     var scope;
     var ctrl;
-    //you need to indicate your module in a test
+
     beforeEach(module('foresee'));
 
-    /* IMPORTANT!
-     * this is where we're setting up the $scope and
-     * calling the controller function on it, injecting
-     * all the important bits, like our mockService */
     beforeEach(inject(function($rootScope, $controller, $httpBackend) {
         //create a scope object for us to use.
         scope = $rootScope.$new();
         httpBackend = $httpBackend;
-        //now run that scope through the controller function,
-        //injecting any services or other injectables we need.
+
         ctrl = $controller('foresee.moderator.StoryCtrl', {
              $scope: scope
         });
@@ -45,6 +38,29 @@ describe('foresee.moderator.StoryCtrl', function() {
       expect(scope.storyPile).toEqual(expectedStoryPile);
       expect(scope.startNowDisable).toBe(expectedStartNowStatus);
     }
-//  });
+});
+
+describe('foresee.moderator.ParticipantListCtrl', function() {
+  var scope;
+  var mockWebSocket;
+
+  beforeEach(module('foresee'));
+
+  beforeEach(inject(function($rootScope, $controller) {
+    //create a scope object for us to use.
+    scope = $rootScope.$new();
+
+
+    ctrl = $controller('foresee.moderator.ParticipantListCtrl', {
+      $scope: scope,
+      webSocket: mockWebSocket
+    });
+
+
+  }));
+
+  it("should be initialize test fine", function() {
+
+  });
 });
 

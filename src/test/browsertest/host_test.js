@@ -69,13 +69,13 @@ describe('foresee.moderator.ParticipantListCtrl', function() {
 
   it("should update participant list when vote Refresh", function() {
     // Given:
-    // data = { votes: { p1: null, p2: 1, }  };
+    var data = { "votes": { "p1": null, "p2": 1 }  };
 
-    // when:
-    // webSocket.voteRefresh(data);
+    // When:
+    mockWebSocket.on.mostRecentCall.args[1](data);
 
     // then:
-    // scope.participants == ['p1','p2'];
+    expect(scope.participants).toEqual(['p1','p2']);
   });
 
   it("should remove participant when [x] is clicked", function() {

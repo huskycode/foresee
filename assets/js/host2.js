@@ -22,7 +22,9 @@ app.controller("foresee.moderator.ParticipantListCtrl", function($scope, webSock
   $scope.roomName = "";
 
   webSocket.on('voteRefresh', function(data) {
-    $scope.participants = _.keys(data.votes);
+    if(data.room == $scope.roomName) {
+      $scope.participants = _.keys(data.votes);
+    }
   });
 
   $scope.init = function(roomName) {

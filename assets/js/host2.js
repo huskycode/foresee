@@ -21,7 +21,8 @@ app.controller("foresee.moderator.ParticipantListCtrl", function($scope, webSock
   $scope.participants = [];
 
   webSocket.on('voteRefresh', function(data) {
-
+    var participantNames = _.keys(data.votes);
+    $scope.participants = participantNames;
   });
 });
 

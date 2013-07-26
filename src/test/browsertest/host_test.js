@@ -74,11 +74,23 @@ describe('foresee.moderator.ParticipantListCtrl', function() {
   });
 
   it("should update participant list when vote Refresh", function() {
-    var data = { "votes": { "p1": null, "p2": 1 }  };
+    scope.init("thisRoom");
+
+    var data = { "room": "thisRoom", "votes": { "p1": null, "p2": 1 }  };
 
     mockWebSocket.on.mostRecentCall.args[1](data);
 
     expect(scope.participants).toEqual(['p1','p2']);
+  });
+
+  it("should not update participant list when vote Refresh with different room", function() {
+    scope.init("thisRoom");
+
+    var data = { "room": "notThisRoom", "votes": { "p1": null, "p2": 1 }  };
+
+    mockWebSocket.on.mostRecentCall.args[1](data);
+
+    expect(scope.participants).toEqual([]);
   });
 
   it("should remove participant when [x] is clicked", function() {

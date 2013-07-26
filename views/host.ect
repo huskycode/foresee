@@ -96,10 +96,7 @@
         <p>Scan QR code or click on the link above to join</p>
         <hr>
         <h2>Participants (<span id="participantsCount">?</span>)</h2>
-        <ul id="participants">
-        </ul>
-        <hr/>
-        <ul ng-controller="foresee.moderator.ParticipantListCtrl" ng-init="init('<%=@roomId%>')" >
+        <ul id="participants" ng-controller="foresee.moderator.ParticipantListCtrl" ng-init="init('<%=@roomId%>')" >
             <li ng-repeat="participant in participants">
                 {{participant}} [<a style="cursor: pointer;" ng-click="removeParticipant(participant)">x</a>]
             </li>

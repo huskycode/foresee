@@ -4,14 +4,14 @@ app.controller("foresee.moderator.StoryCtrl", function($scope, $http) {
 
     $scope.addStory = function() {
         $http.get("/story/add/room/" + $scope.roomId + "/story/" + $scope.storyDesc)
-              . success(function(data, status, headers, config) {
+              . success(function(data) {
                 var dataList = Object.keys(data)
                 if (dataList.length > 0) {
                   $scope.startNowDisable = false
                 }
                 $scope.storyPile = dataList;
               }).
-              error(function(data, status, headers, config) {
+              error(function(data, status) {
                 alert(status)
               });
     }
@@ -27,9 +27,9 @@ app.controller("foresee.moderator.ParticipantListCtrl", function($scope, webSock
     }
   });
 
-  $scope.init = function(roomName) {
+  $scope.init = function (roomName) {
     $scope.roomName = roomName;
-  }
+  };
 
   $scope.removeParticipant = function(name) {
     $scope.participants = _.without($scope.participants, name);

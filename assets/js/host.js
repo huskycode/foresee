@@ -40,21 +40,16 @@ populateCards = function(votes) {
 };
 
 $(function() {
-  var i, roomId, socket, socketUrl, url, votes;
+  var i, roomId, socket, socketUrl, url;
   url = $("#url").val();
   socketUrl = $("#socketUrl").val();
   roomId = $("#roomId").val();
-  votes = {};
   socket = io.connect(socketUrl);
   socket.emit("ask", {
     room: roomId
   });
   socket.on('voteRefresh', function(data) {
-    var participantNames;
     if (data.room === roomId) {
-      votes = data.votes;
-      participantNames = Object.keys(data.votes);
-      $("#participantsCount").html(participantNames.length);
       return populateCards(data.votes);
     }
   });

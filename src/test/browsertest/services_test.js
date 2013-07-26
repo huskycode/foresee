@@ -47,4 +47,15 @@ describe("foresee.service.webSocket", function() {
         });
     });
 
+    describe("emit()", function() {
+      it('should call emit with correct parameter', function() {
+        var eventName = "myEvent";
+        var data = { "some": "Data"};
+
+        webSocket.emit(eventName, data);
+
+        expect(mockSocket.emit.mostRecentCall.args[0]).toEqual(eventName);
+        expect(mockSocket.emit.mostRecentCall.args[1]).toEqual(data);
+      });
+    });
 });

@@ -16,11 +16,13 @@ route = require("../../../src/route").route;
 describe("route", function() {
   beforeEach(function() {
     sinon.stub(core, "addStory");
-    return sinon.stub(core, "listStories");
+    sinon.stub(core, "listStories");
+    return sinon.stub(core, "addParticipant");
   });
   afterEach(function() {
     core.addStory.restore();
-    return core.listStories.restore();
+    core.listStories.restore();
+    return core.addParticipant.restore();
   });
   it('index points to right template and contains title', function() {
     return route.index(null, {
@@ -45,6 +47,29 @@ describe("route", function() {
         return params.socketUrl.should.equal("http://any host");
       }
     });
+  });
+  it('participant joined, send the "voteRefresh" message',function() {
+    var roomName = "geeky", name = "a";
+    var actualRoomName, actualName;
+    core.addParticipant.withArgs(roomName, name);
+
+    route.addParticipant({
+      params: {
+        room: roomName,
+        name: name
+      }
+    }, {
+      json: function(result) {
+        actualRoomName = result.room;
+        actualName = result.name;
+        return;
+      }
+    });
+
+    actualRoomName.should.equal(roomName);
+    actualName.should.equal(name);
+    core.addParticipant.calledOnce.should.be["true"];
+    return core.addParticipant.calledWith(roomName, name).should.be["true"];
   });
   return it('story/add calls method in core', function() {
     var listResult, newStory, roomName;

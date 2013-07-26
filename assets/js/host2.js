@@ -19,11 +19,23 @@ app.controller("foresee.moderator.StoryCtrl", function($scope, $http) {
 
 app.controller("foresee.moderator.ParticipantListCtrl", function($scope, webSocket) {
   $scope.participants = [];
+  $scope.roomName = "";
 
   webSocket.on('voteRefresh', function(data) {
-    var participantNames = _.keys(data.votes);
-    $scope.participants = participantNames;
+    $scope.participants = _.keys(data.votes);
   });
+
+  $scope.init = function(roomName) {
+    $scope.roomName = roomName;
+  }
+
+  $scope.removeParticipant = function(name) {
+    $scope.participants = _.without($scope.participants, name);
+    webSocket.emit("removeParticipant", {
+      "room": $scope.roomName,
+      "name": name
+    })
+  }
 });
 
 

@@ -99,9 +99,9 @@
         <ul id="participants">
         </ul>
         <hr/>
-        <ul ng-controller="foresee.moderator.ParticipantListCtrl" >
+        <ul ng-controller="foresee.moderator.ParticipantListCtrl" ng-init="init('<%=@roomId%>')" >
             <li ng-repeat="participant in participants">
-                {{participant}} [<a href='#'>x</a>]
+                {{participant}} [<a style="cursor: pointer;" ng-click="removeParticipant(participant)">x</a>]
             </li>
         </ul>
     </div>

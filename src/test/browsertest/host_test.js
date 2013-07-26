@@ -67,27 +67,38 @@ describe('foresee.moderator.ParticipantListCtrl', function() {
       expect(scope.participants).toEqual([]);
   });
 
+  it("init() should initialize room name", function() {
+    scope.init("aRoomName");
+
+    expect(scope.roomName).toEqual("aRoomName");
+  });
+
   it("should update participant list when vote Refresh", function() {
-    // Given:
     var data = { "votes": { "p1": null, "p2": 1 }  };
 
-    // When:
     mockWebSocket.on.mostRecentCall.args[1](data);
 
-    // then:
     expect(scope.participants).toEqual(['p1','p2']);
   });
 
   it("should remove participant when [x] is clicked", function() {
-//    $(document).on("click", "a.removeParticipant", function(evt) {
-//      var participantName;
-//      participantName = $(evt.srcElement).attr("participant_name");
-//      console.log("Removing participant with name : " + participantName);
-//      return socket.emit("removeParticipant", {
-//        room: roomId,
-//        name: participantName
-//      });
-//    });
+    scope.participants = ["p1", "p2", "p3"];
+
+    scope.removeParticipant("p2");
+
+    expect(scope.participants).toEqual(["p1","p3"]);
+  });
+
+  it("should emit remove participant event when [x] is clicked", function() {
+    scope.init("aRoomName");
+    scope.removeParticipant("p2");
+
+    var lastEmitCall = mockWebSocket.emit.mostRecentCall;
+    expect(lastEmitCall.args[0]).toEqual("removeParticipant");
+    expect(lastEmitCall.args[1]).toEqual({
+      "room": "aRoomName",
+      "name": "p2"
+    });
   });
 });
 

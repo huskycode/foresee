@@ -4,40 +4,15 @@ A web-based planning poker tool. Participants votes the stories projected on the
 Voted points and notes collected are kept in the system and can be downloaded or exported to project management 
 tools.
 
-
 ### Build Status
-[![Build Status](https://travis-ci.org/huskycode/foresee.png)](https://travis-ci.org/huskycode/foresee)
+* Unit Test ![Unit Test](http://teamcity.huskycode.com/app/rest/builds/buildType:bt3/statusIcon)
+* Acceptance Test ![Unit Test](http://teamcity.huskycode.com/app/rest/builds/buildType:bt4/statusIcon)
 
-Architectural Drivers
-------
-### High-Level Requirement
-1. A faciliator creates a "room" and import stories to estimate
-2. Using the room code, all participants join using browser on their phone or computer.
-3. A facilitator controls when the votes ends. They can also record any assumptions agreed upon in the meeting
-4. Anybody can use the room code to visit it later and download results.
+### Interested in helping?
 
-### Quality Attributes
-1. Robustness #1: At any point, the facilitator can force progress the planning even when the connection from participants
-are flaky.
-2. Usability: Given a blank Linux or Windows machine, the program can be installed to use with less than 3 steps,
-in less than 2 minute and require 0 configuration tweak to start.
-3. Robustness #2: Given a flaky connection, the status can be sync with the facilitator (forced or automatic) within 0.5
-seconds when connection return.
-
-Links
------
+* Join [foreseedev facebook group](https://www.facebook.com/groups/foreseedev)
 * [Project Status on Trello](https://trello.com/b/BMW2lM2n)
 * [Code on GitHub](https://github.com/huskycode/foresee)
-
-FAQs
-----
-Q: [www.planningpoker.com](http://www.planningpoker.com/) already provide this? why another one?
-
-A: Two major reasons. The implementation on said web is ...
-
-1. Online-only. This means you have to connect to the interet to use, and also needs
-to transfer the details of your project outside your company.
-2. Not robust enough. It does not handle flaky connection well. The voting result get dropped quite often.
 
 Instructions for Dev
 -----------
@@ -84,3 +59,29 @@ The "run" script is created as a shortcut to build/make.coffee
     Unit Tests : ./run unittest
     Selenium Tests : ./run webtest
 
+
+Architectural Drivers
+------
+### High-Level Requirement
+1. A faciliator creates a "room" and import stories to estimate
+2. Using the room code, all participants join using browser on their phone or computer.
+3. A facilitator controls when the votes ends. They can also record any assumptions agreed upon in the meeting
+4. Anybody can use the room code to visit it later and download results.
+
+### Quality Attributes
+1. Robustness #1: At any point, the facilitator can force progress the planning even when the connection from participants
+are flaky.
+2. Usability: Given a blank Linux or Windows machine, the program can be installed to use with less than 3 steps,
+in less than 2 minute and require 0 configuration tweak to start.
+3. Robustness #2: Given a flaky connection, the status can be sync with the facilitator (forced or automatic) within 0.5
+seconds when connection return.
+
+FAQs
+----
+Q: [www.planningpoker.com](http://www.planningpoker.com/) already provide this? why another one?
+
+A: Two major reasons. The implementation on said web is ...
+
+1. Online-only. This means you have to connect to the interet to use, and also needs
+to transfer the details of your project outside your company.
+2. Not robust enough. It does not handle flaky connection well. The voting result get dropped quite often.

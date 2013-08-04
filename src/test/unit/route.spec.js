@@ -71,7 +71,8 @@ describe("route", function() {
     core.addParticipant.calledOnce.should.be["true"];
     return core.addParticipant.calledWith(roomName, name).should.be["true"];
   });
-  return it('story/add calls method in core', function() {
+
+  it('story/add calls method in core', function() {
     var listResult, newStory, roomName;
     datastore.clear();
     roomName = "someroom";
@@ -90,5 +91,16 @@ describe("route", function() {
         return result.should.eql(listResult);
       }
     });
+  });
+
+  it('joinRoom() should add participant and emit refresh', function() {
+    var req = { params: { room: "room", name: "name" } };
+    var res = jasmine.createSpyObj("res", ["json"]);
+    var sockets = [ jasmine.createSpyObj("webSocket", ["emit"]) ];
+
+    route.joinRoom(sockets)(req, res);
+
+    expect(core.addParticipant.calledWith(req.params.room, req.params.name)).toBe(true);
+    expect(res.json).toHaveBeenCalledWith({room: req.params.room, name: req.params.name});
   });
 });

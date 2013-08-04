@@ -91,16 +91,7 @@ app.get('/join/:id', route.join);
 
 app.get('/', route.index);
 
-app.get('/join/room/:room/name/:name', function(req, res) {
-  core.addParticipant(req.params.room, req.params.name);
-  clientSockets.forEach(function(item) {
-    websocket.sendRefreshMessage(item, req.params.room);
-  });
-  return res.json({
-    room: req.params.room,
-    name: req.params.name
-  });
-});
+app.get('/join/room/:room/name/:name', route.joinRoom(clientSockets));
 
 module.exports = server;
 

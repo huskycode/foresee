@@ -33,30 +33,26 @@ core = require("./core").core;
 
 route = require("./route").route;
 
+var websocket = require("./websocket").websocket(core);
+
 clientSockets = [];
 
-sendRefreshMessage = function(socket, room) {
-  return socket.emit('voteRefresh', {
-    room: room,
-    votes: core.listParticipants(room)
-  });
-};
 
 io.sockets.on('connection', function(socket) {
   clientSockets.push(socket);
   socket.on('removeParticipant', function(data) {
     core.removeParticipant(data.room, data.name);
     return clientSockets.forEach(function(item, i) {
-      return sendRefreshMessage(item, data.room);
+      return websocket.sendRefreshMessage(item, data.room);
     });
   });
   socket.on('ask', function(data) {
-    return sendRefreshMessage(socket, data.room);
+    return websocket.sendRefreshMessage(socket, data.room);
   });
   socket.on('vote', function(data) {
     core.vote(data.room, data.name, data.vote);
     return clientSockets.forEach(function(item, i) {
-      return sendRefreshMessage(item, data.room);
+      return websocket.sendRefreshMessage(item, data.room);
     });
   });
   socket.on('my other event', function(data) {
@@ -97,8 +93,8 @@ app.get('/', route.index);
 
 app.get('/join/room/:room/name/:name', function(req, res) {
   core.addParticipant(req.params.room, req.params.name);
-  clientSockets.forEach(function(item, i) {
-    return sendRefreshMessage(item, req.params.room);
+  clientSockets.forEach(function(item) {
+    websocket.sendRefreshMessage(item, req.params.room);
   });
   return res.json({
     room: req.params.room,

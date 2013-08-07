@@ -38,10 +38,12 @@ Instructions for Dev
 * Install java
 * Install global dependencies (use sudo if on ubuntu)
 
-     npm install -g jasmine-node
-     npm install -g nodemon
+Do this 
 
-make sure you can run java from command line. Try this command
+    npm install -g jasmine-node
+    npm install -g nodemon
+
+Also make sure you can run java from command line. Try this command
 
     java --version
 

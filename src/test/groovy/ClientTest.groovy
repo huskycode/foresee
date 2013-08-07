@@ -35,14 +35,14 @@ class ClientTest extends GebReportingTest {
     public void shouldBeAbleToJoinAndTheVoteIsShownOnHostScreen() {
         to TestFrame
 
-        TestFrame.setHostUrl(js,Info.FORESEE_BASE_URL)
+        //TestFrame.setHostUrl(js,Info.FORESEE_BASE_URL)
 
         withFrame(host, HomePage) {
             roomNameTxt().value "RoomName"
             createRoomBtn().click()
         }
 
-        TestFrame.setClientOneUrl(js,Info.FORESEE_BASE_URL + "join/RoomName")
+        //TestFrame.setClientOneUrl(js,Info.FORESEE_BASE_URL + "join/RoomName")
 
         withFrame(client1, Client) {
             name().value "UserName1"
@@ -66,14 +66,14 @@ class ClientTest extends GebReportingTest {
     public void "shoud show participant name on host screen when they joined"() {
         to TestFrame
 
-        TestFrame.setHostUrl(js,Info.FORESEE_BASE_URL)
+        //TestFrame.setHostUrl(js,Info.FORESEE_BASE_URL)
 
         withFrame(host, HomePage) {
             roomNameTxt().value "RoomName"
             createRoomBtn().click()
         }
 
-        TestFrame.setClientOneUrl(js,Info.FORESEE_BASE_URL + "join/RoomName")
+        //TestFrame.setClientOneUrl(js,Info.FORESEE_BASE_URL + "join/RoomName")
 
         withFrame(client1, Client) {
             name().value "UserName1"

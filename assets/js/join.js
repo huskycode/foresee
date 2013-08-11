@@ -50,10 +50,10 @@ var settings = {
 };
 
 $('#p1').live('pagecreate', function() {
-  var joinPage = new ParticipantJoinPage($);
+  var joinPage = new ParticipantJoinPage($, settings);
 
-  roomId = joinPage.roomIdValue;
-  socketUrl = joinPage.socketUrlValue;
+  roomId = joinPage.roomIdValue();
+  socketUrl = joinPage.socketUrlValue();
 
   socket = io.connect(socketUrl);
   socket.on("voteRefresh", function(data) {
@@ -66,25 +66,6 @@ $('#p1').live('pagecreate', function() {
         return populateCards(data.votes);
       }
     }
-  });
-
-  joinPage.onJoinButtonClicked(function() {
-    settings.name = joinPage.getNameValue();
-
-    $.mobile.showPageLoadingMsg();
-    return $.ajax({
-      url: "/join/room/" + roomId + "/name/" + settings.name,
-      success: function(data, textStatus, jqXHR) {
-        $.mobile.hidePageLoadingMsg();
-        return $.mobile.changePage('#p2', {
-          transition: "flip"
-        });
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        alert(errorThrown);
-        return $.mobile.hidePageLoadingMsg();
-      }
-    });
   });
 });
 

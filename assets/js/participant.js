@@ -1,13 +1,34 @@
 /**
  * Participant Pages
  */
-var ParticipantJoinPage = function(jq) {
-    this.roomIdValue = jq("#room").val();
-    this.socketUrlValue = jq("#socketUrl").val();
+var ParticipantJoinPage = function(jq, settings) {
+    var page = this;
 
-    this.getNameValue = function() { return jq("#name").val() };
+    page.roomIdValue = function() { return jq("#room").val() };
+    page.socketUrlValue = function() { return jq("#socketUrl").val() };
 
-    this.onJoinButtonClicked = function(f) { jq("#add").click(f); };
+    page.getNameValue = function() { return jq("#name").val() };
+
+    page.joinRoom = function() {
+        settings.name = page.getNameValue();
+
+        jq.mobile.showPageLoadingMsg();
+        return jq.ajax({
+          url: "/join/room/" + page.roomIdValue() + "/name/" + settings.name,
+          success: function(data, textStatus, jqXHR) {
+            jq.mobile.hidePageLoadingMsg();
+            return jq.mobile.changePage('#p2', {
+              transition: "flip"
+            });
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            alert(errorThrown);
+            return jq.mobile.hidePageLoadingMsg();
+          }
+        });
+    }
+
+    jq("#add").click(page.joinRoom);
 };
 
 /**

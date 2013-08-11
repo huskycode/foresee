@@ -28,5 +28,34 @@ describe('Participant State', function() {
 
         expect(func).toThrow("Invalid state: someInvalidState");
     });
+});
 
+
+describe('Participant Page', function() {
+    var pp, mobile;
+    beforeEach(function(){
+        jasmine.Ajax.useMock();
+        mobile = jasmine.createSpyObj('mobile', [
+            'showPageLoadingMsg', 'hidePageLoadingMsg', 'changePage']);
+        var jq = $;
+        var settings = {name: null};
+        pp = new ParticipantJoinPage(jq, settings);
+        jq.mobile = mobile;
+        pp.roomIdValue = function(){return "roomID";}
+        pp.socketUrlValue = function(){return "http://localhost:3333";}
+        pp.getNameValue = function(){return "userName";}
+    });
+
+    it("transition to vote page after register for name.", function() {
+        pp.joinRoom();
+        var request = mostRecentAjaxRequest();
+        expect(request.url).toEqual("/join/room/roomID/name/userName")
+        request.response({
+           status: 200,
+           responseText: ''
+        });
+
+        expect(mobile.changePage).toHaveBeenCalled();
+        expect(mobile.changePage.mostRecentCall.args[0]).toEqual("#p2");
+    });
 });

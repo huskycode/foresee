@@ -85,7 +85,7 @@ task npmDependencies(type:Exec) {
 }
 
 task dev(type:Exec) {
-    commandLine "nodemon", "--watch", srcDir, "-e", "js,coffee", "app.js"
+    commandLine "nodemon", "--watch", srcDir, "-e", "js", "app.js"
 }
 
 task wrapper(type: Wrapper) {

@@ -93,6 +93,24 @@ describe("route", function() {
     });
   });
 
+  it('story list', function() {
+    //given
+    var listResult = ["old story"], roomName = "someroom";
+    core.listStories.withArgs(roomName).returns(listResult);
+
+    //when
+    route.listStories({
+      params: {
+        "room": roomName
+      }
+    }, {
+      send: function(result) {
+        //then
+        return result.should.eql(listResult);
+      }
+    });
+  });
+
   it('joinRoom() should add participant and emit refresh', function() {
     var req = { params: { room: "room", name: "name" } };
     var res = jasmine.createSpyObj("res", ["json"]);
@@ -103,4 +121,6 @@ describe("route", function() {
     expect(core.addParticipant.calledWith(req.params.room, req.params.name)).toBe(true);
     expect(res.json).toHaveBeenCalledWith({room: req.params.room, name: req.params.name});
   });
+
+
 });

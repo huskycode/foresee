@@ -32,18 +32,12 @@ describe('Participant State', function() {
 
 
 describe('Participant Page', function() {
-    var pp, mobile;
+    var pp, jq;
     beforeEach(function(){
         jasmine.Ajax.useMock();
-        mobile = jasmine.createSpyObj('mobile', [
-            'showPageLoadingMsg', 'hidePageLoadingMsg', 'changePage']);
-        var jq = $;
-        var settings = {name: null};
-        pp = new ParticipantJoinPage(jq, settings);
-        jq.mobile = mobile;
-        pp.roomIdValue = function(){return "roomID";}
-        pp.socketUrlValue = function(){return "http://localhost:3333";}
-        pp.getNameValue = function(){return "userName";}
+        jq = $;
+        pp = mockParticipantPage(jq);
+        jq.mobile = mockMobile();
     });
 
     it("transition to vote page after register for name.", function() {
@@ -55,7 +49,22 @@ describe('Participant Page', function() {
            responseText: ''
         });
 
-        expect(mobile.changePage).toHaveBeenCalled();
-        expect(mobile.changePage.mostRecentCall.args[0]).toEqual("#p2");
+        expect(jq.mobile.changePage).toHaveBeenCalled();
+        expect(jq.mobile.changePage.mostRecentCall.args[0]).toEqual("#p2");
     });
 });
+
+
+function mockMobile() {
+    return jasmine.createSpyObj('mobile', [
+            'showPageLoadingMsg', 'hidePageLoadingMsg', 'changePage']);
+}
+
+function mockParticipantPage(jq) {
+    var settings = {name: null};
+    var pp = new ParticipantJoinPage(jq, settings);
+    pp.roomIdValue = function(){return "roomID";}
+    pp.socketUrlValue = function(){return "http://localhost:3333";}
+    pp.getNameValue = function(){return "userName";}
+    return pp;
+}

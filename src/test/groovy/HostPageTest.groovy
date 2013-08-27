@@ -54,4 +54,15 @@ class HostPageTest extends GebReportingTest {
         assert findStoryPileOne().text() == "new story description"
         assert !startNow().@disabled
     }
+
+    @Test
+    public void shouldShowTheExistingStoryIfRefreshed() {
+        //
+        // Needs to execute "shouldShowNewStoryInPileWhenAddedAndEnableStartNowButton" first
+        //
+        to TestHostPage
+
+        assert findStoryPileOne().text() == "new story description", "Cannot find first story"
+        assert !startNow().@disabled, "Start now button is not enabled"
+    }
 }

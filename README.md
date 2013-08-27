@@ -45,7 +45,7 @@ Do this
 
 Also make sure you can run java from command line. Try this command
 
-    java --version
+    java -version
 
 ### Running Server in Development Mode
 1. go to the directory

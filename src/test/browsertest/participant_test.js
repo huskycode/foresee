@@ -62,7 +62,6 @@ describe('Participant Page', function() {
 
         // then
         // change state to voting
-
     }
 
     it("", function() {

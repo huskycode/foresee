@@ -50,7 +50,7 @@ describe('Participant Page', function() {
         });
 
         expect(jq.mobile.changePage).toHaveBeenCalled();
-        expect(jq.mobile.changePage.mostRecentCall.args[0]).toEqual("#p2");
+        expect(jq.mobile.changePage.mostRecentCall.args[0]).toEqual("#estimate-page");
     });
 });
 

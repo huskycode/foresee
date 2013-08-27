@@ -36,7 +36,7 @@
 <input type="hidden" id="room" value="<%=@id%>"/>
 <input type="hidden" id="socketUrl" value="<%=@socketUrl%>"/>
 <!-- Start of first page: #one -->
-<div data-role="page" id="p1">
+<div data-role="page" id="login-page">
     <div data-role="header">
         <h1>Join</h1>
     </div><!-- /header -->
@@ -59,7 +59,7 @@
     </div><!-- /footer -->
 </div><!-- /page one -->
 
-<div data-role="page" id="p2">
+<div data-role="page" id="estimate-page">
     <div data-role="header">
         <h1>Estimate</h1>
     </div><!-- /header -->
@@ -95,10 +95,10 @@
     </div><!-- /footer -->
 </div>
 
-<div data-role="page" id="p3">
+<div data-role="page" id="result-page">
 <div data-role="header">
     <h1>Vote Results</h1>
-    <a id="voteResultBack" type="button" data-theme="b" href="#p2" data-transition="slide" data-direction="reverse">Back</a>
+    <a id="voteResultBack" type="button" data-theme="b" href="#estimate-page" data-transition="slide" data-direction="reverse">Back</a>
 </div><!-- /header -->
 
 <div data-role="content" >

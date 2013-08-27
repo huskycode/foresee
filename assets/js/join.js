@@ -49,7 +49,7 @@ var settings = {
   name: null
 };
 
-$('#p1').live('pagecreate', function() {
+$('#login-page').live('pagecreate', function() {
   var joinPage = new ParticipantJoinPage($, settings);
 
   roomId = joinPage.roomIdValue();
@@ -59,7 +59,7 @@ $('#p1').live('pagecreate', function() {
   socket.on("voteRefresh", function(data) {
     if (data.room === roomId) {
       if (settings.name !== null && data.votes[settings.name] === void 0) {
-        return $.mobile.changePage('#p1', {
+        return $.mobile.changePage('#login-page', {
           transition: "flip"
         });
       } else {
@@ -69,14 +69,14 @@ $('#p1').live('pagecreate', function() {
   });
 });
 
-$('#p2').live('pagecreate', function(e) {
+$('#estimate-page').live('pagecreate', function(e) {
   return $("#voteButton").click(function(e) {
     socket.emit("vote", {
       room: roomId,
       name: settings.name,
       vote: $("#vote").val()
     });
-    return $.mobile.changePage('#p3', {
+    return $.mobile.changePage('#result-page', {
       transition: "slide"
     });
   });

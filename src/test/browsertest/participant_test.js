@@ -40,7 +40,7 @@ describe('Participant Page', function() {
         jq.mobile = mockMobile();
     });
 
-    it("transition to vote page after register for name.", function() {
+    it("transition to waiting page after register for name.", function() {
         pp.joinRoom();
         var request = mostRecentAjaxRequest();
         expect(request.url).toEqual("/join/room/roomID/name/userName")
@@ -50,7 +50,31 @@ describe('Participant Page', function() {
         });
 
         expect(jq.mobile.changePage).toHaveBeenCalled();
-        expect(jq.mobile.changePage.mostRecentCall.args[0]).toEqual("#estimate-page");
+        expect(jq.mobile.changePage.mostRecentCall.args[0]).toEqual("#waiting");
+    });
+
+    it("", function() {
+        // given
+        // at waiting state
+
+        // when
+        // server response with story
+
+        // then
+        // change state to voting
+    }
+
+    it("", function() {
+       // given
+       // at waiting page
+
+       // when
+       // socket.emit(ask)
+       // result is story(n)
+
+       // then
+       // transition to voting page.
+
     });
 });
 

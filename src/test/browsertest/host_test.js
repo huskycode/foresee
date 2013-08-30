@@ -76,17 +76,17 @@ describe('foresee.moderator.ParticipantListCtrl', function() {
   it("should update participant list when vote Refresh", function() {
     scope.init("thisRoom");
 
-    var data = { "room": "thisRoom", "votes": { "login-page": null, "estimate-page": 1 }  };
+    var data = { "room": "thisRoom", "votes": { "participant1": null, "participant2": 1 }  };
 
     mockWebSocket.on.mostRecentCall.args[1](data);
 
-    expect(scope.participants).toEqual(['login-page','estimate-page']);
+    expect(scope.participants).toEqual(['participant1','participant2']);
   });
 
   it("should not update participant list when vote Refresh with different room", function() {
     scope.init("thisRoom");
 
-    var data = { "room": "notThisRoom", "votes": { "login-page": null, "estimate-page": 1 }  };
+    var data = { "room": "notThisRoom", "votes": { "participant1": null, "participant2": 1 }  };
 
     mockWebSocket.on.mostRecentCall.args[1](data);
 
@@ -94,22 +94,22 @@ describe('foresee.moderator.ParticipantListCtrl', function() {
   });
 
   it("should remove participant when [x] is clicked", function() {
-    scope.participants = ["login-page", "estimate-page", "result-page"];
+    scope.participants = ["participant1", "participant2", "result-page"];
 
-    scope.removeParticipant("estimate-page");
+    scope.removeParticipant("participant2");
 
-    expect(scope.participants).toEqual(["login-page","result-page"]);
+    expect(scope.participants).toEqual(["participant1","result-page"]);
   });
 
   it("should emit remove participant event when [x] is clicked", function() {
     scope.init("aRoomName");
-    scope.removeParticipant("estimate-page");
+    scope.removeParticipant("participant2");
 
     var lastEmitCall = mockWebSocket.emit.mostRecentCall;
     expect(lastEmitCall.args[0]).toEqual("removeParticipant");
     expect(lastEmitCall.args[1]).toEqual({
       "room": "aRoomName",
-      "name": "estimate-page"
+      "name": "participant2"
     });
   });
 });

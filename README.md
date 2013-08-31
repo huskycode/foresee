@@ -10,7 +10,7 @@ tools.
 
 ### Interested in helping?
 
-* Join [foreseedev facebook group](https://www.facebook.com/groups/foreseedev)
+* Join [foreseedev facebook group](https://www.facebook.com/groups/foreseedev) - If you are new, make a post and say hello to the team!
 * [Project Status on Trello](https://trello.com/b/BMW2lM2n)
 * [Code on GitHub](https://github.com/huskycode/foresee)
 

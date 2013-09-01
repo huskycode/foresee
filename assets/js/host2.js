@@ -29,7 +29,7 @@ app.controller("foresee.moderator.ParticipantListCtrl", function($scope, webSock
 
   $scope.init = function (roomName) {
     $scope.roomName = roomName;
-    webSocket.emit("subscribe", { room: roomId });
+    webSocket.emit("subscribe", { room: roomName });
   };
 
   $scope.removeParticipant = function(name) {

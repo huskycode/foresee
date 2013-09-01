@@ -114,7 +114,7 @@ describe("route", function() {
   it('joinRoom() should add participant and emit refresh', function() {
     var req = { params: { room: "room", name: "name" } };
     var res = jasmine.createSpyObj("res", ["json"]);
-    var sockets = [ jasmine.createSpyObj("webSocket", ["emit"]) ];
+    var sockets = jasmine.createSpyObj("webSocket", ["sendRefreshMessage"]);
 
     route.joinRoom(sockets)(req, res);
 

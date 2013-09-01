@@ -9,8 +9,17 @@ describe("webSocket", function() {
   beforeEach(function() {
     mockCore = jasmine.createSpyObj('core', ['listParticipants']);
     mockSocketIO = {
-      sockets: jasmine.createSpyObj('sockets', ['on', 'emit'])
+      sockets: {
+        in: function(room) {
+        },
+        on: jasmine.createSpy('on')
+      }
     };
+
+    var mockSockets = jasmine.createSpyObj('in', ['emit']);
+
+    spyOn(mockSocketIO.sockets, 'in').andReturn(mockSockets);
+
     websocket = ws(mockSocketIO, mockCore);
   });
 
@@ -24,8 +33,8 @@ describe("webSocket", function() {
 
     expect(mockCore.listParticipants).toHaveBeenCalledWith(room);
 
-    expect(mockSocketIO.sockets.emit).toHaveBeenCalledWith('voteRefresh', jasmine.any(Object));
-    var capturedParam = mockSocketIO.sockets.emit.mostRecentCall.args[1]
+    //expect(mockSocketIO.sockets.in(room).emit).toHaveBeenCalledWith('voteRefresh', jasmine.any(Object));
+    var capturedParam = mockSocketIO.sockets.in(room).emit.mostRecentCall.args[1]
 
     expect(capturedParam.room).toEqual(room);
     expect(capturedParam.votes).toEqual(participants);

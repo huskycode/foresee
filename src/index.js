@@ -17,10 +17,6 @@ ectRenderer = ECT({
 
 server = require('http').createServer(app);
 
-io = require('socket.io').listen(server, {
-  'log level': 1
-});
-
 server.port = process.env.PORT || process.env.VMC_APP_PORT || 3000;
 
 app.use(assets());
@@ -33,44 +29,12 @@ core = require("./core").core;
 
 route = require("./route").route;
 
-var websocket = require("./websocket").websocket(core);
-
-clientSockets = [];
-
-
-io.sockets.on('connection', function(socket) {
-  clientSockets.push(socket);
-  socket.on('removeParticipant', function(data) {
-    core.removeParticipant(data.room, data.name);
-    return clientSockets.forEach(function(item, i) {
-      return websocket.sendRefreshMessage(item, data.room);
-    });
-  });
-  socket.on('ask', function(data) {
-    return websocket.sendRefreshMessage(socket, data.room);
-  });
-  socket.on('vote', function(data) {
-    core.vote(data.room, data.name, data.vote);
-    return clientSockets.forEach(function(item, i) {
-      return websocket.sendRefreshMessage(item, data.room);
-    });
-  });
-  socket.on('my other event', function(data) {
-    return console.log(data);
-  });
-  return socket.on('disconnect', function() {
-    var indexToRemove;
-    indexToRemove = null;
-    clientSockets.forEach(function(item, i) {
-      if (item === socket) {
-        return indexToRemove = i;
-      }
-    });
-    if (indexToRemove !== null) {
-      return clientSockets.splice(indexToRemove, 1);
-    }
-  });
+var socketio = require('socket.io').listen(server, {
+  'log level': 1
 });
+
+var websocket = require("./websocket").websocket(socketio, core);
+
 
 getSocketUrl = function(req) {
   return "http://" + req.headers.host;
@@ -91,7 +55,7 @@ app.get('/join/:id', route.join);
 
 app.get('/', route.index);
 
-app.get('/join/room/:room/name/:name', route.joinRoom(clientSockets));
+app.get('/join/room/:room/name/:name', route.joinRoom(websocket));
 
 module.exports = server;
 

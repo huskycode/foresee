@@ -2,7 +2,6 @@
 var getSocketUrl, route;
 
 var core = require("./core").core;
-var websocket = require("./websocket").websocket(core);
 
 getSocketUrl = function(req) {
   return "http://" + req.headers.host;
@@ -34,12 +33,10 @@ route = {
       name: req.params.name
     });
   },
-  joinRoom: function(clientSockets) {
+  joinRoom: function(websocket) {
     return function(req, res) {
       core.addParticipant(req.params.room, req.params.name);
-      clientSockets.forEach(function(socket) {
-        websocket.sendRefreshMessage(socket, req.params.room);
-      });
+      websocket.sendRefreshMessage(req.params.room);
       return res.json({
         room: req.params.room,
         name: req.params.name
@@ -49,4 +46,3 @@ route = {
 };
 
 exports.route = route;
-exports.websocket = websocket;

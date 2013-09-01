@@ -45,9 +45,8 @@ $(function() {
   socketUrl = $("#socketUrl").val();
   roomId = $("#roomId").val();
   socket = io.connect(socketUrl);
-  socket.emit("ask", {
-    room: roomId
-  });
+  socket.emit("subscribe", { room: roomId });
+  socket.emit("ask", { room: roomId });
   socket.on('voteRefresh', function(data) {
     if (data.room === roomId) {
       return populateCards(data.votes);

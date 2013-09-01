@@ -56,6 +56,7 @@ $('#p1').live('pagecreate', function() {
   socketUrl = joinPage.socketUrlValue();
 
   socket = io.connect(socketUrl);
+  socket.emit("subscribe", { room: roomId });
   socket.on("voteRefresh", function(data) {
     if (data.room === roomId) {
       if (settings.name !== null && data.votes[settings.name] === void 0) {

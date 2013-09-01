@@ -1,13 +1,16 @@
 var websocket = function(socketio, core) {
 
   function _sendRefreshMessage(room) {
-    socketio.sockets.emit('voteRefresh', {
+    socketio.sockets.in(room).emit('voteRefresh', {
       room: room,
       votes: core.listParticipants(room)
     });
   }
 
   socketio.sockets.on('connection', function(socket) {
+    socket.on('subscribe', function(data) {
+      socket.join(data.room);
+    });
     socket.on('removeParticipant', function(data) {
       core.removeParticipant(data.room, data.name);
 

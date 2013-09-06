@@ -7,9 +7,14 @@ ext.browsertestDir = "test/browsertest"
 ext.webtestDir = "test/webtest"
 ext.executableName = "foresee"
 ext.buildDir = "build"
-ext.globalReqs = ["jasmine-node":"jasmine-node", "nodemon":"nodemon"]
 ext.providedReqs = ["java"]
 ext.deployPaths = ["dev": "/opt/foresee-dev", "qa": "/opt/foresee-qa", "prod": "/opt/foresee"]
+
+import org.apache.tools.ant.taskdefs.condition.Os
+
+def getCommand(command) {
+  return Os.isFamily(Os.FAMILY_WINDOWS) ? command + ".cmd" : command
+}
 
 repositories {
     mavenCentral()
@@ -36,11 +41,11 @@ test {
 }
 
 task unitTest(type:Exec) {
-    commandLine "jasmine-node", "--verbose", testDir
+    commandLine getCommand("jasmine-node"), "--verbose", testDir
 }
 
 task unitTestTeamCity(type:Exec) {
-    commandLine "jasmine-node", "--teamcity", testDir
+    commandLine getCommand("jasmine-node"), "--teamcity", testDir
 }
 
 task webTest(type: Test) {
@@ -85,7 +90,7 @@ task npmDependencies(type:Exec) {
 }
 
 task dev(type:Exec) {
-    commandLine "nodemon", "--watch", srcDir, "-e", "js", "app.js"
+    commandLine getCommand("nodemon"), "--watch", srcDir, "-e", "js", "app.js"
 }
 
 task wrapper(type: Wrapper) {

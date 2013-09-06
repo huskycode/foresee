@@ -18,6 +18,7 @@
     , "chai": "1.5.x"
     , "sinon": "1.6.x"
     , "shelljs": "*"
+    , "jasmine-node": "*"
   },
   "scripts": {
   }

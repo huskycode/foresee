@@ -42,6 +42,7 @@ Do this
 
     npm install -g jasmine-node
     npm install -g nodemon
+    npm install
 
 Also make sure you can run java from command line. Try this command
 

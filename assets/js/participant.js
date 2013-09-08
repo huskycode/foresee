@@ -13,21 +13,21 @@ var ParticipantJoinPage = function(jq, settings) {
         settings.name = page.getNameValue();
 
         jq.mobile.showPageLoadingMsg();
-        return jq.ajax({
+        jq.ajax({
           url: "/join/room/" + page.roomIdValue() + "/name/" + settings.name,
           success: function(data, textStatus, jqXHR) {
             jq.mobile.hidePageLoadingMsg();
-            return page.waitHost();
+            page.waitHost();
           },
           error: function(jqXHR, textStatus, errorThrown) {
             alert(errorThrown);
-            return jq.mobile.hidePageLoadingMsg();
+            jq.mobile.hidePageLoadingMsg();
           }
         });
     }
 
     page.waitHost = function(){
-      return jq.mobile.changePage('#waiting-page', {
+      jq.mobile.changePage('#waiting-page', {
         transition: "flip"
       });
     }
@@ -35,7 +35,7 @@ var ParticipantJoinPage = function(jq, settings) {
     /* Fire after receive `start` msg from server */
     page.letVote = function(){
       jq.mobile.showPageLoadingMsg();
-      return jq.mobile.changePage('#estimate-page', {
+      jq.mobile.changePage('#estimate-page', {
         transition: "flip"
       });
     }

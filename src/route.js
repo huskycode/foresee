@@ -36,10 +36,13 @@ route = {
   joinRoom: function(websocket) {
     return function(req, res) {
       core.addParticipant(req.params.room, req.params.name);
+
+      var room = core.getRoom( req.params.room );
       websocket.sendRefreshMessage(req.params.room);
       return res.json({
         room: req.params.room,
-        name: req.params.name
+        name: req.params.name,
+        state: room.state
       });
     }
   }

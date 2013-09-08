@@ -17,7 +17,7 @@ var ParticipantJoinPage = function(jq, settings) {
           url: "/join/room/" + page.roomIdValue() + "/name/" + settings.name,
           success: function(data, textStatus, jqXHR) {
             jq.mobile.hidePageLoadingMsg();
-            return jq.mobile.changePage('#p2', {
+            return jq.mobile.changePage('#estimate-page', {
               transition: "flip"
             });
           },

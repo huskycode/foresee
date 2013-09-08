@@ -30,6 +30,7 @@ var websocket = function(socketio, core) {
     });
 
     socket.on('start', function(data) {
+      core.startRoom(data.room)
       _broadcast( data.room, "startRoom" );
     });
   });

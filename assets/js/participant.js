@@ -17,15 +17,27 @@ var ParticipantJoinPage = function(jq, settings) {
           url: "/join/room/" + page.roomIdValue() + "/name/" + settings.name,
           success: function(data, textStatus, jqXHR) {
             jq.mobile.hidePageLoadingMsg();
-            return jq.mobile.changePage('#estimate-page', {
-              transition: "flip"
-            });
+            return page.waitHost();
           },
           error: function(jqXHR, textStatus, errorThrown) {
             alert(errorThrown);
             return jq.mobile.hidePageLoadingMsg();
           }
         });
+    }
+
+    page.waitHost = function(){
+      return jq.mobile.changePage('#waiting-page', {
+        transition: "flip"
+      });
+    }
+
+    /* Fire after receive `start` msg from server */
+    page.letVote = function(){
+      jq.mobile.showPageLoadingMsg();
+      return jq.mobile.changePage('#estimate-page', {
+        transition: "flip"
+      });
     }
 
     jq("#add").click(page.joinRoom);

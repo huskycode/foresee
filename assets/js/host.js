@@ -60,6 +60,11 @@ $(function() {
     window.open(url, "Join" + (i++), "width=320,height=480,top=" + top + ",left=" + left + ",toolbar=0,resizable=0,menubar=0", false);
     return false;
   });
+
+  $("#startNow").click(function(){
+    socket.emit("start", { room: roomId });
+  });
+
   return $("#btn").click(function() {
     return socket.emit('my other event', {
       my: 'data'

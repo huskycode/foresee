@@ -51,11 +51,24 @@ describe('Participant Page', function() {
         expect(request.url).toEqual("/join/room/roomID/name/userName")
         request.response({
            status: 200,
-           responseText: ''
+           responseText: JSON.stringify( { state: { name: "INITIALED" } } )
         });
 
         expect(jq.mobile.changePage).toHaveBeenCalled();
         expect(jq.mobile.changePage.mostRecentCall.args[0]).toEqual("#waiting-page");
+    });
+
+    it("transition to estimate page after register for name and room has beed started.", function() {
+        pp.joinRoom();
+        var request = mostRecentAjaxRequest();
+        expect(request.url).toEqual("/join/room/roomID/name/userName")
+        request.response({
+           status: 200,
+           responseText: JSON.stringify( { state: { name: "STARTED" } } )
+        });
+
+        expect(jq.mobile.changePage).toHaveBeenCalled();
+        expect(jq.mobile.changePage.mostRecentCall.args[0]).toEqual("#estimate-page");
     });
 
     it("transition to voting page when server boardcast story", function() {

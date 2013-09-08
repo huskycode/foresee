@@ -16,8 +16,15 @@ var ParticipantJoinPage = function(jq, settings) {
         jq.ajax({
           url: "/join/room/" + page.roomIdValue() + "/name/" + settings.name,
           success: function(data, textStatus, jqXHR) {
+
             jq.mobile.hidePageLoadingMsg();
-            page.waitHost();
+
+            if( data.state.name === 'STARTED' ) {
+              page.letVote();
+            }else {
+              page.waitHost();
+            }
+
           },
           error: function(jqXHR, textStatus, errorThrown) {
             alert(errorThrown);

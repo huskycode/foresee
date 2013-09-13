@@ -3,6 +3,7 @@ import geb.junit4.GebReportingTest
 import org.junit.*
 import page.Client
 import page.HomePage
+import page.HostPage
 import page.Info
 
 
@@ -47,9 +48,16 @@ class ClientTest extends GebReportingTest {
         withFrame(client1, Client) {
             name().value "UserName1"
             nameSubmitBtn().click()
+        }
 
-            Thread.sleep(1000)
+        withFrame(host, HostPage) {
+            storyDesc().value "new story description"
+            addStory().click()
 
+            startNow().click()
+        }
+
+        withFrame(client1, Client) {
             voteFive().click()
 
             Thread.sleep(1000)

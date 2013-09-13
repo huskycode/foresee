@@ -32,12 +32,17 @@ describe('Participant State', function() {
 
 
 describe('Participant Page', function() {
-    var pp, jq;
+    var pp, jq, mockWebSocket;
     beforeEach(function(){
         jasmine.Ajax.useMock();
         jq = $;
         pp = mockParticipantPage(jq);
         jq.mobile = mockMobile();
+
+        mockWebSocket = {
+          on: jasmine.createSpy(),
+          emit: jasmine.createSpy()
+        };
     });
 
     it("transition to waiting page after register for name.", function() {
@@ -46,23 +51,40 @@ describe('Participant Page', function() {
         expect(request.url).toEqual("/join/room/roomID/name/userName")
         request.response({
            status: 200,
-           responseText: ''
+           responseText: JSON.stringify( { state: { name: "INITIALED" } } )
         });
 
         expect(jq.mobile.changePage).toHaveBeenCalled();
-        expect(jq.mobile.changePage.mostRecentCall.args[0]).toEqual("#waiting");
+        expect(jq.mobile.changePage.mostRecentCall.args[0]).toEqual("#waiting-page");
     });
 
-    it("", function() {
+    it("transition to estimate page after register for name and room has beed started.", function() {
+        pp.joinRoom();
+        var request = mostRecentAjaxRequest();
+        expect(request.url).toEqual("/join/room/roomID/name/userName")
+        request.response({
+           status: 200,
+           responseText: JSON.stringify( { state: { name: "STARTED" } } )
+        });
+
+        expect(jq.mobile.changePage).toHaveBeenCalled();
+        expect(jq.mobile.changePage.mostRecentCall.args[0]).toEqual("#estimate-page");
+    });
+
+    it("transition to voting page when server boardcast story", function() {
         // given
         // at waiting state
+        pp.letVote();
+
 
         // when
         // server response with story
 
         // then
         // change state to voting
-    }
+        expect(jq.mobile.changePage).toHaveBeenCalled();
+        expect(jq.mobile.changePage.mostRecentCall.args[0]).toEqual("#estimate-page");
+    });
 
     it("", function() {
        // given

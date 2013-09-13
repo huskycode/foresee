@@ -13,19 +13,38 @@ var ParticipantJoinPage = function(jq, settings) {
         settings.name = page.getNameValue();
 
         jq.mobile.showPageLoadingMsg();
-        return jq.ajax({
+        jq.ajax({
           url: "/join/room/" + page.roomIdValue() + "/name/" + settings.name,
           success: function(data, textStatus, jqXHR) {
+
             jq.mobile.hidePageLoadingMsg();
-            return jq.mobile.changePage('#estimate-page', {
-              transition: "flip"
-            });
+
+            if( data.state.name === 'STARTED' ) {
+              page.letVote();
+            }else {
+              page.waitHost();
+            }
+
           },
           error: function(jqXHR, textStatus, errorThrown) {
             alert(errorThrown);
-            return jq.mobile.hidePageLoadingMsg();
+            jq.mobile.hidePageLoadingMsg();
           }
         });
+    }
+
+    page.waitHost = function(){
+      jq.mobile.changePage('#waiting-page', {
+        transition: "flip"
+      });
+    }
+
+    /* Fire after receive `start` msg from server */
+    page.letVote = function(){
+      jq.mobile.showPageLoadingMsg();
+      jq.mobile.changePage('#estimate-page', {
+        transition: "flip"
+      });
     }
 
     jq("#add").click(page.joinRoom);

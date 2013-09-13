@@ -7,6 +7,11 @@ var websocket = function(socketio, core) {
     });
   }
 
+  function _broadcast(room, event) {
+    socketio.sockets.in(room).emit( event, {
+    });
+  }
+
   socketio.sockets.on('connection', function(socket) {
     socket.on('subscribe', function(data) {
       socket.join(data.room);
@@ -22,6 +27,11 @@ var websocket = function(socketio, core) {
     socket.on('vote', function(data) {
       core.vote(data.room, data.name, data.vote);
       _sendRefreshMessage(data.room);
+    });
+
+    socket.on('start', function(data) {
+      core.startRoom(data.room)
+      _broadcast( data.room, "startRoom" );
     });
   });
 

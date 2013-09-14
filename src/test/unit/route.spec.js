@@ -119,7 +119,7 @@ describe("route", function() {
     route.joinRoom(sockets)(req, res);
 
     expect(core.addParticipant.calledWith(req.params.room, req.params.name)).toBe(true);
-    expect(res.json).toHaveBeenCalledWith({room: req.params.room, name: req.params.name});
+    expect(res.json).toHaveBeenCalledWith({room: req.params.room, name: req.params.name, state : { name : 'INITIAL' }});
   });
 
 

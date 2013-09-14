@@ -47,11 +47,13 @@ $(function() {
   socket = io.connect(socketUrl);
   socket.emit("subscribe", { room: roomId });
   socket.emit("ask", { room: roomId });
+  /*
   socket.on('voteRefresh', function(data) {
     if (data.room === roomId) {
       return populateCards(data.votes);
     }
   });
+  */
   i = 0;
   $("#link").click(function() {
     var left, top;

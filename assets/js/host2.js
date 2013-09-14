@@ -52,6 +52,12 @@ app.controller("foresee.moderator.ParticipantListCtrl", function($scope, webSock
 });
 
 
+app.controller("foresee.moderator.CardCtrl", function($scope, webSocket) {
+  $scope.participantCards = [{"name":"mrA","score":2},{"name":"mrB","score":3},{"name":"mrC","score":"?"}];
+
+
+});
+
 app.directive('qrcode', function() {
   return {
       restrict: 'A',

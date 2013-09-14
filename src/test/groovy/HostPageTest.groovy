@@ -13,6 +13,13 @@ class TestHostPage extends HostPage {
     static at = { title == ("Host - " + TEST_ROOM_NAME) }
 }
 
+class NewHostPage extends HostPage {
+    static TEST_ROOM_NAME = "RoomNameNew"
+    static url = Info.FORESEE_BASE_URL + "host/" + TEST_ROOM_NAME
+    static at = { title == ("Host - " + TEST_ROOM_NAME) }
+}
+
+
 class HostPageTest extends GebReportingTest {
     @Test
     public void shouldHaveStoryElements() {
@@ -39,7 +46,7 @@ class HostPageTest extends GebReportingTest {
 
     @Test
     public void shouldShowStartNowButtonAsDisabled() {
-        to TestHostPage
+        to NewHostPage
 
         assert startNow().@disabled
     }

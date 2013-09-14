@@ -51,6 +51,8 @@ app.get('/host/:id', function(req, res) {
 
 app.get('/story/add/room/:room/story/:story', route.addStory);
 
+app.get('/stories/:room', route.listStories);
+
 app.get('/join/:id', route.join);
 
 app.get('/', route.index);

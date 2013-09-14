@@ -2,38 +2,28 @@ app.controller("foresee.moderator.StoryCtrl", function($scope, $http) {
     $scope.storyPile = [];
     $scope.startNowDisable = true;
 
+    function _onSuccess(data) {
+      var dataList = Object.keys(data)
+      if (dataList.length > 0) {
+        $scope.startNowDisable = false;
+      }
+      $scope.storyPile = dataList;
+    }
+
+    function _onError(data, status) {
+       alert(status); 
+    }
+
     $scope.init = function(roomName) {
-         
-           $http.get("/stories/" + roomName)
-              . success(function(data) {
-                var dataList = Object.keys(data)
-                if (dataList.length > 0) {
-                  $scope.startNowDisable = false
-                }
-
-                
-                $scope.storyPile = dataList;
-              }).
-              error(function(data, status) {
-                alert(status)
-              });
-    
-
-
+        $http.get("/stories/" + roomName)
+              .success(_onSuccess)
+              .error(_onError);
     }
 
     $scope.addStory = function() {
         $http.get("/story/add/room/" + $scope.roomId + "/story/" + $scope.storyDesc)
-              . success(function(data) {
-                var dataList = Object.keys(data)
-                if (dataList.length > 0) {
-                  $scope.startNowDisable = false
-                }
-                $scope.storyPile = dataList;
-              }).
-              error(function(data, status) {
-                alert(status)
-              });
+              .success(_onSuccess)
+              .error(_onError);
     }
 });
 

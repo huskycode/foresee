@@ -24,11 +24,26 @@ describe('foresee.moderator.StoryCtrl', function() {
       executeAndVerifyStoryPileAndStartNowStatus('{}', [], true);
     });
 
-    var executeAndVerifyStoryPileAndStartNowStatus = function(mockRepond, expectedStoryPile, expectedStartNowStatus) {
+    it("should update storyPile when first visit", function() {
+      // given
+      // call /stories/roomName should return story
+      var mockRespond = '{"s1":null}';
+      scope.roomName = 1;
+      httpBackend.expectGET("/stories/" + scope.roomName ).respond(mockRespond);
+       
+      // when
+      scope.init(scope.roomName);
+      httpBackend.flush();
+      // then
+      // storyPile has list of story.
+      expect(scope.storyPile).toEqual(["s1"]);
+    });
+
+    var executeAndVerifyStoryPileAndStartNowStatus = function(mockRespond, expectedStoryPile, expectedStartNowStatus) {
       scope.roomId = 1;
       scope.storyDesc = "desc";
 
-      httpBackend.expectGET("/story/add/room/" + scope.roomId + "/story/" + scope.storyDesc).respond(mockRepond);
+      httpBackend.expectGET("/story/add/room/" + scope.roomId + "/story/" + scope.storyDesc).respond(mockRespond);
       expect(scope.startNowDisable).toBe(true);
 
       //execute

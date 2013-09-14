@@ -179,13 +179,33 @@ describe('foresee.moderator.CardCtrl', function() {
     expect(result[1]).toEqual({"name" : "mrB", "score" : null});
   });
 
-  it("displayChar() should return '-'' when vote value of participant is null.", function() {
-    dataInput = [{"name" : "mrA", "score" : 1}, {"name" : "mrB", "score" : null}];
-    expectedOutput = [{"name" : "mrA", "score" : 1}, {"name" : "mrB", "score" : "-"}]
+  it("displayChar() should return '-' when vote value of participant is null.", function() {
+    dataInput = [{"name" : "mrB", "score" : null}];
+    expectedOutput = [{"name" : "mrB", "score" : "-"}]
 
     var result = scope.displayChar(dataInput);
 
     expect(result).toEqual(expectedOutput);
   });
+
+  it("displayChar() should return '?' when at least a participant is null.", function() {
+    dataInput = [{"name" : "mrA", "score" : 1}, {"name" : "mrB", "score" : null}];
+    expectedOutput = [{"name" : "mrA", "score" : '?'}, {"name" : "mrB", "score" : "-"}]
+
+    var result = scope.displayChar(dataInput);
+
+    expect(result).toEqual(expectedOutput);
+  });
+
+  it("displayChar() should return all number when all voted", function() {
+    dataInput = [{"name" : "mrA", "score" : 1}, {"name" : "mrB", "score" : 2}];
+    expectedOutput = [{"name" : "mrA", "score" : 1}, {"name" : "mrB", "score" : 2}]
+
+    var result = scope.displayChar(dataInput);
+
+    expect(result).toEqual(expectedOutput);
+  });
+
+
 
 });

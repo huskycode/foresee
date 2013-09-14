@@ -55,6 +55,7 @@ app.controller("foresee.moderator.ParticipantListCtrl", function($scope, webSock
 app.controller("foresee.moderator.CardCtrl", function($scope, webSocket) {
   $scope.participantCards = [{"name":"mrA","score":2},{"name":"mrB","score":3},{"name":"mrC","score":"?"}];
 
+
   $scope.init = function(roomName) {
     webSocket.emit("subscribe", { room: roomName });
   };
@@ -65,11 +66,17 @@ app.controller("foresee.moderator.CardCtrl", function($scope, webSocket) {
   }
 
   $scope.displayChar = function(votesData) {
+    var isAllVoted = _.every(votesData, function (value) {
+      return value.score != null;
+    });
+    
     return _.map(votesData, function(value) {
 
-        var displayScore = value.score ;
+        var displayScore = value.score;
         if (displayScore == null) {
           displayScore = "-" ;
+        } else if(!isAllVoted) {
+          displayScore = "?"; 
         };  
 
         return {"name": value.name , "score": displayScore};

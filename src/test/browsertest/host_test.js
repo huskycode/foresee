@@ -127,5 +127,65 @@ describe('foresee.moderator.ParticipantListCtrl', function() {
       "name": "participant2"
     });
   });
+
+
 });
 
+describe('foresee.moderator.CardCtrl', function() {
+  var scope;
+  var mockWebSocket;
+
+  beforeEach(module('foresee'));
+
+  beforeEach(inject(function($rootScope, $controller) {
+    //create a scope object for us to use.
+    scope = $rootScope.$new();
+    mockWebSocket = {
+      on: jasmine.createSpy(),
+      emit: jasmine.createSpy()
+    };
+
+
+    ctrl = $controller('foresee.moderator.CardCtrl', {
+      $scope: scope,
+      webSocket: mockWebSocket
+    });
+
+
+  }));
+
+  it("init() Should emit subscribe with roomName", function(){
+    scope.init("roomName");
+
+    var lastEmitCall = mockWebSocket.emit.mostRecentCall;
+    expect(lastEmitCall.args[0]).toEqual("subscribe");
+    expect(lastEmitCall.args[1]).toEqual({
+      "room": "roomName"
+    });
+  });
+
+  it("convertToCard() Should return object in a right stucture", function() {
+    dataInput = { 
+      "room": "RoomName",
+      "votes": { 
+        "mrA": 1,
+        "mrB": null
+      }
+    };
+
+    var result = scope.convertToCard(dataInput);
+
+    expect(result[0]).toEqual({"name" : "mrA", "score" : 1});
+    expect(result[1]).toEqual({"name" : "mrB", "score" : null});
+  });
+
+  it("displayChar() should return '-'' when vote value of participant is null.", function() {
+    dataInput = [{"name" : "mrA", "score" : 1}, {"name" : "mrB", "score" : null}];
+    expectedOutput = [{"name" : "mrA", "score" : 1}, {"name" : "mrB", "score" : "-"}]
+
+    var result = scope.displayChar(dataInput);
+
+    expect(result).toEqual(expectedOutput);
+  });
+
+});

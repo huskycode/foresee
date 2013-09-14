@@ -55,7 +55,26 @@ app.controller("foresee.moderator.ParticipantListCtrl", function($scope, webSock
 app.controller("foresee.moderator.CardCtrl", function($scope, webSocket) {
   $scope.participantCards = [{"name":"mrA","score":2},{"name":"mrB","score":3},{"name":"mrC","score":"?"}];
 
+  $scope.init = function(roomName) {
+    webSocket.emit("subscribe", { room: roomName });
+  };
 
+  $scope.convertToCard = function(voteRefreshData) {
+    var votesData = voteRefreshData.votes;
+    return _.map(votesData, function(value, key){ return {"name": key, "score": value}}); 
+  }
+
+  $scope.displayChar = function(votesData) {
+    return _.map(votesData, function(value) {
+
+        var displayScore = value.score ;
+        if (displayScore == null) {
+          displayScore = "-" ;
+        };  
+
+        return {"name": value.name , "score": displayScore};
+    });
+  }
 });
 
 app.directive('qrcode', function() {

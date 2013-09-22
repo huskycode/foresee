@@ -3,6 +3,8 @@ var ECT, app, assets, clientSockets, core, ectRenderer, express, getSocketUrl, i
 
 express = require('express');
 
+hostname = require('./hostname');
+
 assets = require('connect-assets');
 
 app = express();
@@ -43,7 +45,7 @@ getSocketUrl = function(req) {
 app.get('/host/:id', function(req, res) {
   return res.render('host.ect', {
     title: "Host - " + req.params.id,
-    url: "http://" + properHostname(req.headers.host) + "/join/" + req.params.id,
+    url: "http://" + hostname.properHostname(req.headers.host) + "/join/" + req.params.id,
     socketUrl: getSocketUrl(req),
     roomId: req.params.id
   });
@@ -62,11 +64,3 @@ app.get('/join/room/:room/name/:name', route.joinRoom(websocket));
 module.exports = server;
 
 module.exports.route = route;
-
-function properHostname(host){
-  if( host.match(/(localhost|127(\.0){2}\.1)/) ) {
-      return require('my-local-ip')();
-  }
-
-  return host;
-}

@@ -53,8 +53,12 @@ app.controller("foresee.moderator.ParticipantListCtrl", function($scope, webSock
 
 
 app.controller("foresee.moderator.CardCtrl", function($scope, webSocket) {
-  $scope.participantCards = [{"name":"mrA","score":2},{"name":"mrB","score":3},{"name":"mrC","score":"?"}];
+  $scope.participantCards = [];
 
+  webSocket.on('voteRefresh', function(data) {
+    var cards = $scope.displayChar($scope.convertToCard(data));
+    $scope.participantCards = cards;
+  });
 
   $scope.init = function(roomName) {
     webSocket.emit("subscribe", { room: roomName });

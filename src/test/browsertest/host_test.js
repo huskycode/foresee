@@ -206,6 +206,14 @@ describe('foresee.moderator.CardCtrl', function() {
     expect(result).toEqual(expectedOutput);
   });
 
+  it("Should update participantCard when voteRefresh", function(){
+    scope.init("thisRoom");
 
+    var data = { "room": "thisRoom", "votes": { "participant1": null, "participant2": 1 }  };
+
+    mockWebSocket.on.mostRecentCall.args[1](data);
+
+    expect(scope.participantCards).toEqual([{"name" : "participant1", "score" : '-'}, {"name" : "participant2", "score" : '?'}]);
+  });
 
 });

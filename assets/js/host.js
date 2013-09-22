@@ -24,21 +24,6 @@ countVoted = function(votes) {
   return total;
 };
 
-populateCards = function(votes) {
-  var displayNumbers, n, names, namesCount, result, votedCount, _i, _len;
-  names = Object.keys(votes);
-  namesCount = names.length;
-  votedCount = countVoted(votes);
-  displayNumbers = namesCount === votedCount;
-  result = "";
-  for (_i = 0, _len = names.length; _i < _len; _i++) {
-    n = names[_i];
-    result += "<div class='card_holder'><div class='card'>" + getCardFace(displayNumbers, votes[n]) + "</div>" + n + "</div>";
-  }
-  result += "<div style='clear:both'></div>";
-  return $("#cards").html(result);
-};
-
 $(function() {
   var i, roomId, socket, socketUrl, url;
   url = $("#url").val();
@@ -47,13 +32,7 @@ $(function() {
   socket = io.connect(socketUrl);
   socket.emit("subscribe", { room: roomId });
   socket.emit("ask", { room: roomId });
-  /*
-  socket.on('voteRefresh', function(data) {
-    if (data.room === roomId) {
-      return populateCards(data.votes);
-    }
-  });
-  */
+  
   i = 0;
   $("#link").click(function() {
     var left, top;

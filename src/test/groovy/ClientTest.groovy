@@ -57,6 +57,8 @@ class ClientTest extends GebReportingTest {
             startNow().click()
         }
 
+        Thread.sleep(1000)
+
         withFrame(client1, Client) {
             voteFive().click()
 

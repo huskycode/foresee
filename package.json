@@ -11,6 +11,7 @@
     ,"wrench": "1.4.4"
     ,"ect":"0.4.x"
     ,"memory-cache":"0.0.x"
+    ,"my-local-ip":"1.0.0"
   }, "devDependencies": {
       "mocha": "*"
     , "should": "*"

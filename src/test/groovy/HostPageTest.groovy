@@ -34,14 +34,14 @@ class HostPageTest extends GebReportingTest {
     public void shouldGenerateAVisibleLink() {
         to TestHostPage
 
-        assert link().@href == Info.FORESEE_BASE_URL + "join/" + TestHostPage.TEST_ROOM_NAME
+        assert link().@href.endsWith("join/" + TestHostPage.TEST_ROOM_NAME) == true
     }
 
     @Test
     public void shouldShowQRCodeForCurrentRoom() {
         to TestHostPage
 
-        assert qrCode().@title == Info.FORESEE_BASE_URL + "join/" + TestHostPage.TEST_ROOM_NAME
+        assert qrCode().@title.endsWith("join/" + TestHostPage.TEST_ROOM_NAME) == true
     }
 
     @Test

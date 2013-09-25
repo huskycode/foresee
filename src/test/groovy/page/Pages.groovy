@@ -32,6 +32,9 @@ class HostPage extends Page {
         startNow { $("input#startNow[type='button']") }
 
         findStoryPileOne(wait:true) { $("ul#story-pile>li") }
+
+        findFirstCardFace(wait:true) { $(".card_holder>.card") }
+        findFirstCardName(wait:true) { $(".card_holder>.name") }
     }
 }
 

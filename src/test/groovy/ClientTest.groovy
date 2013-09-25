@@ -69,8 +69,14 @@ class ClientTest extends GebReportingTest {
             assert findFirstCardFace().text() == "5"
             assert findFirstCardName().text() == "UserName1"
         }
-    }
 
+        Thread.sleep(1000)
+
+        withFrame(host, HostPage) {
+            assert findFirstCardFace().text() == "5"
+            assert findFirstCardName().text() == "UserName1"
+        }
+    }
 
     @Test
     public void "shoud show participant name on host screen when they joined"() {

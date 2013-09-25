@@ -18,4 +18,12 @@ describe("properHostname", function() {
   it('returns hostname if hostname is something else', function() {
     return hostname.properHostname('foresee.com').should.equal('foresee.com');
   });
+
+  it('preserve port in hostname', function() {
+    return hostname.properHostname('foresee.com:3000').should.equal('foresee.com:3000');
+  });
+
+  it('preserve port after replacing it with new hostname', function() {
+    return hostname.properHostname('localhost:3000').should.equal(myLocalIP() + ":3000");
+  });
 });

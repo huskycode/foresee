@@ -19,10 +19,4 @@ $(function() {
   $("#startNow").click(function(){
     socket.emit("start", { room: roomId });
   });
-
-  return $("#btn").click(function() {
-    return socket.emit('my other event', {
-      my: 'data'
-    });
-  });
 });

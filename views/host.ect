@@ -56,27 +56,31 @@
       <div ng-controller="foresee.moderator.StoryCtrl"  ng-init="init('<%=@roomId%>')">
         <div class="row-fluid">
           <div class="span12">
+          <!--
             <h2>Add Story</h2>
             <form class="form-horizontal" ng-submit="addStory()">
               <input type="hidden" id="roomId" value="<%=@roomId%>" ng-model="roomId" ng-init="roomId='<%=@roomId%>'"/>
               <input id="storyDesc" ng-model="storyDesc" class="input-block-level" type="text" placeholder="Type new story here" autofocus>
               <button type="submit" id="addStory" class="btn btn-blue pull-right">Add Stories</button>
             </form> 
+            -->
           </div>
         </div>
         <div class="row-fluid">
           <div class="span12">
-            <div class="story-pile">
-              <div class="well">
-                <h4>Story Pile</h4>
-                <ul id="story-pile">
-                  <li ng-repeat="story in storyPile">
-                    {{story}}
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <input id="startNow" type="button" ng-disabled="startNowDisable" class="btn btn-blue pull-right" value="Start Now">
+              <!--
+                <div class="story-pile">
+                  <div class="well">
+                    <h4>Story Pile</h4>
+                    <ul id="story-pile">
+                      <li ng-repeat="story in storyPile">
+                        {{story}}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                -->
+            <input id="startNow" type="button"  class="btn btn-blue pull-right" value="Start Now">
           </div>
         </div>
       </div>

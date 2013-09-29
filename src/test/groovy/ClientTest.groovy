@@ -51,8 +51,8 @@ class ClientTest extends GebReportingTest {
         }
 
         withFrame(host, HostPage) {
-            storyDesc().value "new story description"
-            addStory().click()
+            //storyDesc().value "new story description"
+            //addStory().click()
 
             startNow().click()
         }

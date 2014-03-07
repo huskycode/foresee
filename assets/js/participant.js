@@ -48,6 +48,16 @@ var ParticipantJoinPage = function(jq, settings) {
     }
 
     jq("#add").click(page.joinRoom);
+
+    jq("#name").keyup(function(){
+      var value = jq("#name").val();
+
+      if( value ) {
+        jq("#add").button('enable');
+      }else {
+        jq("#add").button('disable');
+      }
+    });
 };
 
 /**

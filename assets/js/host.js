@@ -17,6 +17,10 @@ $(function() {
   });
 
   $("#startNow").click(function(){
-    socket.emit("start", { room: roomId });
+        var startText = "STARTED";
+
+        $("#startNow").val(startText);
+        $("#startNow").prop('disabled', true);
+        socket.emit("start", { room: roomId });
   });
 });

@@ -8,11 +8,6 @@ getSocketUrl = function(req) {
 };
 
 route = {
-  index: function(req, res) {
-    return res.render('index.ect', {
-      title: "Foresee"
-    });
-  },
   join: function(req, res) {
     return res.render('join.ect', {
       id: req.params.id,

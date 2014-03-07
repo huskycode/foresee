@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html ng-app="foresee">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foresee</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css">
+    <link rel="stylesheet" type="text/css" href="css/foresee.css">
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png">
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/lib/underscore/underscore-min.js"></script>
+    <script type="text/javascript" src="js/lib/angular/angular.min.js"></script>
+    <script type="text/javascript" src="js/lib/angular/angular-route.min.js"></script>
+    <script type="text/javascript" src="js/foresee.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/services.js"></script>
+    <script type="text/javascript" src="js/host.js"></script>
+    <script type="text/javascript" src="js/host2.js"></script>
+    <script type="text/javascript" src="js/lib/qrcode/qrcode.js"></script>
+    <script type="text/javascript" src="js/lib/qrcode/angular-qrcode.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+
+    <div ng-view></div>
+
+    <footer class="pull-right">
+        <a target="_blank" href="http://www.huskycode.com">
+            <img alt="&copy; HuskyCode 2012" src="/images/huskycode_logo.png"/>
+        </a>
+    </footer>
+</div>
+<!-- /container -->
+</body>
+</html>

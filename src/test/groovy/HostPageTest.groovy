@@ -21,14 +21,14 @@ class NewHostPage extends HostPage {
 
 
 class HostPageTest extends GebReportingTest {
-    @Test
-    public void shouldHaveStoryElements() {
-        to TestHostPage
+    //@Test
+    //public void shouldHaveStoryElements() {
+        //to TestHostPage
 
-        assert storyDesc() != null
-        assert addStory() != null
-        assert storyPile() != null
-    }
+        //assert storyDesc() != null
+        //assert addStory() != null
+        //assert storyPile() != null
+    //}
 
     @Test
     public void shouldGenerateAVisibleLink() {
@@ -45,31 +45,40 @@ class HostPageTest extends GebReportingTest {
     }
 
     @Test
-    public void shouldShowStartNowButtonAsDisabled() {
+    public void shouldShowStartNowButtonAsEnable() {
         to NewHostPage
 
-        assert startNow().@disabled
-    }
-
-    @Test
-    public void shouldShowNewStoryInPileWhenAddedAndEnableStartNowButton() {
-        to TestHostPage
-
-        storyDesc().value "new story description"
-        addStory().click()
-
-        assert findStoryPileOne().text() == "new story description"
         assert !startNow().@disabled
     }
 
     @Test
-    public void shouldShowTheExistingStoryIfRefreshed() {
-        //
-        // Needs to execute "shouldShowNewStoryInPileWhenAddedAndEnableStartNowButton" first
-        //
-        to TestHostPage
+    public void shouldDisableStartNowButtonAfterClicking() {
+        to NewHostPage
 
-        assert findStoryPileOne().text() == "new story description", "Cannot find first story"
-        assert !startNow().@disabled, "Start now button is not enabled"
+        startNow().click();
+
+        assert startNow().@disabled
     }
+
+    //@Test
+    //public void shouldShowNewStoryInPileWhenAddedAndEnableStartNowButton() {
+        //to TestHostPage
+
+        //storyDesc().value "new story description"
+        //addStory().click()
+
+        //assert findStoryPileOne().text() == "new story description"
+        //assert !startNow().@disabled
+    //}
+
+    //@Test
+    //public void shouldShowTheExistingStoryIfRefreshed() {
+        ////
+        //// Needs to execute "shouldShowNewStoryInPileWhenAddedAndEnableStartNowButton" first
+        ////
+        //to TestHostPage
+
+        //assert findStoryPileOne().text() == "new story description", "Cannot find first story"
+        //assert !startNow().@disabled, "Start now button is not enabled"
+    //}
 }

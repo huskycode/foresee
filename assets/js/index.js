@@ -13,7 +13,7 @@ validateRoomName = function(roomName) {
 app.controller("foresee.moderator.LoginCtrl", function($scope, $window) {
     $scope.roomName = "";
 
-    $scope.createRoom = function() {
+    $scope.joinRoom = function() {
         if (validateRoomName($scope.roomName)) {
           $window.location.href = "host/" + encodeURIComponent($scope.roomName);
           $scope.modMsg = "";

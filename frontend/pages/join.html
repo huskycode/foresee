@@ -1,0 +1,37 @@
+<div class="row-fluid">
+    <div class="span12">
+        <header class="room-name">
+            <h1>{{roomId}}</h1>
+        </header>
+    </div>
+</div>
+<div class="container-centered">
+
+    <div class="box">
+        <div class="row-fluid" id="forms">
+            <div class="span12" ng-app="foresee">
+                <h2>Participant</h2>
+
+                <form class="form-horizontal" ng-controller="foresee.participant.JoinCtrl" ng-submit="joinRoom()">
+                    <input type="text" ng-model="participantName" placeholder="Participant name" name="participantName" class="input-block-level"
+                           id="participantName" autofocus>
+
+                    <div id="mod_message" ng-model="modMsg">{{modMsg}}</div>
+                    <button type="submit" class="btn btn-blue pull-right" id="joinRoom" name="joinRoom">Join
+                        Room
+                    </button>
+                </form>
+            </div>
+            <!--
+            <div class="span6">
+                <h2>Participants</h2>
+                <form class="form-horizontal">
+                    <input type="text" placeholder="Room name" class="input-block-level">
+                    <input type="text" placeholder="Your 3-letter initial" class="input-block-level" maxlength="3">
+                    <button type="submit" class="btn btn-blue pull-right">Enter Room</button>
+                </form>
+            </div>
+            -->
+        </div>
+    </div>
+</div>

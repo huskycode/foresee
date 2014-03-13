@@ -19,8 +19,16 @@ app.controller("foresee.moderator.LoginCtrl", function($scope, $location) {
     };
 });
 
-app.controller("foresee.moderator.StoryCtrl", function($scope, $http) {
+app.controller("foresee.moderator.StoryCtrl", function($scope, $http, webSocket) {
     $scope.storyPile = [];
+    $scope.roomId = $scope.$parent.roomId;
+    $scope.startNowLabel = 'Start Now';
+    $scope.startNowEnabled = true;
+
+    $http.get("/stories/" + $scope.roomId)
+        .success(_onSuccess)
+        .error(_onError);
+
 
     function _onSuccess(data) {
         var dataList = Object.keys(data)
@@ -31,16 +39,17 @@ app.controller("foresee.moderator.StoryCtrl", function($scope, $http) {
         alert(status);
     }
 
-    $scope.init = function(roomName) {
-        $http.get("/stories/" + roomName)
-            .success(_onSuccess)
-            .error(_onError);
-    }
-
     $scope.addStory = function() {
         $http.get("/story/add/room/" + $scope.roomId + "/story/" + $scope.storyDesc)
             .success(_onSuccess)
             .error(_onError);
+    }
+
+    $scope.startNow = function() {
+        $scope.startNowLabel = 'STARTED';
+        $scope.startNowEnabled = false;
+
+        webSocket.emit("start", { room: $scope.roomId });
     }
 });
 
@@ -70,16 +79,17 @@ app.controller("foresee.moderator.ParticipantListCtrl", function($scope, webSock
 
 
 app.controller("foresee.moderator.CardCtrl", function($scope, webSocket) {
+    var roomId = $scope.$parent.roomId;
     $scope.participantCards = [];
+
+    webSocket.emit("subscribe", { room: roomId });
+
 
     webSocket.on('voteRefresh', function(data) {
         var cards = $scope.displayChar($scope.convertToCard(data));
         $scope.participantCards = cards;
     });
-
-    $scope.init = function(roomName) {
-        webSocket.emit("subscribe", { room: roomName });
-    };
+    webSocket.emit("ask", { room: roomId });
 
     $scope.convertToCard = function(voteRefreshData) {
         var votesData = voteRefreshData.votes;
@@ -111,5 +121,19 @@ app.controller("foresee.participant.JoinCtrl", function($scope, $location) {
 
     $scope.joinRoom = function() {
         $location.path("join/" + encodeURIComponent($scope.$parent.roomId) + "/" + $scope.participantName);
+    }
+});
+
+app.controller("foresee.participant.VoteCtrl", function($scope, webSocket) {
+    $scope.score = 1;
+    $scope.options = [1,2,3,4,5];
+
+    $scope.vote = function() {
+        var data = {
+            room: $scope.$parent.roomId,
+            name: $scope.$parent.participantName,
+            vote: $scope.score
+        };
+        webSocket.emit("vote", data);
     }
 });

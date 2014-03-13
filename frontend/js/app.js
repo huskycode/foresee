@@ -14,7 +14,7 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl : 'pages/join.html',
             controller  : 'foresee.page.JoinController'
         })
-        .when('/join/:roomId/:name', {
+        .when('/join/:roomId/:participantName', {
             templateUrl : 'pages/vote.html',
             controller  : 'foresee.page.VoteController'
         });
@@ -34,9 +34,11 @@ app.controller("foresee.page.JoinController", function($scope, $routeParams) {
     $scope.roomId = $routeParams.roomId;
 });
 
-app.controller("foresee.page.VoteController", function($scope, $routeParams) {
+app.controller("foresee.page.VoteController", function($scope, $routeParams, webSocket) {
     $scope.roomId = $routeParams.roomId;
     $scope.participantName = $routeParams.participantName;
+
+    webSocket.emit("join", {"room": $scope.roomId, "name": $scope.participantName});
 });
 
 

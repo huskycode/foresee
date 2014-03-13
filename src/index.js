@@ -27,8 +27,6 @@ app.get('/url', function(req, res) {
 });
 app.get('/story/add/room/:room/story/:story', route.addStory);
 app.get('/stories/:room', route.listStories);
-app.get('/join/:id', route.join);
-app.get('/join/room/:room/name/:name', route.joinRoom(websocket));
 
 module.exports = server;
 

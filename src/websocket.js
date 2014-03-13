@@ -33,6 +33,10 @@ var websocket = function(socketio, core) {
       core.startRoom(data.room)
       _broadcast( data.room, "startRoom" );
     });
+    socket.on('join', function(data) {
+      core.addParticipant(data.room, data.name);
+      _sendRefreshMessage(data.room);
+    });
   });
 
   return {

@@ -1,4 +1,4 @@
-app.factory('socketIO', function ($rootScope) {
+app.factory('socketIO', function () {
    return io;
 });
 

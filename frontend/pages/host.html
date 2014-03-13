@@ -30,7 +30,7 @@
             <div class="row-fluid">
                 <div class="span12">
                     <div class="instructions">
-                        <div id="cards" ng-controller="foresee.moderator.CardCtrl" ng-init="init(roomId)">
+                        <div id="cards" ng-controller="foresee.moderator.CardCtrl">
                             <div class="card_holder" ng-repeat="card in participantCards" >
                                 <div class="card">{{card.score}}</div><span class='name'>{{card.name}}</name>
                             </div>
@@ -41,7 +41,7 @@
                     <hr />
                 </div>
             </div>
-            <div ng-controller="foresee.moderator.StoryCtrl"  ng-init="init(roomId)">
+            <div ng-controller="foresee.moderator.StoryCtrl">
                 <div class="row-fluid">
                     <div class="span12">
                         <!--
@@ -68,7 +68,7 @@
                             </div>
                           </div>
                           -->
-                        <input id="startNow" type="button"  class="btn btn-blue pull-right" value="Start Now">
+                        <input id="startNow" type="button" ng-disabled='!startNowEnabled' ng-click="startNow()" class="btn btn-blue pull-right" value="{{startNowLabel}}">
                     </div>
                 </div>
             </div>

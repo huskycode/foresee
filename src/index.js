@@ -21,7 +21,7 @@ var websocket = require("./websocket").websocket(socketio, core);
 
 app.get('/url', function(req, res) {
     return res.json({
-        url: "http://" + hostname.properHostname(req.headers.host) + "/join",
+        url: "http://" + hostname.properHostname(req.headers.host),
         socketUrl: "http://" + req.headers.host
     });
 });

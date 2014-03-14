@@ -1,8 +1,7 @@
-var mockSocketIo, mockSocket, webSocket, scope;
-
 describe("foresee.service.webSocket", function() {
+    var mockSocketIo, mockSocket, webSocket, scope;
 
-    beforeEach(module('foresee'));
+    beforeEach(angular.mock.module('foresee'));
 
     beforeEach(function() {
         mockSocketIo = { connect: null };
@@ -34,7 +33,7 @@ describe("foresee.service.webSocket", function() {
             callback = function(data) {
               capturedData = data;
             };
-            webSocket.on("myEvent", callback);
+            this.webSocket.on("myEvent", callback);
         });
 
         it('should call socketIO with correct event name', function() {
@@ -52,7 +51,7 @@ describe("foresee.service.webSocket", function() {
         var eventName = "myEvent";
         var data = { "some": "Data"};
 
-        webSocket.emit(eventName, data);
+        this.webSocket.emit(eventName, data);
 
         expect(mockSocket.emit.mostRecentCall.args[0]).toEqual(eventName);
         expect(mockSocket.emit.mostRecentCall.args[1]).toEqual(data);

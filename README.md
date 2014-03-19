@@ -14,7 +14,7 @@ tools.
 * [Project Status on Trello](https://trello.com/b/BMW2lM2n)
 * [Code on GitHub](https://github.com/huskycode/foresee)
 
-Instructions for Dev
+NodeJS Installation for Dev
 -----------
 ### OS X
 1. Install [Homebrew](http://mxcl.github.com/homebrew/)
@@ -32,6 +32,9 @@ Instructions for Dev
 ### Windows
 1. Download Install nodejs from http://nodejs.org/download/
 
+Other tools installation for Dev
+-----------
+
 ### All Platforms
 
 * Install firefox
@@ -42,11 +45,13 @@ Do this
 
     npm install -g jasmine-node
     npm install -g nodemon
-    npm install
 
 Also make sure you can run java from command line. Try this command
 
     java -version
+
+Running Dev Server
+-------------
 
 ### Running Server in Development Mode
 1. go to the directory

@@ -24,14 +24,6 @@ describe("route", function() {
     core.listStories.restore();
     return core.addParticipant.restore();
   });
-  it('index points to right template and contains title', function() {
-    return route.index(null, {
-      render: function(filename, params) {
-        filename.should.equal("index.ect");
-        return params.title.should.equal("Foresee");
-      }
-    });
-  });
   it('join points to right template with roomname parameter', function() {
     return route.join({
       params: {
@@ -110,17 +102,4 @@ describe("route", function() {
       }
     });
   });
-
-  it('joinRoom() should add participant and emit refresh', function() {
-    var req = { params: { room: "room", name: "name" } };
-    var res = jasmine.createSpyObj("res", ["json"]);
-    var sockets = jasmine.createSpyObj("webSocket", ["sendRefreshMessage"]);
-
-    route.joinRoom(sockets)(req, res);
-
-    expect(core.addParticipant.calledWith(req.params.room, req.params.name)).toBe(true);
-    expect(res.json).toHaveBeenCalledWith({room: req.params.room, name: req.params.name, state : { name : 'INITIAL' }});
-  });
-
-
 });

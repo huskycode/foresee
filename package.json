@@ -6,21 +6,23 @@
   "dependencies": {
      "express": "3.x"
     ,"socket.io": "0.9.x"
-    ,"connect-assets": "2.3.3"
-    ,"which": "1.0.5"
-    ,"wrench": "1.4.4"
-    ,"ect":"0.4.x"
+    ,"connect-assets": "2.5.x"
     ,"memory-cache":"0.0.x"
     ,"my-local-ip":"1.0.0"
   }, "devDependencies": {
-      "mocha": "*"
-    , "should": "*"
-    , "supervisor": "*"
-    , "chai": "1.5.x"
-    , "sinon": "1.6.x"
-    , "shelljs": "*"
-    , "jasmine-node": "*"
+    "jasmine-node": "1.x.x"
+    ,"karma": "0.12.x"
+    ,"karma-jasmine": "0.1.x"
+    ,"karma-chrome-launcher": "0.1.x"
+    ,"karma-firefox-launcher": "0.1.x"
+    ,"karma-junit-reporter": "0.2.x"
+    ,"nodemon": "1.x.x"
+
+    ,"should": "3.x.x"
+    ,"sinon": "1.x.x"
   },
   "scripts": {
+     "start": "./node_modules/nodemon/bin/nodemon.js app.js"
+     ,"test": "./node_modules/jasmine-node/bin/jasmine-node --verbose src/test/unit"
   }
 }

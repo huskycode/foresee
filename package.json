@@ -22,7 +22,9 @@
     ,"sinon": "1.x.x"
   },
   "scripts": {
-     "start": "./node_modules/nodemon/bin/nodemon.js app.js"
+      "start": "./node_modules/nodemon/bin/nodemon.js app.js"
      ,"test": "./node_modules/jasmine-node/bin/jasmine-node --verbose src/test/unit"
+     ,"karma-start": "./node_modules/karma/bin/karma start"
+     ,"karma-run": "./node_modules/karma/bin/karma start --single-run"
   }
 }

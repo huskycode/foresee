@@ -2,20 +2,28 @@ describe('foresee.moderator.StoryCtrl', function() {
     var httpBackend;
     var scope;
     var ctrl;
+    var roomId = 1;
 
-    beforeEach(module('foresee'));
+    beforeEach(function() {
+      module('foresee')
 
-    beforeEach(inject(function($rootScope, $controller, $httpBackend) {
+      inject(function($rootScope, $controller, $httpBackend) {
         //create a scope object for us to use.
         scope = $rootScope.$new();
+        scope.$parent.roomId = 1;
         httpBackend = $httpBackend;
+        mockWebSocket = {
+          on: jasmine.createSpy(),
+          emit: jasmine.createSpy()
+        };
 
         ctrl = $controller('foresee.moderator.StoryCtrl', {
-             $scope: scope
+             $scope: scope,
+             webSocket: mockWebSocket
         });
+      });
+    });
 
-
-    }));
     it("should add story to pile when ajax call success & enable StartNow buton when respond > 0", function() {
       executeAndVerifyStoryPileAndStartNowStatus('{"s1": null, "s2": null}', ["s1", "s2"], false);
     });
@@ -28,8 +36,7 @@ describe('foresee.moderator.StoryCtrl', function() {
       // given
       // call /stories/roomName should return story
       var mockRespond = '{"s1":null}';
-      scope.roomName = 1;
-      httpBackend.expectGET("/stories/" + scope.roomName ).respond(mockRespond);
+      httpBackend.expectGET("/stories/" + scope.roomId ).respond(mockRespond);
        
       // when
       httpBackend.flush();

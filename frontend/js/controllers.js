@@ -19,11 +19,9 @@ app.controller("foresee.moderator.LoginCtrl", function($scope, $location) {
     };
 });
 
-app.controller("foresee.moderator.StoryCtrl", function($scope, $http, webSocket) {
+app.controller("foresee.moderator.StoryCtrl", function($scope, $http) {
     $scope.storyPile = [];
     $scope.roomId = $scope.$parent.roomId;
-    $scope.startNowLabel = 'Start Now';
-    $scope.startNowEnabled = true;
 
     $http.get("/stories/" + $scope.roomId)
         .success(_onSuccess)
@@ -43,13 +41,6 @@ app.controller("foresee.moderator.StoryCtrl", function($scope, $http, webSocket)
         $http.get("/story/add/room/" + $scope.roomId + "/story/" + $scope.storyDesc)
             .success(_onSuccess)
             .error(_onError);
-    }
-
-    $scope.startNow = function() {
-        $scope.startNowLabel = 'STARTED';
-        $scope.startNowEnabled = false;
-
-        webSocket.emit("start", { room: $scope.roomId });
     }
 });
 

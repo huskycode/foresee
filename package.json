@@ -16,15 +16,19 @@
     ,"karma-chrome-launcher": "0.1.x"
     ,"karma-firefox-launcher": "0.1.x"
     ,"karma-junit-reporter": "0.2.x"
+    ,"karma-ng-scenario": "~0.1"
     ,"nodemon": "1.x.x"
 
     ,"should": "3.x.x"
     ,"sinon": "1.x.x"
+
+    ,"grunt": "0.4.x"
+    ,"grunt-karma": "0.8.x"
   },
   "scripts": {
       "start": "./node_modules/nodemon/bin/nodemon.js app.js"
      ,"test": "./node_modules/jasmine-node/bin/jasmine-node --verbose src/test/unit"
-     ,"karma-start": "./node_modules/karma/bin/karma start"
+     ,"karma-start": "./node_modules/karma/bin/karma configs/karma.conf.js start"
      ,"karma-run": "./node_modules/karma/bin/karma start --single-run"
   }
 }

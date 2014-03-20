@@ -52,7 +52,7 @@ Scripts
 Before starting anything fetch dependencies
 * npm install
 
-
+Then you can start using these scripts
 * npm start #run server
 * npm test #run backend test
 * grunt karma:unit #run frontend test

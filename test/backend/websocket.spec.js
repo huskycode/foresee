@@ -1,4 +1,4 @@
-var ws = require("../../../src/websocket").websocket;
+var ws = require("../../src/backend/websocket").websocket;
 
 describe("webSocket", function() {
   var websocket;

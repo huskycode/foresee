@@ -9,11 +9,8 @@ module.exports = function(grunt) {
             ci: {
                 configFile: 'configs/karma.conf.js',
                 singleRun: true
-            },
-            e2e: {
-                configFile: 'configs/karma-e2e.conf.js'
             }
-        }
+        },
     });
 
     grunt.loadNpmTasks('grunt-karma');

@@ -1,1 +1,0 @@
-gradlew --daemon %1

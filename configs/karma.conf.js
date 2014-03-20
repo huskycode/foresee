@@ -4,17 +4,18 @@ module.exports = function(config) {
     basePath: '../',
     frameworks: ['jasmine'],
     files: [
-      "frontend/js/lib/angular/angular.min.js",
-      "frontend/js/lib/angular/angular-route.min.js",
-      "frontend/js/lib/underscore/underscore-min.js",
+      "src/frontend/js/lib/angular/angular.min.js",
+      "src/frontend/js/lib/angular/angular-route.min.js",
+      "src/frontend/js/lib/underscore/underscore-min.js",
 
-      "src/test/browsertest/lib/angular/angular-mocks.js",
+      "test/frontend/lib/angular/angular-mocks.js",
 
-      'frontend/js/lib/jquery/jquery-1.7.2.min.js',
-      'frontend/js/app.js',
-      'frontend/js/controllers.js',
-      'frontend/js/services.js',
-      'src/test/browsertest/*_test.js',
+      'src/frontend/js/lib/jquery/jquery-1.7.2.min.js',
+      'src/frontend/js/app.js',
+      'src/frontend/js/controllers.js',
+      'src/frontend/js/services.js',
+
+      'test/frontend/*_test.js',
     ],
 
     reporters: ['progress', 'junit'],

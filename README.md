@@ -49,6 +49,10 @@ Also make sure you can run java from command line. Try this command
 
 Scripts
 ----------
+Before starting anything fetch dependencies
+* npm install
+
+
 * npm start #run server
 * npm test #run backend test
 * grunt karma:unit #run frontend test

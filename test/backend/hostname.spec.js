@@ -4,7 +4,7 @@ var hostStateModule, should, state;
 should = require("should");
 myLocalIP = require("my-local-ip");
 
-hostname = require("../../../src/hostname");
+hostname = require("../../src/backend/hostname");
 
 describe("properHostname", function() {
   it('returns local ip if hostname equals to localhost', function() {

@@ -2,7 +2,7 @@
 var Controller, core, datastore, datastoreModule, retainTime, hostStateModule, hoststate;
 
 datastoreModule = require('./datastore');
-hostStateModule = require("../src/hoststate");
+hostStateModule = require("./hoststate");
 
 hoststate = hostStateModule.hoststate;
 

@@ -1,6 +1,6 @@
 var port;
 
-var server = require('./src/index');
+var server = require('./src/backend/index');
 
 port = server.port;
 

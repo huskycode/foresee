@@ -3,7 +3,7 @@ var DataStore, cache, datastore, hostStateModule, hoststate;
 
 cache = require('memory-cache');
 
-hostStateModule = require("../src/hoststate");
+hostStateModule = require("./hoststate");
 
 hoststate = hostStateModule.hoststate;
 

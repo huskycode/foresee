@@ -61,3 +61,10 @@ Running e2e test
 -----------
 * npm run-script webdriver-update #update webdriver
 * npm run-script protractor #run protractor
+
+Install on AWS
+==============
+    sudo yum install nodejs
+    sudo yum install npm
+    sudo yum install git
+    

@@ -31,8 +31,7 @@ textarea {
 }
 
 body {
-	padding-top: 60px;
-	padding-bottom: 60px;
+	padding: 1em;
 	background-color: #f1f1f1;
 }
 
@@ -49,9 +48,9 @@ h4,
 h5, 
 h6 {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	line-height: 1.5em;
+	line-height: 1.3em;
 	color: #555;
-	margin-bottom: 14px;
+	margin-bottom: 2em;
 }
 
 h1 {
@@ -186,11 +185,10 @@ input[type="color"]:focus,
 /*** box content ***/
 
 .box {
-	margin: 0 auto 10px;
-	padding: 60px;
+	margin: 0 auto 1em auto;
+	padding: 1em;
 	background: #fff;
-	-webkit-box-shadow: 0px 4px 20px #999;
-	box-shadow: 0px 4px 20px #999;
+    border: 1px solid #999;
 	border-radius: 3px;
 }
 
@@ -243,6 +241,7 @@ hr {
 	padding: 30px;
 }
 
+
 .box .row-fluid>.span12 {
 	padding-bottom: 30px;
 }
@@ -269,6 +268,14 @@ hr {
 
     font-size: 60px;
 
+}
+
+input {
+    width: 100%;
+}
+
+footer {
+    margin: 1em 0 0 0;
 }
 
 /* @end */

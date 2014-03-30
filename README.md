@@ -73,3 +73,6 @@ Install on AWS
     cd foresee
     npm install
     
+    sudo cp configs/foresee.conf /etc/init
+    sudo start foresee
+    

@@ -5,11 +5,9 @@ Voted points and notes collected are kept in the system and can be downloaded or
 tools.
 
 ### Build Status
-* Unit Test ![Unit Test](http://teamcity.huskycode.com/app/rest/builds/buildType:bt3/statusIcon)
-* Acceptance Test ![Unit Test](http://teamcity.huskycode.com/app/rest/builds/buildType:bt4/statusIcon)
+* Unit Test ![Unit Test](https://travis-ci.org/huskycode/foresee.svg?branch=master)
 
 ### Interested in helping?
-
 * Join [foreseedev facebook group](https://www.facebook.com/groups/foreseedev) - If you are new, make a post and say hello to the team!
 * [Project Status on Trello](https://trello.com/b/BMW2lM2n)
 * [Code on GitHub](https://github.com/huskycode/foresee)

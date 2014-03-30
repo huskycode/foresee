@@ -1,35 +1,41 @@
 <div class="row-fluid">
     <div class="span12">
         <header class="room-name">
-            <h1>{{roomId}} &gt; {{participantName}}</h1>
+            <h1>{{roomId}}</h1>
         </header>
     </div>
 </div>
-<div class="row-fluid" ng-app="foresee">
+<div class="row-fluid">
     <div class="span12">
         <div class="box">
-            <div class="row-fluid">
-                <div class="span12">
-                    <div class="instructions">
-                        <div id="cards" ng-controller="foresee.moderator.CardCtrl">
-                            <div class="card_holder" ng-repeat="card in participantCards" >
-                                <div class="card">{{card.score}}</div><span class='name'>{{card.name}}</name>
-                            </div>
-                            <div style="clear:both"></div>
-                        </div>
-                        <br/>
-                    </div>
-                    <hr />
-                </div>
-                <div class="span12">
-                    <form class="form-horizontal" ng-controller="foresee.participant.VoteCtrl" ng-submit="vote()">
-                        <select ng-model="score" ng-options="option for option in options"></select>
+            <h2>{{participantName}}'s vote</h2>
 
-                        <button type="submit" class="btn btn-blue pull-right" id="vote" name="vote">Vote
-                        </button>
-                    </form>
+            <form class="form-horizontal" ng-controller="foresee.participant.VoteCtrl" ng-submit="vote()">
+                <select ng-model="score" ng-options="option for option in options"></select>
+                <br/><br/>
+                <button type="submit" class="btn btn-blue" id="vote" name="vote">Vote
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box">
+
+            <h2>Vote Results</h2>
+
+            <div class="instructions">
+                <div id="cards" ng-controller="foresee.moderator.CardCtrl">
+                    <div class="card_holder" ng-repeat="card in participantCards">
+                        <div class="card">{{card.score}}</div><span class='name'>{{card.name}}</name>
+                    </div>
+                    <div style="clear:both"></div>
                 </div>
+                <br/>
             </div>
         </div>
     </div>
+</div>
+</div>
 </div>

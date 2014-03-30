@@ -67,4 +67,9 @@ Install on AWS
     sudo yum install nodejs
     sudo yum install npm
     sudo yum install git
+    sudo yum install upstart
+    git clone https://github.com/huskycode/foresee.git
+    
+    cd foresee
+    npm install
     

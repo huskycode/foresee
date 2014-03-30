@@ -37,5 +37,7 @@
      ,"webdriver-start": "./node_modules/protractor/bin/webdriver-manager start"
      ,"protractor": "./node_modules/protractor/bin/protractor configs/protractor.conf.js"
 
+     ,"test-ci": "./node_modules/jasmine-node/bin/jasmine-node --junitreport test/backend"
+
   }
 }

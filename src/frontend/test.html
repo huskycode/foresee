@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="js/socket.io.js"></script>
+  <script type="text/javascript">
+    var socket = io.connect();
+  socket.on("connect", function(){
+    socket.emit("news", "this is title", "this is body", 1)
+    console.log("connect");
+  })
+  socket.on("news", function(message, urgency){
+    console.log(message + urgency);
+    socket.emit("ping")
+  })
+  socket.on("pong", function() {
+    console.log("got pong")
+  })
+  socket.on("disconnect", function() {
+    console.log("You have disconnected from the server")
+  })
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

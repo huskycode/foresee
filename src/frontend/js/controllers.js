@@ -56,7 +56,6 @@ app.controller("foresee.moderator.ParticipantListCtrl", function($scope, webSock
 
     $scope.init = function (roomName) {
         $scope.roomName = roomName;
-        webSocket.emit("subscribe", { room: roomName });
     };
 
     $scope.removeParticipant = function(name) {
@@ -73,10 +72,10 @@ app.controller("foresee.moderator.CardCtrl", function($scope, webSocket) {
     var roomId = $scope.$parent.roomId;
     $scope.participantCards = [];
 
-    webSocket.emit("subscribe", { room: roomId });
-
+    webSocket.emit("ping", { room: roomId });
 
     webSocket.on('voteRefresh', function(data) {
+        console.log("vr", data);
         var cards = $scope.displayChar($scope.convertToCard(data));
         $scope.participantCards = cards;
     });

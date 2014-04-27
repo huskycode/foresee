@@ -59,4 +59,17 @@ var _ = Describe("CoreImpl", func() {
       Expect(data.GetVotes()).To(HaveLen(0))
     })
   })
+  Describe("GetVotes()", func() {
+    It("should get votes of a room", func() {
+      core := CreateCoreImpl(mockDS)
+      data := CreateData()
+      data.Vote("p1", 2)
+      mockDS.DataToReturn = data
+
+      votes := core.GetVotes("roomA")
+
+      Expect(votes).To(HaveLen(1))
+      Expect(votes["p1"]).To(Equal(2))
+    })
+  })
 })

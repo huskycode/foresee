@@ -22,3 +22,7 @@ func (ci CoreImpl) AddParticipant(room string, participant string) {
 func (ci CoreImpl) RemoveParticipant(room string, participant string) {
   ci.dataStore.Get(room).RemoveParticipant(participant)
 }
+
+func (ci CoreImpl) GetVotes(room string) map[string]int {
+  return ci.dataStore.Get(room).GetVotes()
+}

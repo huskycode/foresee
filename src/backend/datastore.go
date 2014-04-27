@@ -25,8 +25,8 @@ type DataStore interface {
   Put(room string, data Data)
 }
 
-func CreateInMemoryDataStore() InMemoryDataStore {
-  mds := InMemoryDataStore{}
+func CreateInMemoryDataStore() *InMemoryDataStore {
+  mds := new(InMemoryDataStore)
   mds.dataByRoom = make(map[string]Data)
   return mds
 }

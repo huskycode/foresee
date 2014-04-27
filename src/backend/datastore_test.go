@@ -6,7 +6,7 @@ import (
 )
 
 var _ = Describe("DataStore", func() {
-  var mds InMemoryDataStore
+  var mds *InMemoryDataStore
 
   BeforeEach(func() {
     mds = CreateInMemoryDataStore()

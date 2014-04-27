@@ -16,4 +16,5 @@ func CreateCoreImpl(ds DataStore) CoreImpl {
 }
 
 func (ci CoreImpl) AddParticipant(room string, participant string) {
+  ci.dataStore.Get(room).AddParticipant(participant)
 }

@@ -8,6 +8,18 @@ func CreateData() Data {
   return Data{make(map[string]int)}
 }
 
+func (d Data) AddParticipant(name string) {
+  d.votes[name] = 0
+}
+
+func (d Data) Vote(name string, score int) {
+  d.votes[name] = score
+}
+
+func (d Data) GetVotes() map[string]int {
+  return d.votes
+}
+
 type DataStore interface {
   Get(room string) Data
   Put(room string, data Data)

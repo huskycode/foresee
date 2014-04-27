@@ -14,3 +14,6 @@ type CoreImpl struct {
 func CreateCoreImpl(ds DataStore) CoreImpl {
   return CoreImpl{ds}
 }
+
+func (ci CoreImpl) AddParticipant(room string, participant string) {
+}

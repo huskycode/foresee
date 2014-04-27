@@ -1,16 +1,16 @@
 package foresee_backend
 
 import (
+  "fmt"
   "github.com/googollee/go-socket.io"
   "net/http"
-  "fmt"
 )
 
 type Route struct {
 }
 
 func (r Route) ManageRoute() *socketio.SocketIOServer {
-  ws := WebSocket{}
+  ws := CreateWebSocket(CreateCoreImpl(CreateInMemoryDataStore()))
 
   sio := ws.createSocketIO()
 

@@ -3,7 +3,7 @@ package foresee_backend
 type Core interface {
   AddParticipant(room string, participant string)
   RemoveParticipant(room string, participant string)
-  GetVotes(room string)
+  GetVotes(room string) map[string]int
   Vote(room string, participant string, vote int)
 }
 

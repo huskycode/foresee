@@ -61,5 +61,14 @@ var _ = Describe("DataStore", func() {
         Expect(data.GetVotes()["p1"]).To(Equal(3))
       })
     })
+
+    Describe("RemoveParticipant()", func() {
+      It("should remove participant from map", func() {
+        data.AddParticipant("toRemove")
+        data.RemoveParticipant("toRemove")
+
+        Expect(data.GetVotes()).To(HaveLen(0))
+      })
+    })
   })
 })

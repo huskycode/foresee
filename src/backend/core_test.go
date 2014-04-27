@@ -46,4 +46,17 @@ var _ = Describe("CoreImpl", func() {
       Expect(data.GetVotes()["p1"]).To(Equal(0))
     })
   })
+  Describe("RemoveParticipant()", func() {
+    It("should call deleteParticipant in the data of the room", func() {
+      core := CreateCoreImpl(mockDS)
+      data := CreateData()
+      data.Vote("p1", 1)
+      mockDS.DataToReturn = data
+
+      core.RemoveParticipant("roomA", "p1")
+
+      Expect(mockDS.LastRoomGet).To(Equal("roomA"))
+      Expect(data.GetVotes()).To(HaveLen(0))
+    })
+  })
 })

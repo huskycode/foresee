@@ -12,6 +12,9 @@ func (d Data) AddParticipant(name string) {
   d.votes[name] = 0
 }
 
+func (d Data) RemoveParticipant(name string) {
+  delete(d.votes, name)
+}
 func (d Data) Vote(name string, score int) {
   d.votes[name] = score
 }

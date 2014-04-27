@@ -25,11 +25,78 @@ func (ws WebSocket) createSocketIO() *socketio.SocketIOServer {
 
   sio.On("connect", onConnect)
   sio.On("ask", ws.ask)
-  sio.On("ping", func(ns *socketio.NameSpace, data string) {
-    sio.Broadcast("pong", data)
-  })
+  sio.On("vote", ws.vote)
+  sio.On("join", ws.join)
+  sio.On("removeParticipant", ws.removeParticipant)
 
   return sio
+}
+
+func (ws *WebSocket) ask(ns *socketio.NameSpace, data string) {
+  l4g.Debug("on ask: %s", data)
+
+  askRequest := AskRequest{}
+  json.Unmarshal([]byte(data), &askRequest)
+
+  ws.sendVoteRefresh(ns, askRequest.Room)
+}
+
+func (ws *WebSocket) vote(ns *socketio.NameSpace, data string) {
+  l4g.Debug("on vote: %s", data)
+
+  voteRequest := VoteRequest{}
+  json.Unmarshal([]byte(data), &voteRequest)
+
+  ws.core.Vote(voteRequest.Room, voteRequest.Name, voteRequest.Vote)
+
+  ws.sendVoteRefresh(ns, voteRequest.Room)
+}
+
+func (ws *WebSocket) join(ns *socketio.NameSpace, data string) {
+  l4g.Debug("on join: %s", data)
+
+  joinRequest := JoinRequest{}
+  json.Unmarshal([]byte(data), &joinRequest)
+
+  ws.core.AddParticipant(joinRequest.Room, joinRequest.Name)
+
+  ws.sendVoteRefresh(ns, joinRequest.Room)
+}
+
+func (ws *WebSocket) removeParticipant(ns *socketio.NameSpace, data string) {
+  l4g.Debug("on removeParticipant: %s", data)
+
+  req := RemoveParticipantRequest{}
+  json.Unmarshal([]byte(data), &req)
+
+  ws.core.RemoveParticipant(req.Room, req.Name)
+
+  ws.sendVoteRefresh(ns, req.Room)
+}
+
+func (ws *WebSocket) sendVoteRefresh(ns *socketio.NameSpace, room string) {
+  votes := ws.core.GetVotes(room)
+  res, _ := json.Marshal(VoteRefreshResponse{room, votes})
+  resString := string(res[:])
+
+  ns.Emit("voteRefresh", resString)
+  l4g.Debug("emit voteRefresh: %s", resString)
+}
+
+type JoinRequest struct {
+  Room string `json:"room"`
+  Name string `json:"name"`
+}
+
+type RemoveParticipantRequest struct {
+  Room string `json:"room"`
+  Name string `json:"name"`
+}
+
+type VoteRequest struct {
+  Room string `json:"room"`
+  Name string `json:"name"`
+  Vote int    `json:"vote"`
 }
 
 type AskRequest struct {
@@ -39,17 +106,6 @@ type AskRequest struct {
 type VoteRefreshResponse struct {
   Room  string         `json:"room"`
   Votes map[string]int `json:"votes"`
-}
-
-func (ws *WebSocket) ask(ns *socketio.NameSpace, data string) {
-  askRequest := AskRequest{}
-  json.Unmarshal([]byte(data), &askRequest)
-
-  votes := make(map[string]int)
-  votes["A"] = 1
-
-  res, _ := json.Marshal(VoteRefreshResponse{askRequest.Room, votes})
-  ns.Emit("voteRefresh", string(res[:]))
 }
 
 func onConnect(ns *socketio.NameSpace) {

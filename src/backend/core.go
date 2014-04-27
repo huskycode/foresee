@@ -4,6 +4,7 @@ type Core interface {
   AddParticipant(room string, participant string)
   RemoveParticipant(room string, participant string)
   GetVotes(room string)
+  Vote(room string, participant string, vote int)
 }
 
 type CoreImpl struct {

@@ -14,6 +14,13 @@ var _ = Describe("DataStore", func() {
 
   Describe("InMemoryDataStore", func() {
     Describe("Get", func() {
+      It("should have vote as not nil", func() {
+        result := mds.Get("aRoom")
+
+        Expect(result).ToNot(BeNil())
+        Expect(result.votes).ToNot(BeNil())
+      })
+
       It("should have vote as empty", func() {
         result := mds.Get("aRoom")
 

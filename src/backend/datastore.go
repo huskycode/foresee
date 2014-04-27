@@ -38,10 +38,14 @@ type InMemoryDataStore struct {
   dataByRoom map[string]Data
 }
 
-func (mds InMemoryDataStore) Get(room string) Data {
+func (mds *InMemoryDataStore) Get(room string) Data {
+  _, exists := mds.dataByRoom[room]
+  if !exists {
+    mds.dataByRoom[room] = CreateData()
+  }
   return mds.dataByRoom[room]
 }
 
-func (mds InMemoryDataStore) Put(room string, data Data) {
+func (mds *InMemoryDataStore) Put(room string, data Data) {
   mds.dataByRoom[room] = data
 }

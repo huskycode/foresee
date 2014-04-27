@@ -117,7 +117,7 @@ app.controller("foresee.participant.JoinCtrl", function($scope, $location) {
 
 app.controller("foresee.participant.VoteCtrl", function($scope, webSocket) {
     $scope.score = 1;
-    $scope.options = [1,2,3,4,5];
+    $scope.options = [1,2,3,5,8,13,20,40,60,100];
 
     $scope.vote = function() {
         var data = {

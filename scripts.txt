@@ -1,8 +1,7 @@
-      "start": "./node_modules/nodemon/bin/nodemon.js app.js"
-     ,"test": "./node_modules/jasmine-node/bin/jasmine-node --verbose test/backend"
-     ,"karma-start": "./node_modules/karma/bin/karma start configs/karma.conf.js"
-     ,"karma-run": "./node_modules/karma/bin/karma start configs/karma.conf.js --single-run"
+npm install -g karma
+npm install -g grunt-cli
 
-     ,"webdriver-update": "./node_modules/protractor/bin/webdriver-manager update"
-     ,"webdriver-start": "./node_modules/protractor/bin/webdriver-manager start"
-     ,"protractor": "./node_modules/protractor/bin/protractor configs/protractor.conf.js"
+
+npm install grunt --save-dev
+npm install 
+/usr/local/bin/karma -> /usr/local/lib/node_modules/karma/bin/karma

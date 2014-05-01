@@ -75,7 +75,6 @@ app.controller("foresee.moderator.CardCtrl", function($scope, webSocket) {
     webSocket.emit("ping", { room: roomId });
 
     webSocket.on('voteRefresh', function(data) {
-        console.log("vr", data);
         var cards = $scope.displayChar($scope.convertToCard(data));
         $scope.participantCards = cards;
     });
@@ -94,7 +93,7 @@ app.controller("foresee.moderator.CardCtrl", function($scope, webSocket) {
         return _.map(votesData, function(value) {
 
             var displayScore = value.score;
-            if (displayScore == null) {
+            if (displayScore == 0) {
                 displayScore = "-" ;
             } else if(!isAllVoted) {
                 displayScore = "?";

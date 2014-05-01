@@ -8,6 +8,7 @@ import (
 
 type WebSocket struct {
   core Core
+  sio  *socketio.SocketIOServer
 }
 
 func CreateWebSocket(core Core) *WebSocket {
@@ -22,8 +23,10 @@ func (ws WebSocket) createSocketIO() *socketio.SocketIOServer {
   sock_config.ClosingTimeout = 4
 
   sio := socketio.NewSocketIOServer(sock_config)
+  ws.sio = sio
 
   sio.On("connect", onConnect)
+  sio.On("disconnect", onDisconnect)
   sio.On("ask", ws.ask)
   sio.On("vote", ws.vote)
   sio.On("join", ws.join)
@@ -79,7 +82,7 @@ func (ws *WebSocket) sendVoteRefresh(ns *socketio.NameSpace, room string) {
   res, _ := json.Marshal(VoteRefreshResponse{room, votes})
   resString := string(res[:])
 
-  ns.Emit("voteRefresh", resString)
+  ws.sio.Broadcast("voteRefresh", resString)
   l4g.Debug("emit voteRefresh: %s", resString)
 }
 
@@ -110,4 +113,8 @@ type VoteRefreshResponse struct {
 
 func onConnect(ns *socketio.NameSpace) {
   l4g.Debug("connected:%s, in channel %s", ns.Id(), ns.Endpoint())
+}
+
+func onDisconnect(ns *socketio.NameSpace) {
+  l4g.Debug("disconnected:%s, in channel %s", ns.Id(), ns.Endpoint())
 }

@@ -116,15 +116,26 @@ describe("core", function() {
       });
     });
   });
-  return describe('vote()', function() {
-    return it('should put cast result to participant', function() {
+  describe('vote()', function() {
+    it('should put cast result to participant', function() {
       var result;
       setupParticipant('roomName', 1);
       core.vote('roomName', 'participant1', 2);
       result = datastore.get('roomName');
-      return result["participants"].should.eql({
+      result["participants"].should.eql({
         participant1: 2
       });
+    });
+  });
+  describe('resetVotes()', function() {
+    it('should set vote to null', function() {
+      setupParticipant('roomName', 1);
+      core.vote('roomName', 'participant1', 1)
+
+      core.resetVotes('roomName');
+
+      result = datastore.get('roomName')
+      result["participants"].should.eql({ participant1: null }); 
     });
   });
 });

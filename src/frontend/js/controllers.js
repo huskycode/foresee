@@ -107,6 +107,15 @@ app.controller("foresee.moderator.CardCtrl", function($scope, webSocket) {
 });
 
 
+app.controller("foresee.moderator.HostCtrl", function($scope, webSocket) {
+    $scope.roomId = $scope.$parent.roomId;
+
+    $scope.resetVote = function() {
+        webSocket.emit("resetVote", {"room": $scope.roomId});
+    }
+});
+
+
 app.controller("foresee.participant.JoinCtrl", function($scope, $location) {
     $scope.participantName = '';
 

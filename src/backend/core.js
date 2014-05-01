@@ -72,7 +72,12 @@ Controller = function(dataStore) {
       return data;
     },
     resetVotes: function( room ) {
-
+      data = dataStore.get(room);
+      participants = (_ref = data.participants) != null ? _ref : {};
+      for (participant in participants) {
+        data['participants'][participant] = null;
+      }
+      return dataStore.put(room, data, retainTime);
     }
   };
 };

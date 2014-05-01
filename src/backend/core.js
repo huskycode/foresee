@@ -70,8 +70,10 @@ Controller = function(dataStore) {
       var data;
       data = dataStore.get(room);
       return data;
-    }
+    },
+    resetVotes: function( room ) {
 
+    }
   };
 };
 

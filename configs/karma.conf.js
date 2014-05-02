@@ -20,18 +20,18 @@ module.exports = function(config) {
 
     reporters: ['progress', 'junit'],
     junitReporter: {
-      // will be resolved to basePath (in the same way as files/exclude patterns)
       outputFile: 'test-results.xml'
     },
 
     colors: true,
     autoWatch: true,
-    browsers: ["Chrome"],
+    browsers: ["PhantomJS"],
     singleRun: false,
     plugins: [
       'karma-jasmine',
       'karma-chrome-launcher',
       'karma-firefox-launcher',
+      'karma-phantomjs-launcher',
       'karma-junit-reporter'
     ]
     });

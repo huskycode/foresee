@@ -35,8 +35,8 @@ Other tools installation for Dev
 
 Do this for all platform
 
-
-* npm install -g grunt
+    npm install -g grunt-cli
+    npm install -g phantomjs
 
 * Install firefox, chrome
 * Install java
@@ -48,17 +48,13 @@ Also make sure you can run java from command line. Try this command
 Scripts
 ----------
 Before starting anything fetch dependencies
-* npm install
 
-Then you can start using these scripts
-* npm start #run server
-* npm test #run backend test
-* grunt karma:unit #run frontend test
+    npm install
+    npm run-script webdriver-update
 
-Running e2e test
------------
-* npm run-script webdriver-update #update webdriver
-* npm run-script protractor #run protractor
+See the end of Gruntfile.js for all tasks that can run. ie.
+
+    grunt test
 
 Install on AWS
 ==============

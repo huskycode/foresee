@@ -3,15 +3,5 @@ node_modules/
 *.iml
 .idea/
 .app/
-browsertest/.js/
 .c9revisions/
 build/
-staging/
-dist/
-junit.xml
-acceptance_junit.xml
-.gradle/
-test/webtest/selenium-server-standalone-2.31.0.jar
-test-results.xml
-npm-debug.log
-reports/

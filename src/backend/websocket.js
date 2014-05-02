@@ -37,6 +37,11 @@ var websocket = function(socketio, core) {
       core.addParticipant(data.room, data.name);
       _sendRefreshMessage(data.room);
     });
+
+    socket.on('resetVote', function(data) {
+      core.resetVotes(data.room);
+      _sendRefreshMessage(data.room);
+    });
   });
 
   return {

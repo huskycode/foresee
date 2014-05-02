@@ -4,40 +4,32 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-     "express": "3.x"
-    ,"socket.io": "0.9.x"
-    ,"connect-assets": "2.5.x"
-    ,"memory-cache":"0.0.x"
-    ,"my-local-ip":"1.0.0"
-  }, "devDependencies": {
-    "jasmine-node": "1.x.x"
-    ,"karma": "0.12.x"
-    ,"karma-jasmine": "0.1.x"
-    ,"karma-chrome-launcher": "0.1.x"
-    ,"karma-firefox-launcher": "0.1.x"
-    ,"karma-junit-reporter": "0.2.x"
-    ,"karma-ng-scenario": "~0.1"
-    ,"nodemon": "1.x.x"
-
-    ,"should": "3.x.x"
-    ,"sinon": "1.x.x"
-
-    ,"grunt": "0.4.x"
-    ,"grunt-karma": "0.8.x"
-
-    ,"protractor": "0.20.x"
+    "express": "3.x",
+    "socket.io": "0.9.x",
+    "connect-assets": "2.5.x",
+    "memory-cache": "0.0.x",
+    "my-local-ip": "1.0.0"
+  },
+  "devDependencies": {
+    "grunt": "0.4.x",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-express-server": "^0.4.17",
+    "grunt-jasmine-node": "^0.2.1",
+    "grunt-karma": "0.8.x",
+    "grunt-protractor-runner": "^0.2.4",
+    "karma": "0.12.x",
+    "karma-chrome-launcher": "0.1.x",
+    "karma-firefox-launcher": "^0.1.3",
+    "karma-jasmine": "0.1.x",
+    "karma-junit-reporter": "0.2.x",
+    "karma-ng-scenario": "~0.1",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "phantomjs": "^1.9.7-5",
+    "protractor": "0.20.x",
+    "should": "3.x.x",
+    "sinon": "1.x.x"
   },
   "scripts": {
-      "start": "./node_modules/nodemon/bin/nodemon.js app.js"
-     ,"test": "./node_modules/jasmine-node/bin/jasmine-node --verbose test/backend"
-     ,"karma-start": "./node_modules/karma/bin/karma start configs/karma.conf.js"
-     ,"karma-run": "./node_modules/karma/bin/karma start configs/karma.conf.js --single-run"
-
-     ,"webdriver-update": "./node_modules/protractor/bin/webdriver-manager update"
-     ,"webdriver-start": "./node_modules/protractor/bin/webdriver-manager start"
-     ,"protractor": "./node_modules/protractor/bin/protractor configs/protractor.conf.js"
-
-     ,"test-ci": "./node_modules/jasmine-node/bin/jasmine-node --junitreport test/backend"
-
+    "webdriver-update": "./node_modules/protractor/bin/webdriver-manager update"
   }
 }

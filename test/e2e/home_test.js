@@ -21,7 +21,11 @@ var HostPage = function(roomName) {
   }
 };
 
-describe("Homepage Test", function() {
+jasmine.Matchers.prototype.endsWith = function (expected) {
+  return this.actual.indexOf(expected, this.actual.length - expected.length) !== -1
+};
+
+describe("HomePage Test", function() {
     var homePage = HomePage()
 
     beforeEach(function() {
@@ -43,6 +47,6 @@ describe("Homepage Test", function() {
         homePage.setRoomName("");
         homePage.createRoom();
 
-        expect( browser.getCurrentUrl()).toMatch(homePage.URL + "$");
+        expect( browser.getCurrentUrl()).endsWith(homePage.URL);
     });
 });

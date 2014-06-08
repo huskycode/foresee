@@ -22,7 +22,7 @@ repositories {
 
 dependencies {
     def gebVersion = "0.9.0"
-    def seleniumVersion = "2.32.0"
+    def seleniumVersion = "2.42.2"
 
     testCompile "org.codehaus.groovy:groovy-all:2.0.5"
 

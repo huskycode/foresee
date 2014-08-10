@@ -75,6 +75,7 @@ app.controller("foresee.moderator.CardCtrl", function($scope, webSocket) {
     webSocket.emit("ping", { room: roomId });
 
     webSocket.on('voteRefresh', function(data) {
+        console.log("a");
         var cards = $scope.displayChar($scope.convertToCard(data));
         $scope.participantCards = cards;
     });

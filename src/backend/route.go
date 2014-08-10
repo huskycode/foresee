@@ -9,13 +9,13 @@ import (
 type Route struct {
 }
 
-func (r Route) ManageRoute() *socketio.SocketIOServer {
+func (r Route) ManageRoute() *socketio.Server {
   ws := CreateWebSocket(CreateCoreImpl(CreateInMemoryDataStore()))
 
-  sio := ws.createSocketIO()
-
-  sio.HandleFunc("/url", handleUrl)
-  sio.Handle("/", http.FileServer(http.Dir("./src/frontend")))
+  sio := ws.CreateSocketIO()
+  //
+  // sio.HandleFunc("/url", handleUrl)
+  // sio.Handle("/", http.FileServer(http.Dir("./src/frontend")))
 
   return sio
 }

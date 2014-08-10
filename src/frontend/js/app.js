@@ -30,16 +30,18 @@ app.controller("foresee.page.HostController", function($scope, $http, $routePara
     });
 });
 
-app.controller("foresee.page.JoinController", function($scope, $routeParams) {
+app.controller("foresee.page.JoinController", function($scope, $routeParams, webSocket) {
     $scope.roomId = $routeParams.roomId;
 });
 
 app.controller("foresee.page.VoteController", function($scope, $routeParams, webSocket) {
     $scope.roomId = $routeParams.roomId;
     $scope.participantName = $routeParams.participantName;
-
+    // 
+    // webSocket.on("voteRefresh", function (data) {
+    //   console.log("voterefresh: " + data);
+    // });
     webSocket.emit("join", {"room": $scope.roomId, "name": $scope.participantName});
+    // webSocket.emit("vote", {"room":"abc","name":"A","vote":1});
+
 });
-
-
-

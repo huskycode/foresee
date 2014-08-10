@@ -8,7 +8,7 @@ import (
 
 type WebSocket struct {
   core Core
-  sio  *socketio.SocketIOServer
+  sio  *socketio.Server
 }
 
 func CreateWebSocket(core Core) *WebSocket {
@@ -17,34 +17,48 @@ func CreateWebSocket(core Core) *WebSocket {
   return webSocket
 }
 
-func (ws WebSocket) createSocketIO() *socketio.SocketIOServer {
-  sock_config := &socketio.Config{}
-  sock_config.HeartbeatTimeout = 2
-  sock_config.ClosingTimeout = 4
+func (ws WebSocket) CreateSocketIO() *socketio.Server {
+  //sock_config := &socketio.Config{}
+  //sock_config.HeartbeatTimeout = 2
+  //sock_config.ClosingTimeout = 4
 
-  sio := socketio.NewSocketIOServer(sock_config)
+  sio, err := socketio.NewServer(nil)
+  if err != nil {
+    l4g.Error(err)
+  }
+
   ws.sio = sio
 
-  sio.On("connect", onConnect)
-  sio.On("disconnect", onDisconnect)
-  sio.On("ask", ws.ask)
-  sio.On("vote", ws.vote)
-  sio.On("join", ws.join)
-  sio.On("removeParticipant", ws.removeParticipant)
+  sio.On("connection", func(so socketio.Socket) {
+      l4g.Debug("connected")
+      sio.On("ping", func(so socketio.Socket) {
+          l4g.Debug("ping rcvd")
+      })
+      sio.On("ask", ws.ask)
+      sio.On("vote", ws.vote)
+      sio.On("join", ws.join)
+      sio.On("removeParticipant", ws.removeParticipant)
+      so.On("disconnection", func() {
+          l4g.Debug("disconnected")
+      })
+  })
+  sio.On("error", func(so socketio.Socket, err error) {
+        l4g.Debug("error:", err)
+    })
 
   return sio
 }
 
-func (ws *WebSocket) ask(ns *socketio.NameSpace, data string) {
+func (ws *WebSocket) ask(so socketio.Socket, data string) {
   l4g.Debug("on ask: %s", data)
 
   askRequest := AskRequest{}
   json.Unmarshal([]byte(data), &askRequest)
 
-  ws.sendVoteRefresh(ns, askRequest.Room)
+  ws.sendVoteRefresh(so, askRequest.Room)
 }
 
-func (ws *WebSocket) vote(ns *socketio.NameSpace, data string) {
+func (ws *WebSocket) vote(so socketio.Socket, data string) {
   l4g.Debug("on vote: %s", data)
 
   voteRequest := VoteRequest{}
@@ -52,10 +66,10 @@ func (ws *WebSocket) vote(ns *socketio.NameSpace, data string) {
 
   ws.core.Vote(voteRequest.Room, voteRequest.Name, voteRequest.Vote)
 
-  ws.sendVoteRefresh(ns, voteRequest.Room)
+  ws.sendVoteRefresh(so, voteRequest.Room)
 }
 
-func (ws *WebSocket) join(ns *socketio.NameSpace, data string) {
+func (ws *WebSocket) join(so socketio.Socket, data string) {
   l4g.Debug("on join: %s", data)
 
   joinRequest := JoinRequest{}
@@ -63,10 +77,12 @@ func (ws *WebSocket) join(ns *socketio.NameSpace, data string) {
 
   ws.core.AddParticipant(joinRequest.Room, joinRequest.Name)
 
-  ws.sendVoteRefresh(ns, joinRequest.Room)
+  //so.Join(joinRequest.Room)
+
+  ws.sendVoteRefresh(so, joinRequest.Room)
 }
 
-func (ws *WebSocket) removeParticipant(ns *socketio.NameSpace, data string) {
+func (ws *WebSocket) removeParticipant(so socketio.Socket, data string) {
   l4g.Debug("on removeParticipant: %s", data)
 
   req := RemoveParticipantRequest{}
@@ -74,15 +90,16 @@ func (ws *WebSocket) removeParticipant(ns *socketio.NameSpace, data string) {
 
   ws.core.RemoveParticipant(req.Room, req.Name)
 
-  ws.sendVoteRefresh(ns, req.Room)
+  ws.sendVoteRefresh(so, req.Room)
 }
 
-func (ws *WebSocket) sendVoteRefresh(ns *socketio.NameSpace, room string) {
+func (ws *WebSocket) sendVoteRefresh(so socketio.Socket, room string) {
   votes := ws.core.GetVotes(room)
   res, _ := json.Marshal(VoteRefreshResponse{room, votes})
   resString := string(res[:])
 
-  ws.sio.Broadcast("voteRefresh", resString)
+  //so.BroadcastTo(room, "voteRefresh", resString)
+  so.Emit("voteRefresh", resString)
   l4g.Debug("emit voteRefresh: %s", resString)
 }
 
@@ -109,12 +126,4 @@ type AskRequest struct {
 type VoteRefreshResponse struct {
   Room  string         `json:"room"`
   Votes map[string]int `json:"votes"`
-}
-
-func onConnect(ns *socketio.NameSpace) {
-  l4g.Debug("connected:%s, in channel %s", ns.Id(), ns.Endpoint())
-}
-
-func onDisconnect(ns *socketio.NameSpace) {
-  l4g.Debug("disconnected:%s, in channel %s", ns.Id(), ns.Endpoint())
 }

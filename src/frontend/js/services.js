@@ -3,20 +3,21 @@ app.factory('socketIO', function () {
 });
 
 app.factory('webSocket', function ($rootScope, socketIO) {
-    var socket = socketIO.connect();
+    var socket = io('http://localhost:3000');
 
-  socket.on("pong", function() {
-    console.log("got pong")
-  });
     return {
         on: function (eventName, callback) {
+            console.log("regis:" + eventName);
             socket.on(eventName, function (data) {
+                console.log("on" + JSON.parse(data));
+
                 $rootScope.$apply(function () {
                     callback.apply(socket, [JSON.parse(data)]);
                 });
             });
         },
         emit: function (eventName, data) {
+            console.log("emit" + JSON.stringify(data));
             socket.emit(eventName, JSON.stringify(data));
         }
     };
